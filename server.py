@@ -1,5 +1,5 @@
-from e2eeFTP import e2eeftp
-from e2eeFTP.auth.key import generate_keys
+from e2eeftp import e2eeftp
+from e2eeftp.auth.key import generate_keys
 
 
 if __name__ == "__main__":

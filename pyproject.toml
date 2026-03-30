@@ -21,3 +21,6 @@ license-files = ["LICEN[CS]E*"]
 [project.urls]
 Homepage = "https://github.com/veeracoder508/e2eeftp"
 Issues = "https://github.com/veeracoder508/e2eeftp/issues"
+
+[project.scripts]
+e2eeftp = "e2eeftp.cli:cli"

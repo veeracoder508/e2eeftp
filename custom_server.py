@@ -4,8 +4,8 @@ This script runs the secure file transfer server.
 It instantiates and starts the Server from the pyproto package, which listens
 for incoming client connections.
 """
-from e2eeFTP.server.server import E2EEFTPRequestHandler, e2eeftp
-from e2eeFTP.auth.e2ee import AESCipher
+from e2eeftp.server.server import E2EEFTPRequestHandler, e2eeftp
+from e2eeftp.auth.e2ee import AESCipher
 import os
 import logging
 import socketserver
@@ -80,29 +80,9 @@ class CustomE2EERequestHandler(E2EEFTPRequestHandler):
             log.error(f"Error getting stats for file {filename}: {e}")
             self.request.sendall(b"500|Could not retrieve file stats\n")
 
-    def _handle_request(self, cipher: AESCipher) -> None:
-        """
-        Overrides the base request handler to include RENAME and STAT commands.
-        """
-        header_data = self._recv_until(b'\n')
-        if not header_data: return
-        
-        try:
-            parts = header_data.decode().strip().split("|")
-            command = parts[0].upper()
-
-            if command == "SEND": self._receive_file(parts[1], int(parts[2]), cipher)
-            elif command == "GET": self._send_file(parts[1], cipher)
-            elif command == "LIST": self._send_list()
-            elif command == "DELETE": self._delete_file(parts[1])
-            elif command == "RENAME": self._rename_file(parts[1], parts[2])
-            elif command == "STAT": self._get_file_stats(parts[1])
-            else:
-                self.request.sendall(b"400|Invalid Command\n")
-                log.warning(f"Invalid command from {self.client_address}: {command}")
-        except (IndexError, ValueError) as e:
-            log.error(f"Malformed request from {self.client_address}: {header_data.strip()!r} - {e}")
-            self.request.sendall(b"400|Malformed request\n")
+    # Inherits flexible dispatch from E2EEFTPRequestHandler.
+    # This subclass only overrides command implementations (RENAME, STAT) and
+    # does not need to reimplement low-level header parsing.
 
 class CustomE2EEFTPServer(e2eeftp):
     def __init__(self, host: str='127.0.0.1', port: int=5001):

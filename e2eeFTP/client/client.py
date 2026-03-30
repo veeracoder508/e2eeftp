@@ -214,7 +214,7 @@ class e2eeftpClient:
         try:
             with self._secure_channel() as (sock, cipher):
                 if not sock or not cipher:
-                    return 500
+                    return None
                 
                 sock.sendall(b"LIST\n")
                 

@@ -5,6 +5,7 @@ import base64
 from ..auth import E2EE, AESCipher
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ed25519
+from .commands import *
 
 
 # Configure logging to output to both console and file
@@ -36,16 +37,21 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
     and dispatching to the appropriate handler methods (e.g., for sending or
     receiving files).
 
-    Each instance of this class runs in a separate thread, allowing the server
-    to handle multiple clients concurrently. The client's socket object is
-    accessible via `self.request`.
-
-    The header format is:
-        - SEND: SEND|filename|encrypted_data
-        - GET: GET|filename
-        - LIST: LIST
-        - DELETE: DELETE|filename
+    The command dispatch approach is intentionally flexible: subclasses can
+    override `command_handlers` to add or modify supported commands without
+    changing _handle_request logic.
     """
+
+    command_handlers = {
+        "HLIST": "_hlist",
+        "SEND": "_receive_file",
+        "GET": "_send_file",
+        "LIST": "_send_list",
+        "DELETE": "_delete_file",
+        "RENAME": "_rename_file",
+        "STAT": "_get_file_stats",
+    }
+
     def handle(self):
         """
         The main entry point for handling a new client connection.
@@ -102,11 +108,11 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
             log.info(f"Connection with {address} closed.")
 
     def _recv_until(self, delimiter: bytes) -> bytes:
-        """
-        Receives data from the socket until a specific delimiter is found.
+        """ 
+        Receives data from the socket until a specific delimiter is found. 
 
-        This is a helper method to read data from the stream-based TCP socket
-        in a message-oriented way. It reads one byte at a time until the
+        This is a helper method to read data from the stream-based TCP socket 
+        in a message-oriented way. It reads one byte at a time until the 
         `delimiter` is encountered.
 
         Args:
@@ -128,41 +134,66 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         """
         Parses the client's command and dispatches to the correct handler.
 
-        This method reads the initial command header from the client, which is
-        expected to be a newline-terminated string. The header format is:
-        - SEND: SEND|filename|encrypted_data
-        - GET: GET|filename
-        - LIST: LIST
-        - DELETE: DELETE|filename
-
-        Args:
-            cipher (AESCipher): The active cipher instance for this session,
-                     used for encrypting/decrypting file data.
+        Uses a dispatch map so subclasses can modify/add commands by overriding
+        `command_handlers`.
         """
         header_data = self._recv_until(b'\n')
-        if not header_data: return
-        
+        if not header_data:
+            return
+
         try:
             parts = header_data.decode().strip().split("|")
-            command = parts[0]
+            command = parts[0].upper()
 
-            if command == "SEND":
-                filename, filesize = parts[1], int(parts[2])
-                self._receive_file(filename, filesize, cipher)
-            elif command == "GET":
-                filename = parts[1]
-                self._send_file(filename, cipher)
-            elif command == "LIST":
-                self._send_list()
-            elif command == "DELETE":
-                filename = parts[1]
-                self._delete_file(filename)
-            else:
+            handler_name = self.command_handlers.get(command)
+            if handler_name is None:
                 self.request.sendall(b"400|Invalid Command\n")
                 log.warning(f"Invalid command from {self.client_address}: {command}")
+                return
+
+            handler = getattr(self, handler_name, None)
+            if not callable(handler):
+                self.request.sendall(b"500|Server Misconfigured\n")
+                log.error(f"Handler {handler_name} for command {command} not implemented")
+                return
+
+            cmd_args = []
+            if command == "SEND":
+                cmd_args = [parts[1], int(parts[2]), cipher]
+            elif command == "GET":
+                cmd_args = [parts[1], cipher]
+            elif command == "LIST" or command == "HLIST":
+                cmd_args = []
+            elif command == "DELETE" or command == "STAT":
+                cmd_args = [parts[1]]
+            elif command == "RENAME":
+                cmd_args = [parts[1], parts[2]]
+
+            handler(*cmd_args)
+
         except (IndexError, ValueError) as e:
             log.error(f"Malformed request from {self.client_address}: {header_data.strip()!r} - {e}")
             self.request.sendall(b"400|Malformed request\n")
+
+    def _hlist(self) -> None:
+        """
+        Sends a text file of all available commands that the server supports to the client.
+        
+        The server responds with a header `200|<content_length>` followed by a newline-separated string of commands.
+        **Protocol**:
+        1.  Sends header: `b"200|<size>"`
+        2.  Sends body: A string of commands.
+        """
+        self.commands = [
+            "HLIST",
+            "SEND",
+            "GET",
+            "LIST",
+            "DELETE",
+        ]
+        command_list = "\n".join(self.commands)
+        self.request.sendall(f"200|{len(command_list)}\n".encode())
+        self.request.sendall(command_list.encode())
 
     def _send_list(self) -> None:
         """
@@ -175,11 +206,8 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         1.  Sends header: `b"200|<size>"`
         2.  Sends body: A string of filenames.
         """
-        log.info("Sending file list...")
-        files = os.listdir("received")
-        file_list = "\n".join(files)
-        self.request.sendall(f"200|{len(file_list)}\n".encode())
-        self.request.sendall(file_list.encode())
+        req = List(req=self.request, log=log)
+        eval_command(req)
 
     def _delete_file(self, filename: str) -> None:
         """
@@ -192,13 +220,8 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - On success: `b"200|File deleted\\n"`
         - If file not found: `b"404|File not found\\n"`
         """
-        filepath = os.path.join("received", filename)
-        if os.path.exists(filepath):
-            log.info(f"Deleting file: {filename}")
-            os.remove(filepath)
-            self.request.sendall(b"200|File deleted\n")
-        else:
-            self.request.sendall(b"404|File not found\n")
+        req = Delete(filename=filename, req=self.request, log=log)
+        eval_command(req)
 
     def _receive_file(self, filename: str, filesize: int, cipher: AESCipher) -> None:
         """
@@ -217,30 +240,8 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - On success: `b"226|Transfer Complete\\n"`
         - On decryption failure: `b"500|Decryption Failed\\n"`
         """
-        log.info(f"Receiving encrypted file: {filename} ({filesize} bytes)")
-
-        received_dir = "received"
-        os.makedirs(received_dir, exist_ok=True)
-        write_path = os.path.join(received_dir, filename)
-        encrypted_buffer = b""
-        while len(encrypted_buffer) < filesize:
-            chunk = self.request.recv(min(filesize - len(encrypted_buffer), 4096))
-            if not chunk: break
-            encrypted_buffer += chunk
-        
-        if len(encrypted_buffer) < filesize:
-            log.error(f"File transfer incomplete for {filename}. Expected {filesize}, got {len(encrypted_buffer)}")
-            return
-
-        try:
-            decrypted_data = cipher.decrypt(encrypted_buffer)
-            with open(write_path, "wb") as f:
-                f.write(decrypted_data)
-            self.request.sendall(b"226|Transfer Complete\n") 
-            log.info(f"Stored: {write_path}")
-        except Exception as e:
-            log.error(f"Decryption failed for {filename}: {e}")
-            self.request.sendall(b"500|Decryption Failed\n")
+        req = Send(filename=filename, filesize=filesize, cipher=cipher, req=self.request, log=log)
+        eval_command(req)
 
     def _send_file(self, filename: str, cipher: AESCipher) -> None:
         """
@@ -260,24 +261,8 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - If file not found: `b"404|File not found: {filename}\\n"`
         - On server-side error: `b"500|Server Read Error\\n"`
         """
-        filepath = os.path.join("received", filename)
-        if not os.path.exists(filepath):
-            log.warning(f"Client requested non-existent file: {filename}")
-            self.request.sendall(f"404|File not found: {filename}\n".encode())
-            return
-
-        try:
-            with open(filepath, "rb") as f:
-                raw_data = f.read()
-            
-            encrypted_data = cipher.encrypt(raw_data)
-            self.request.sendall(f"200|{len(encrypted_data)}\n".encode())
-            
-            self.request.sendall(encrypted_data)
-            log.info(f"Sent: {filename}")
-        except Exception as e:
-            log.error(f"Error reading or sending file {filename}: {e}")
-            self.request.sendall(b"500|Server Read Error\n")
+        req = Get(filename=filename, cipher=cipher, req=self.request, log=log)
+        eval_command(req)
 
 
 class e2eeftp(socketserver.ThreadingTCPServer):

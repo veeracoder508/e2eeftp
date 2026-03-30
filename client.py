@@ -4,7 +4,7 @@ This script is an example client for the secure file transfer server.
 It demonstrates how to use the Client class from the pyproto package to
 send one file ("README.md") and request another ("main.py").
 """
-from e2eeFTP import e2eeftpClient
+from e2eeftp import e2eeftpClient
 
 
 client = e2eeftpClient()

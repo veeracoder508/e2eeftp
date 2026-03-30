@@ -1,4 +1,4 @@
-from e2eeFTP.client.cli import e2eeftpClientCli
+from e2eeftp.client.cli import e2eeftpClientCli
 
 
 if __name__ == "__main__":
