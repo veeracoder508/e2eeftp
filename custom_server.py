@@ -19,6 +19,25 @@ class CustomE2EERequestHandler(E2EEFTPRequestHandler):
     An extended request handler that adds support for RENAME and STAT commands.
     """
 
+    def _arg_paser(self, request_parts, cipher):
+        super()._arg_paser(request_parts, cipher)
+        # For custamizing your server, you can modify this methos to parse the command header and return the appropriate arguments for your custom commands.
+        cmd_args: tuple = ()
+        command = request_parts[0].upper()
+        if command == "SEND":
+            cmd_args = [request_parts[1], int(request_parts[2]), cipher]
+        elif command == "GET":
+            cmd_args = [request_parts[1], cipher]
+        elif command == "LIST" or command == "HLIST":
+            cmd_args = []
+        elif command == "DELETE":
+            cmd_args = [request_parts[1]]
+        elif command == "RENAME":
+            cmd_args = [request_parts[1], request_parts[2]]
+        elif command == "STAT":
+            cmd_args = [request_parts[1]]
+        return tuple(cmd_args) 
+
     def _rename_file(self, old_filename: str, new_filename: str) -> None:
         """
         Renames a file in the 'received' directory.

@@ -10,14 +10,17 @@ from e2eeftp import e2eeftpClient
 client = e2eeftpClient()
 
 def main() -> None:
-    # # Testing send request
+    # Testing send request
     client.send("test_mini-veera.jpg")
 
-    # # Testing get request
-    # client.get('mini-veera.jpg')
+    # Testing get request
+    client.get('mini-veera.jpg')
 
     # Testing list request
-    client.list()
+    print(client.list())
+
+    # Testing hlist request
+    print(client.hlist())
 
 
 if __name__ == "__main__":

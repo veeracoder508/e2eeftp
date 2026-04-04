@@ -295,3 +295,54 @@ class e2eeftpClient:
         except Exception as e:
             log.error(f"An error occurred during delete operation: {e}")
         return code
+    
+    def hlist(self) -> list[str] | None:
+        """Request the list of commands offered by the server.
+        
+        Returns:
+            A list of command names on success, None on failure.
+        """
+        log.info("Requesting command list from server...")
+
+        try:
+            with self._secure_channel() as (sock, cipher):
+                if not sock or not cipher:
+                    return None
+                
+                sock.sendall(b"HLIST\n")
+                
+                header = self._recv_until(sock, b'\n').decode().strip()
+                if not header:
+                    log.error("Connection closed by server without a response.")
+                    return None
+
+                try:
+                    code, val = header.split("|", 1)
+                except ValueError:
+                    log.error(f"Received malformed header: {header}")
+                    return None
+
+                code = int(code)
+                if code == 200:
+                    list_size = int(val)
+                    log.info(f"Receiving command list ({list_size} bytes)...")
+                    buf = b""
+                    while len(buf) < list_size:
+                        chunk = sock.recv(min(list_size - len(buf), 4096))
+                        if not chunk:
+                            log.error("Connection lost while receiving command list.")
+                            break
+                        buf += chunk
+
+                    if len(buf) == list_size:
+                        cmd_list_str = buf.decode()
+                        return cmd_list_str.split('\n')
+                    else:
+                        log.error("Command list reception was incomplete.")
+                        return None
+                else:
+                    log.error(f"Server error: {val}")
+                    return None
+        except Exception as e:
+            log.error(f"An error occurred during hlist operation: {e}")
+        return None

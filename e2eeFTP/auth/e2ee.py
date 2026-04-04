@@ -9,8 +9,17 @@ from cryptography.exceptions import InvalidSignature
 
 
 def _recv_all(sock: socket.socket, n: int) -> bytes:
-    """
-    Helper to receive n bytes or raise ConnectionError if the connection is closed.
+    """Helper to receive n bytes or raise ConnectionError if the connection is closed.
+
+    Args:
+        sock (socket.socket): the socket instance.
+        n (int): number of bytes to receive.
+
+    Raises:
+        ConnectionError: If the socket connection is closed before receiving n bytes.
+
+    Returns:
+        bytes: The received bytes.
     """
     data = bytearray()
     while len(data) < n:
@@ -21,16 +30,14 @@ def _recv_all(sock: socket.socket, n: int) -> bytes:
     return bytes(data)
 
 class AESCipher:
-    """
-    A custom cipher class that implements AES-256-CBC encryption with
+    """A custom cipher class that implements AES-256-CBC encryption with
     HMAC-SHA256 authentication, mimicking the primitives used in Signal/WhatsApp.
 
     The encrypted payload is structured as: IV || Ciphertext || HMAC Tag
     """
     def __init__(self, encryption_key: bytes, authentication_key: bytes) -> None:
-        """
-        Initializes the cipher with encryption and authentication keys.
-        
+        """Initializes the cipher with encryption and authentication keys.
+
         Args:
             encryption_key (bytes): The key used for AES-256-CBC encryption.
             authentication_key (bytes): The key used for HMAC-SHA256 authentication.

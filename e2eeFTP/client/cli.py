@@ -59,6 +59,7 @@ class e2eeftpClientCli:
             "500": "[bold red]500: Internal Server Error[/bold red]"
         }
         self._create_help_table()
+        self.commands = self.client
 
     def _create_help_table(self):
         """
@@ -73,6 +74,7 @@ class e2eeftpClientCli:
         self.help_table.add_row("GET", "Download from server", "GET <remote_path>")
         self.help_table.add_row("LIST", "List server files", "LIST")
         self.help_table.add_row("DELETE", "Delete server file", "DELETE <remote_path>")
+        self.help_table.add_row("HLIST", "List server commands", "HLIST")
         self.help_table.add_row("PING", "Check server status", "PING")
         self.help_table.add_row("HELP", "Show this message", "HELP")
         self.help_table.add_row("EXIT", "Close the client", "EXIT")
@@ -160,6 +162,30 @@ class e2eeftpClientCli:
                     rprint(f"Status: {self._get_status_style(status or 200)}")
                 else:
                     rprint("[red]Error: Provide a file path.[/red]")
+
+            case "HLIST":
+                rprint("[blue]Action:[/blue] Requesting server commands...")
+                cmd_list = self.client.hlist()
+
+                if cmd_list is not None:
+                    # Handle empty list or list with a single empty string from split
+                    if not cmd_list or (len(cmd_list) == 1 and not cmd_list[0]):
+                        rprint("[yellow]Server has no commands available.[/yellow]")
+                        return
+
+                    table = Table(title="Available Server Commands", header_style="bold magenta")
+                    table.add_column("Command", style="cyan")
+                    
+                    i = 0
+                    for cmd in cmd_list:
+                        if cmd:  # Don't add empty rows
+                            table.add_row(cmd)
+                            i += 1
+                    
+                    self.console.print(table)
+                    rprint(f"[i][blue]Total commands:[/blue] {i}[/i]")
+                else:
+                    rprint("[bold red]Error:[/bold red] Could not retrieve command list. Check logs for details.")
 
             case "HELP":
                 self.console.print(self.help_table)

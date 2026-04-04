@@ -3,6 +3,8 @@ from .server import e2eeftp
 from .client.cli import e2eeftpClientCli
 
 
+__all__ = ["cli"]
+
 def client_cli(host: str, port: int):
     server = e2eeftpClientCli(host, port)
     server.run()

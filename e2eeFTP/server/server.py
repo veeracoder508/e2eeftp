@@ -1,3 +1,6 @@
+""" 
+e2eeftp server using `socketserver` module.
+"""
 import socketserver
 import logging
 import os
@@ -6,27 +9,19 @@ from ..auth import E2EE, AESCipher
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ed25519
 from .commands import *
+from rich.logging import RichHandler
 
 
-# Configure logging to output to both console and file
-log = logging.getLogger(__name__)
-log.setLevel(logging.INFO)
+rh = RichHandler()
+# Configure logging with Rich
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(message)s", # Rich handles the timestamp and level formatting
+    datefmt="[%X]",
+    handlers=[rh] # Shows cool traceback visuals on errors
+)
 
-# Avoid duplicate logs if root logger is also configured
-log.propagate = False
-
-# Create handlers if they don't exist to avoid duplication
-if not log.handlers:
-    from rich.logging import RichHandler
-    # Console handler with Rich for pretty output
-    console_handler = RichHandler(rich_tracebacks=True, show_path=False)
-    console_handler.setFormatter(logging.Formatter("%(message)s", datefmt="[%X]"))
-    log.addHandler(console_handler)
-
-    # File handler to store logs in server.log
-    file_handler = logging.FileHandler("server.log")
-    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
-    log.addHandler(file_handler)
+log = logging.getLogger("rich")
 
 class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
     """
@@ -42,15 +37,15 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
     changing _handle_request logic.
     """
 
-    command_handlers = {
-        "HLIST": "_hlist",
+    command_handlers: dict[str, str] = {
         "SEND": "_receive_file",
         "GET": "_send_file",
         "LIST": "_send_list",
         "DELETE": "_delete_file",
-        "RENAME": "_rename_file",
-        "STAT": "_get_file_stats",
+        "HLIST": "_hlist"
     }
+
+    req: dict[str, HList] = {}
 
     def handle(self):
         """
@@ -107,7 +102,7 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         finally:
             log.info(f"Connection with {address} closed.")
 
-    def _recv_until(self, delimiter: bytes) -> bytes:
+    def _recv_until(self, delimiter: bytes) -> bytes: 
         """ 
         Receives data from the socket until a specific delimiter is found. 
 
@@ -157,23 +152,32 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
                 log.error(f"Handler {handler_name} for command {command} not implemented")
                 return
 
-            cmd_args = []
-            if command == "SEND":
-                cmd_args = [parts[1], int(parts[2]), cipher]
-            elif command == "GET":
-                cmd_args = [parts[1], cipher]
-            elif command == "LIST" or command == "HLIST":
-                cmd_args = []
-            elif command == "DELETE" or command == "STAT":
-                cmd_args = [parts[1]]
-            elif command == "RENAME":
-                cmd_args = [parts[1], parts[2]]
-
-            handler(*cmd_args)
+            handler(*self._arg_paser(parts, cipher)) 
 
         except (IndexError, ValueError) as e:
             log.error(f"Malformed request from {self.client_address}: {header_data.strip()!r} - {e}")
             self.request.sendall(b"400|Malformed request\n")
+
+    def _arg_paser(self, request_parts: list[str], cipher: AESCipher) -> tuple:
+        """_summary_
+
+        Args:
+            request_parts (list[str]): The list of parts from the client's command header in the form of a list.
+
+        Returns:
+            tuple: The arguments to be passed to the command handler method, based on the command type. The mapping is as follows:
+        """
+        cmd_args: tuple = ()
+        command = request_parts[0].upper()
+        if command == "SEND":
+            cmd_args = [request_parts[1], int(request_parts[2]), cipher]
+        elif command == "GET":
+            cmd_args = [request_parts[1], cipher]
+        elif command == "LIST" or command == "HLIST":
+            cmd_args = []
+        elif command == "DELETE":
+            cmd_args = [request_parts[1]]
+        return tuple(cmd_args) 
 
     def _hlist(self) -> None:
         """
@@ -184,16 +188,9 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         1.  Sends header: `b"200|<size>"`
         2.  Sends body: A string of commands.
         """
-        self.commands = [
-            "HLIST",
-            "SEND",
-            "GET",
-            "LIST",
-            "DELETE",
-        ]
-        command_list = "\n".join(self.commands)
-        self.request.sendall(f"200|{len(command_list)}\n".encode())
-        self.request.sendall(command_list.encode())
+        self.req["HLIST"] = Hlist(commands=list(self.command_handlers.keys()), request=self.request, log=log, )
+        self.req["HLIST"].__hlist__ = self._hlist.__name__
+        self.req["HLIST"].run()
 
     def _send_list(self) -> None:
         """
@@ -206,8 +203,9 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         1.  Sends header: `b"200|<size>"`
         2.  Sends body: A string of filenames.
         """
-        req = List(req=self.request, log=log)
-        eval_command(req)
+        self.req["LIST"] = List(request=self.request, log=log)
+        self.req["LIST"].set_hlist(self._send_list.__name__)
+        self.req["LIST"].run()
 
     def _delete_file(self, filename: str) -> None:
         """
@@ -220,8 +218,9 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - On success: `b"200|File deleted\\n"`
         - If file not found: `b"404|File not found\\n"`
         """
-        req = Delete(filename=filename, req=self.request, log=log)
-        eval_command(req)
+        self.req["DELETE"] = Delete(filename=filename, request=self.request, log=log)
+        self.req["DELETE"].set_hlist(self._delete_file.__name__)
+        self.req["DELETE"].run()
 
     def _receive_file(self, filename: str, filesize: int, cipher: AESCipher) -> None:
         """
@@ -240,8 +239,9 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - On success: `b"226|Transfer Complete\\n"`
         - On decryption failure: `b"500|Decryption Failed\\n"`
         """
-        req = Send(filename=filename, filesize=filesize, cipher=cipher, req=self.request, log=log)
-        eval_command(req)
+        self.req["SEND"] = Send(filename=filename, filesize=filesize, cipher=cipher, request=self.request, log=log)
+        self.req["SEND"].set_hlist(self._receive_file.__name__)
+        self.req["SEND"].run()
 
     def _send_file(self, filename: str, cipher: AESCipher) -> None:
         """
@@ -261,8 +261,9 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - If file not found: `b"404|File not found: {filename}\\n"`
         - On server-side error: `b"500|Server Read Error\\n"`
         """
-        req = Get(filename=filename, cipher=cipher, req=self.request, log=log)
-        eval_command(req)
+        self.req["GET"] = Get(filename=filename, cipher=cipher, request=self.request, log=log)
+        self.req["GET"].set_hlist(self._send_file.__name__)
+        self.req["GET"].run()
 
 
 class e2eeftp(socketserver.ThreadingTCPServer):
