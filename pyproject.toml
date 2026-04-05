@@ -9,8 +9,11 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "cryptography>=46.0.5",
+    "pdoc>=16.0.0",
+    "pdoc3>=0.11.6",
     "rich>=14.3.3",
     "watchdog>=6.0.0",
+    "wkhtmltopdf>=0.2",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -25,3 +28,16 @@ Issues = "https://github.com/veeracoder508/e2eeftp/issues"
 
 [project.scripts]
 e2eeftp = "e2eeftp.cli:cli"
+
+[tool.uv.workspace]
+members = [
+    ".",
+]
+
+[tool.uv.sources]
+e2eeftp = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "e2eeftp",
+]

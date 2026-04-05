@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>e2eeftp.server.server API documentation</title>
+<meta name="description" content="e2eeftp server using `socketserver` module.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>e2eeftp.server.server</code></h1>
+</header>
+<section id="section-intro">
+<p>e2eeftp server using <code>socketserver</code> module.</p>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="e2eeftp.server.server.E2EEFTPRequestHandler"><code class="flex name class">
+<span>class <span class="ident">E2EEFTPRequestHandler</span></span>
+<span>(</span><span>request, client_address, server)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
+    &#34;&#34;&#34;
+    Request handler for each client connection, instantiated by the socketserver.
+
+    This class manages the entire lifecycle of a client connection. It is
+    responsible for performing the secure handshake, parsing client commands,
+    and dispatching to the appropriate handler methods (e.g., for sending or
+    receiving files).
+
+    The command dispatch approach is intentionally flexible: subclasses can
+    override `command_handlers` to add or modify supported commands without
+    changing _handle_request logic.
+    &#34;&#34;&#34;
+
+    command_handlers: dict[str, str] = {
+        &#34;SEND&#34;: &#34;_receive_file&#34;,
+        &#34;GET&#34;: &#34;_send_file&#34;,
+        &#34;LIST&#34;: &#34;_send_list&#34;,
+        &#34;DELETE&#34;: &#34;_delete_file&#34;,
+        &#34;HLIST&#34;: &#34;_hlist&#34;
+    }
+
+    req: dict[str, HList] = {}
+
+    def handle(self):
+        &#34;&#34;&#34;
+        The main entry point for handling a new client connection.
+
+        This method orchestrates the session:
+        1.  Performs the E2EE handshake to establish a secure channel.
+        2.  Waits for and parses a command from the client.
+        3.  Calls the internal method corresponding to the command.
+        4.  Handles any exceptions during the session.
+        5.  Ensures the connection is logged and closed cleanly.
+        &#34;&#34;&#34;
+        address = self.client_address
+        log.info(f&#34;Accepted connection from {address}&#34;)
+        try:
+            server_key_path = &#34;server_id.key&#34;
+            auth_keys_path = &#34;authorized_clients.pub&#34;
+
+            log.info(&#34;Loading server identity and authorized keys...&#34;)
+            
+            if not os.path.exists(server_key_path):
+                log.error(f&#34;Server identity key &#39;{server_key_path}&#39; not found. Cannot secure connection.&#34;)
+                return
+
+            with open(server_key_path, &#34;rb&#34;) as f:
+                server_id_priv_key = serialization.load_pem_private_key(f.read(), password=None)
+            
+            authorized_client_keys = []
+            if os.path.exists(auth_keys_path):
+                with open(auth_keys_path, &#34;r&#34;) as f:
+                    for line in f:
+                        line = line.strip()
+                        if line and not line.startswith(&#39;#&#39;):
+                            try:
+                                key_bytes = base64.b64decode(line)
+                                authorized_client_keys.append(ed25519.Ed25519PublicKey.from_public_bytes(key_bytes))
+                            except Exception as e:
+                                log.warning(f&#34;Skipping invalid key in {auth_keys_path}: {e}&#34;)
+            else:
+                log.warning(f&#34;&#39;{auth_keys_path}&#39; not found. No clients will be authorized.&#34;)
+                log.warning(&#34;Run &#39;generate_keys.py&#39; to create client keys and the authorization file.&#34;)
+
+            e2ee = E2EE()
+            log.info(f&#34;Performing secure handshake with {address}...&#34;)
+            cipher = e2ee.server_handshake(self.request, server_id_priv_key, authorized_client_keys)
+            log.info(f&#34;Secure handshake with {address} complete.&#34;)
+            self._handle_request(cipher)
+        except FileNotFoundError as e:
+            log.error(f&#34;Identity key file not found: {e}. Please generate keys and authorize clients.&#34;)
+        except ConnectionError as e:
+            log.error(f&#34;Handshake failed with {address}: {e}&#34;)
+        except Exception as e:
+            log.error(f&#34;Error during session with {address}: {e}&#34;)
+        finally:
+            log.info(f&#34;Connection with {address} closed.&#34;)
+
+    def _recv_until(self, delimiter: bytes) -&gt; bytes: 
+        &#34;&#34;&#34; 
+        Receives data from the socket until a specific delimiter is found. 
+
+        This is a helper method to read data from the stream-based TCP socket 
+        in a message-oriented way. It reads one byte at a time until the 
+        `delimiter` is encountered.
+
+        Args:
+            delimiter (bytes): The byte sequence that marks the end of a message.
+
+        Returns:
+            bytes: The data received from the socket, including the delimiter.
+                   Returns an empty bytestring if the client disconnects before
+                   sending any data.
+        &#34;&#34;&#34;
+        data = b&#39;&#39;
+        while not data.endswith(delimiter):
+            chunk = self.request.recv(1)
+            if not chunk: break
+            data += chunk
+        return data
+
+    def _handle_request(self, cipher: AESCipher) -&gt; None:
+        &#34;&#34;&#34;
+        Parses the client&#39;s command and dispatches to the correct handler.
+
+        Uses a dispatch map so subclasses can modify/add commands by overriding
+        `command_handlers`.
+        &#34;&#34;&#34;
+        header_data = self._recv_until(b&#39;\n&#39;)
+        if not header_data:
+            return
+
+        try:
+            parts = header_data.decode().strip().split(&#34;|&#34;)
+            command = parts[0].upper()
+
+            handler_name = self.command_handlers.get(command)
+            if handler_name is None:
+                self.request.sendall(b&#34;400|Invalid Command\n&#34;)
+                log.warning(f&#34;Invalid command from {self.client_address}: {command}&#34;)
+                return
+
+            handler = getattr(self, handler_name, None)
+            if not callable(handler):
+                self.request.sendall(b&#34;500|Server Misconfigured\n&#34;)
+                log.error(f&#34;Handler {handler_name} for command {command} not implemented&#34;)
+                return
+
+            handler(*self._arg_paser(parts, cipher)) 
+
+        except (IndexError, ValueError) as e:
+            log.error(f&#34;Malformed request from {self.client_address}: {header_data.strip()!r} - {e}&#34;)
+            self.request.sendall(b&#34;400|Malformed request\n&#34;)
+
+    def _arg_paser(self, request_parts: list[str], cipher: AESCipher) -&gt; tuple:
+        &#34;&#34;&#34;_summary_
+
+        Args:
+            request_parts (list[str]): The list of parts from the client&#39;s command header in the form of a list.
+
+        Returns:
+            tuple: The arguments to be passed to the command handler method, based on the command type. The mapping is as follows:
+        &#34;&#34;&#34;
+        cmd_args: tuple = ()
+        command = request_parts[0].upper()
+        if command == &#34;SEND&#34;:
+            cmd_args = [request_parts[1], int(request_parts[2]), cipher]
+        elif command == &#34;GET&#34;:
+            cmd_args = [request_parts[1], cipher]
+        elif command == &#34;LIST&#34; or command == &#34;HLIST&#34;:
+            cmd_args = []
+        elif command == &#34;DELETE&#34;:
+            cmd_args = [request_parts[1]]
+        return tuple(cmd_args) 
+
+    def _hlist(self) -&gt; None:
+        &#34;&#34;&#34;
+        Sends a text file of all available commands that the server supports to the client.
+        
+        The server responds with a header `200|&lt;content_length&gt;` followed by a newline-separated string of commands.
+        **Protocol**:
+        1.  Sends header: `b&#34;200|&lt;size&gt;&#34;`
+        2.  Sends body: A string of commands.
+        &#34;&#34;&#34;
+        self.req[&#34;HLIST&#34;] = Hlist(commands=list(self.command_handlers.keys()), request=self.request, log=log, )
+        self.req[&#34;HLIST&#34;].__hlist__ = self._hlist.__name__
+        self.req[&#34;HLIST&#34;].run()
+
+    def _send_list(self) -&gt; None:
+        &#34;&#34;&#34;
+        Sends a list of available files in the &#39;received&#39; directory to the client.
+
+        The server responds with a header `200|&lt;content_length&gt;` followed by a
+        newline-separated string of filenames.
+
+        **Protocol**:
+        1.  Sends header: `b&#34;200|&lt;size&gt;&#34;`
+        2.  Sends body: A string of filenames.
+        &#34;&#34;&#34;
+        self.req[&#34;LIST&#34;] = List(request=self.request, log=log)
+        self.req[&#34;LIST&#34;].set_hlist(self._send_list.__name__)
+        self.req[&#34;LIST&#34;].run()
+
+    def _delete_file(self, filename: str) -&gt; None:
+        &#34;&#34;&#34;
+        Deletes a specified file from the server&#39;s &#39;received&#39; directory.
+
+        Args:
+            filename (str): The name of the file to delete.
+
+        **Responses**:
+        - On success: `b&#34;200|File deleted\\n&#34;`
+        - If file not found: `b&#34;404|File not found\\n&#34;`
+        &#34;&#34;&#34;
+        self.req[&#34;DELETE&#34;] = Delete(filename=filename, request=self.request, log=log)
+        self.req[&#34;DELETE&#34;].set_hlist(self._delete_file.__name__)
+        self.req[&#34;DELETE&#34;].run()
+
+    def _receive_file(self, filename: str, filesize: int, cipher: AESCipher) -&gt; None:
+        &#34;&#34;&#34;
+        Receives, decrypts, and saves a file sent by the client.
+
+        This method reads a specified number of bytes (`filesize`) from the socket,
+        which contains the encrypted file data. It then attempts to decrypt this
+        data using the session&#39;s cipher and saves it to the `received` directory.
+
+        Args:
+            filename (str): The name to save the file as.
+            filesize (int): The exact size of the incoming encrypted data buffer.
+            cipher (AESCipher): The cipher instance for this session.
+
+        **Responses**:
+        - On success: `b&#34;226|Transfer Complete\\n&#34;`
+        - On decryption failure: `b&#34;500|Decryption Failed\\n&#34;`
+        &#34;&#34;&#34;
+        self.req[&#34;SEND&#34;] = Send(filename=filename, filesize=filesize, cipher=cipher, request=self.request, log=log)
+        self.req[&#34;SEND&#34;].set_hlist(self._receive_file.__name__)
+        self.req[&#34;SEND&#34;].run()
+
+    def _send_file(self, filename: str, cipher: AESCipher) -&gt; None:
+        &#34;&#34;&#34;
+        Encrypts and sends a requested file to the client.
+
+        If the file exists in the &#39;received&#39; directory, it is read, encrypted
+        with the session cipher, and sent over the socket.
+
+        Args:
+            filename (str): The name of the file to send.
+            cipher (AESCipher): The cipher instance for this session.
+
+        **Protocol &amp; Responses**:
+        - If file found:
+            1. Sends header: `b&#34;200|&lt;encrypted_size&gt;\\n&#34;`
+            2. Sends body: The encrypted file data.
+        - If file not found: `b&#34;404|File not found: {filename}\\n&#34;`
+        - On server-side error: `b&#34;500|Server Read Error\\n&#34;`
+        &#34;&#34;&#34;
+        self.req[&#34;GET&#34;] = Get(filename=filename, cipher=cipher, request=self.request, log=log)
+        self.req[&#34;GET&#34;].set_hlist(self._send_file.__name__)
+        self.req[&#34;GET&#34;].run()</code></pre>
+</details>
+<div class="desc"><p>Request handler for each client connection, instantiated by the socketserver.</p>
+<p>This class manages the entire lifecycle of a client connection. It is
+responsible for performing the secure handshake, parsing client commands,
+and dispatching to the appropriate handler methods (e.g., for sending or
+receiving files).</p>
+<p>The command dispatch approach is intentionally flexible: subclasses can
+override <code>command_handlers</code> to add or modify supported commands without
+changing _handle_request logic.</p></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>socketserver.BaseRequestHandler</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers"><code class="name">var <span class="ident">command_handlers</span> : dict[str, str]</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.req"><code class="name">var <span class="ident">req</span> : dict[str, <a title="e2eeftp.server.commands.HList" href="commands.html#e2eeftp.server.commands.HList">HList</a>]</code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.handle"><code class="name flex">
+<span>def <span class="ident">handle</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle(self):
+    &#34;&#34;&#34;
+    The main entry point for handling a new client connection.
+
+    This method orchestrates the session:
+    1.  Performs the E2EE handshake to establish a secure channel.
+    2.  Waits for and parses a command from the client.
+    3.  Calls the internal method corresponding to the command.
+    4.  Handles any exceptions during the session.
+    5.  Ensures the connection is logged and closed cleanly.
+    &#34;&#34;&#34;
+    address = self.client_address
+    log.info(f&#34;Accepted connection from {address}&#34;)
+    try:
+        server_key_path = &#34;server_id.key&#34;
+        auth_keys_path = &#34;authorized_clients.pub&#34;
+
+        log.info(&#34;Loading server identity and authorized keys...&#34;)
+        
+        if not os.path.exists(server_key_path):
+            log.error(f&#34;Server identity key &#39;{server_key_path}&#39; not found. Cannot secure connection.&#34;)
+            return
+
+        with open(server_key_path, &#34;rb&#34;) as f:
+            server_id_priv_key = serialization.load_pem_private_key(f.read(), password=None)
+        
+        authorized_client_keys = []
+        if os.path.exists(auth_keys_path):
+            with open(auth_keys_path, &#34;r&#34;) as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith(&#39;#&#39;):
+                        try:
+                            key_bytes = base64.b64decode(line)
+                            authorized_client_keys.append(ed25519.Ed25519PublicKey.from_public_bytes(key_bytes))
+                        except Exception as e:
+                            log.warning(f&#34;Skipping invalid key in {auth_keys_path}: {e}&#34;)
+        else:
+            log.warning(f&#34;&#39;{auth_keys_path}&#39; not found. No clients will be authorized.&#34;)
+            log.warning(&#34;Run &#39;generate_keys.py&#39; to create client keys and the authorization file.&#34;)
+
+        e2ee = E2EE()
+        log.info(f&#34;Performing secure handshake with {address}...&#34;)
+        cipher = e2ee.server_handshake(self.request, server_id_priv_key, authorized_client_keys)
+        log.info(f&#34;Secure handshake with {address} complete.&#34;)
+        self._handle_request(cipher)
+    except FileNotFoundError as e:
+        log.error(f&#34;Identity key file not found: {e}. Please generate keys and authorize clients.&#34;)
+    except ConnectionError as e:
+        log.error(f&#34;Handshake failed with {address}: {e}&#34;)
+    except Exception as e:
+        log.error(f&#34;Error during session with {address}: {e}&#34;)
+    finally:
+        log.info(f&#34;Connection with {address} closed.&#34;)</code></pre>
+</details>
+<div class="desc"><p>The main entry point for handling a new client connection.</p>
+<p>This method orchestrates the session:
+1.
+Performs the E2EE handshake to establish a secure channel.
+2.
+Waits for and parses a command from the client.
+3.
+Calls the internal method corresponding to the command.
+4.
+Handles any exceptions during the session.
+5.
+Ensures the connection is logged and closed cleanly.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="e2eeftp.server.server.e2eeftp"><code class="flex name class">
+<span>class <span class="ident">e2eeftp</span></span>
+<span>(</span><span>host: str = '127.0.0.1', port: int = 5001, logging: bool = True)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class e2eeftp(socketserver.ThreadingTCPServer):
+    &#34;&#34;&#34;
+    A multi-threaded TCP server for secure file transfers.
+
+    This server uses `socketserver.ThreadingTCPServer` to handle each incoming
+    client connection in a separate thread. This allows for concurrent file
+    transfer operations.
+
+    Security is established on a per-connection basis using an Elliptic Curve
+    Diffie-Hellman (ECDH) key exchange. This generates a unique, ephemeral
+    session key for each client, providing forward secrecy. All file data
+    transferred after the handshake is encrypted with this key.
+
+    The server listens for commands like SEND, GET, LIST, and DELETE.
+
+    Attributes:
+        allow_reuse_address (bool): Allows the server to restart and bind to the
+                                    same address quickly.
+        host (str): The IP address the server is bound to.
+        port (int): The port the server is listening on.
+
+    Supported Status Codes:
+        - 200: Success
+        - 226: Transfer Complete
+        - 400: Bad Request / Invalid Command
+        - 404: File Not Found
+        - 500: Internal Server Error (e.g., Decryption Failed)
+
+    The header format is:
+        - SEND: SEND|filename|encrypted_data
+        - GET: GET|filename
+        - LIST: LIST
+        - DELETE: DELETE|filename
+    &#34;&#34;&#34;
+    allow_reuse_address = True
+
+    def __init__(self, host: str=&#39;127.0.0.1&#39;, port: int=5001, logging: bool=True) -&gt; None:
+        &#34;&#34;&#34;
+        Initializes the server and binds it to a host and port.
+
+        Args:
+            host (str): The network interface IP to bind to. Defaults to &#39;127.0.0.1&#39;
+                        (localhost). Use &#39;0.0.0.0&#39; to listen on all interfaces.
+            port (int): The port number to listen on. Defaults to 5001.
+            enable_logging (bool): If False, disables server logging output.
+        &#34;&#34;&#34;
+        super().__init__((host, port), E2EEFTPRequestHandler)
+        self.host, self.port = host, port
+        self.enable_logging = logging
+        log.disabled = not self.enable_logging
+
+    def _generate_server_keys_if_missing(self) -&gt; None:
+        &#34;&#34;&#34;
+        Generates and saves server key pair if it doesn&#39;t exist.
+        &#34;&#34;&#34;
+        server_key_path = &#34;server_id.key&#34;
+        if not os.path.exists(server_key_path):
+            log.warning(f&#34;Server identity key &#39;{server_key_path}&#39; not found. Generating a new one.&#34;)
+
+            server_priv_key = ed25519.Ed25519PrivateKey.generate()
+            server_pub_key = server_priv_key.public_key()
+
+            # Save server private key in PEM format
+            with open(server_key_path, &#34;wb&#34;) as f:
+                f.write(server_priv_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.PKCS8,
+                    encryption_algorithm=serialization.NoEncryption()
+                ))
+            log.info(f&#34;Saved &#39;{server_key_path}&#39; (private). This is your server&#39;s permanent identity.&#34;)
+
+            # Save server public key in PEM format (for client&#39;s known_server.pub)
+            with open(&#34;known_server.pub&#34;, &#34;wb&#34;) as f:
+                f.write(server_pub_key.public_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PublicFormat.SubjectPublicKeyInfo
+                ))
+            log.info(&#34;Saved &#39;known_server.pub&#39; (public). Copy this file to your client&#39;s directory.&#34;)
+            log.warning(&#34;You must still generate client keys and add their public keys to &#39;authorized_clients.pub&#39; for them to connect.&#34;)
+
+    def run(self) -&gt; None:
+        &#34;&#34;&#34;
+        Starts the server&#39;s main loop to listen for and handle connections.
+
+        This method calls `serve_forever()`, which blocks and waits for incoming
+        connections. Each connection is then passed to an instance of
+        `E2EEFTPRequestHandler` for processing in a new thread.
+        &#34;&#34;&#34;
+        self._generate_server_keys_if_missing()
+        log.info(f&#34;host: {self.host}, port: {self.port}&#34;)
+        log.info(&#34;press ctrl+c to exit&#34;)
+        log.info(f&#34;Server listening on {self.host}:{self.port}&#34;)
+        try:
+            self.serve_forever()
+        except KeyboardInterrupt:
+            log.warning(&#34;Shutting down...&#34;)
+        finally:
+            self.server_close()</code></pre>
+</details>
+<div class="desc"><p>A multi-threaded TCP server for secure file transfers.</p>
+<p>This server uses <code>socketserver.ThreadingTCPServer</code> to handle each incoming
+client connection in a separate thread. This allows for concurrent file
+transfer operations.</p>
+<p>Security is established on a per-connection basis using an Elliptic Curve
+Diffie-Hellman (ECDH) key exchange. This generates a unique, ephemeral
+session key for each client, providing forward secrecy. All file data
+transferred after the handshake is encrypted with this key.</p>
+<p>The server listens for commands like SEND, GET, LIST, and DELETE.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>allow_reuse_address</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Allows the server to restart and bind to the
+same address quickly.</dd>
+<dt><strong><code>host</code></strong> :&ensp;<code>str</code></dt>
+<dd>The IP address the server is bound to.</dd>
+<dt><strong><code>port</code></strong> :&ensp;<code>int</code></dt>
+<dd>The port the server is listening on.</dd>
+</dl>
+<p>Supported Status Codes:
+- 200: Success
+- 226: Transfer Complete
+- 400: Bad Request / Invalid Command
+- 404: File Not Found
+- 500: Internal Server Error (e.g., Decryption Failed)</p>
+<p>The header format is:
+- SEND: SEND|filename|encrypted_data
+- GET: GET|filename
+- LIST: LIST
+- DELETE: DELETE|filename</p>
+<p>Initializes the server and binds it to a host and port.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>host</code></strong> :&ensp;<code>str</code></dt>
+<dd>The network interface IP to bind to. Defaults to '127.0.0.1'
+(localhost). Use '0.0.0.0' to listen on all interfaces.</dd>
+<dt><strong><code>port</code></strong> :&ensp;<code>int</code></dt>
+<dd>The port number to listen on. Defaults to 5001.</dd>
+<dt><strong><code>enable_logging</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If False, disables server logging output.</dd>
+</dl></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>socketserver.ThreadingTCPServer</li>
+<li>socketserver.ThreadingMixIn</li>
+<li>socketserver.TCPServer</li>
+<li>socketserver.BaseServer</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="e2eeftp.server.server.e2eeftp.allow_reuse_address"><code class="name">var <span class="ident">allow_reuse_address</span></code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="e2eeftp.server.server.e2eeftp.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self) -&gt; None:
+    &#34;&#34;&#34;
+    Starts the server&#39;s main loop to listen for and handle connections.
+
+    This method calls `serve_forever()`, which blocks and waits for incoming
+    connections. Each connection is then passed to an instance of
+    `E2EEFTPRequestHandler` for processing in a new thread.
+    &#34;&#34;&#34;
+    self._generate_server_keys_if_missing()
+    log.info(f&#34;host: {self.host}, port: {self.port}&#34;)
+    log.info(&#34;press ctrl+c to exit&#34;)
+    log.info(f&#34;Server listening on {self.host}:{self.port}&#34;)
+    try:
+        self.serve_forever()
+    except KeyboardInterrupt:
+        log.warning(&#34;Shutting down...&#34;)
+    finally:
+        self.server_close()</code></pre>
+</details>
+<div class="desc"><p>Starts the server's main loop to listen for and handle connections.</p>
+<p>This method calls <code>serve_forever()</code>, which blocks and waits for incoming
+connections. Each connection is then passed to an instance of
+<code><a title="e2eeftp.server.server.E2EEFTPRequestHandler" href="#e2eeftp.server.server.E2EEFTPRequestHandler">E2EEFTPRequestHandler</a></code> for processing in a new thread.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="e2eeftp.server" href="index.html">e2eeftp.server</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler" href="#e2eeftp.server.server.E2EEFTPRequestHandler">E2EEFTPRequestHandler</a></code></h4>
+<ul class="">
+<li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers" href="#e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers">command_handlers</a></code></li>
+<li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.handle" href="#e2eeftp.server.server.E2EEFTPRequestHandler.handle">handle</a></code></li>
+<li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.req" href="#e2eeftp.server.server.E2EEFTPRequestHandler.req">req</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="e2eeftp.server.server.e2eeftp" href="#e2eeftp.server.server.e2eeftp">e2eeftp</a></code></h4>
+<ul class="">
+<li><code><a title="e2eeftp.server.server.e2eeftp.allow_reuse_address" href="#e2eeftp.server.server.e2eeftp.allow_reuse_address">allow_reuse_address</a></code></li>
+<li><code><a title="e2eeftp.server.server.e2eeftp.run" href="#e2eeftp.server.server.e2eeftp.run">run</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

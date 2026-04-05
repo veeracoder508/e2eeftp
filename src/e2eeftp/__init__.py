@@ -14,4 +14,4 @@ from .auth.key import generate_keys
 
 
 __version__ = "0.0.0b3"
-__all__ = ["e2eeftp", "E2EEFTPRequstionHandler", "E2EE", "AESCipher", "generate_keys"]
+__all__ = ["e2eeftp", "E2EEFTPRequestHandler", "E2EE", "AESCipher", "generate_keys"]

@@ -302,7 +302,7 @@ class e2eeftp(socketserver.ThreadingTCPServer):
     """
     allow_reuse_address = True
 
-    def __init__(self, host: str='127.0.0.1', port: int=5001) -> None:
+    def __init__(self, host: str='127.0.0.1', port: int=5001, logging: bool=True) -> None:
         """
         Initializes the server and binds it to a host and port.
 
@@ -310,9 +310,12 @@ class e2eeftp(socketserver.ThreadingTCPServer):
             host (str): The network interface IP to bind to. Defaults to '127.0.0.1'
                         (localhost). Use '0.0.0.0' to listen on all interfaces.
             port (int): The port number to listen on. Defaults to 5001.
+            enable_logging (bool): If False, disables server logging output.
         """
         super().__init__((host, port), E2EEFTPRequestHandler)
         self.host, self.port = host, port
+        self.enable_logging = logging
+        log.disabled = not self.enable_logging
 
     def _generate_server_keys_if_missing(self) -> None:
         """

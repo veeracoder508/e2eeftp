@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>e2eeftp.auth.e2ee API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>e2eeftp.auth.e2ee</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="e2eeftp.auth.e2ee.AESCipher"><code class="flex name class">
+<span>class <span class="ident">AESCipher</span></span>
+<span>(</span><span>encryption_key: bytes, authentication_key: bytes)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AESCipher:
+    &#34;&#34;&#34;A custom cipher class that implements AES-256-CBC encryption with
+    HMAC-SHA256 authentication, mimicking the primitives used in Signal/WhatsApp.
+
+    The encrypted payload is structured as: IV || Ciphertext || HMAC Tag
+    &#34;&#34;&#34;
+    def __init__(self, encryption_key: bytes, authentication_key: bytes) -&gt; None:
+        &#34;&#34;&#34;Initializes the cipher with encryption and authentication keys.
+
+        Args:
+            encryption_key (bytes): The key used for AES-256-CBC encryption.
+            authentication_key (bytes): The key used for HMAC-SHA256 authentication.
+        &#34;&#34;&#34;
+        self.encryption_key = encryption_key
+        self.authentication_key = authentication_key
+        self.iv_size = 16  # AES-CBC uses a 128-bit (16-byte) IV
+        self.tag_size = 32 # HMAC-SHA256 produces a 256-bit (32-byte) tag
+
+    def encrypt(self, plaintext: bytes) -&gt; bytes:
+        &#34;&#34;&#34;
+        Encrypts data with AES-256-CBC and signs it with HMAC-SHA256.
+        
+        Args:
+            plaintext (bytes): The data to encrypt.
+
+        Returns:
+            bytes: The encrypted payload.
+        &#34;&#34;&#34;
+        iv = os.urandom(self.iv_size)
+        
+        # Pad plaintext to AES block size
+        padder = padding.PKCS7(algorithms.AES.block_size).padder()
+        padded_data = padder.update(plaintext) + padder.finalize()
+
+        # Encrypt
+        cipher = Cipher(algorithms.AES(self.encryption_key), modes.CBC(iv))
+        encryptor = cipher.encryptor()
+        ciphertext = encryptor.update(padded_data) + encryptor.finalize()
+
+        # Sign the IV and ciphertext
+        mac = hmac.HMAC(self.authentication_key, hashes.SHA256())
+        mac.update(iv + ciphertext)
+        tag = mac.finalize()
+
+        return iv + ciphertext + tag
+
+    def decrypt(self, payload: bytes) -&gt; bytes:
+        &#34;&#34;&#34;
+        Verifies HMAC and decrypts AES-256-CBC ciphertext.
+        
+        Args:
+            payload (bytes): The encrypted payload.
+
+        Returns:
+            bytes: The decrypted data.
+        &#34;&#34;&#34;
+        # Extract components from payload
+        iv = payload[:self.iv_size]
+        tag = payload[-self.tag_size:]
+        ciphertext = payload[self.iv_size:-self.tag_size]
+
+        # Verify the HMAC tag first
+        mac = hmac.HMAC(self.authentication_key, hashes.SHA256())
+        mac.update(iv + ciphertext)
+        mac.verify(tag) # Raises InvalidSignature on failure
+
+        # Decrypt
+        cipher = Cipher(algorithms.AES(self.encryption_key), modes.CBC(iv))
+        decryptor = cipher.decryptor()
+        padded_plaintext = decryptor.update(ciphertext) + decryptor.finalize()
+
+        # Unpad
+        unpadder = padding.PKCS7(algorithms.AES.block_size).unpadder()
+        plaintext = unpadder.update(padded_plaintext) + unpadder.finalize()
+
+        return plaintext</code></pre>
+</details>
+<div class="desc"><p>A custom cipher class that implements AES-256-CBC encryption with
+HMAC-SHA256 authentication, mimicking the primitives used in Signal/WhatsApp.</p>
+<p>The encrypted payload is structured as: IV || Ciphertext || HMAC Tag</p>
+<p>Initializes the cipher with encryption and authentication keys.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>encryption_key</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>The key used for AES-256-CBC encryption.</dd>
+<dt><strong><code>authentication_key</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>The key used for HMAC-SHA256 authentication.</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="e2eeftp.auth.e2ee.AESCipher.decrypt"><code class="name flex">
+<span>def <span class="ident">decrypt</span></span>(<span>self, payload: bytes) ‑> bytes</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def decrypt(self, payload: bytes) -&gt; bytes:
+    &#34;&#34;&#34;
+    Verifies HMAC and decrypts AES-256-CBC ciphertext.
+    
+    Args:
+        payload (bytes): The encrypted payload.
+
+    Returns:
+        bytes: The decrypted data.
+    &#34;&#34;&#34;
+    # Extract components from payload
+    iv = payload[:self.iv_size]
+    tag = payload[-self.tag_size:]
+    ciphertext = payload[self.iv_size:-self.tag_size]
+
+    # Verify the HMAC tag first
+    mac = hmac.HMAC(self.authentication_key, hashes.SHA256())
+    mac.update(iv + ciphertext)
+    mac.verify(tag) # Raises InvalidSignature on failure
+
+    # Decrypt
+    cipher = Cipher(algorithms.AES(self.encryption_key), modes.CBC(iv))
+    decryptor = cipher.decryptor()
+    padded_plaintext = decryptor.update(ciphertext) + decryptor.finalize()
+
+    # Unpad
+    unpadder = padding.PKCS7(algorithms.AES.block_size).unpadder()
+    plaintext = unpadder.update(padded_plaintext) + unpadder.finalize()
+
+    return plaintext</code></pre>
+</details>
+<div class="desc"><p>Verifies HMAC and decrypts AES-256-CBC ciphertext.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>payload</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>The encrypted payload.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bytes</code></dt>
+<dd>The decrypted data.</dd>
+</dl></div>
+</dd>
+<dt id="e2eeftp.auth.e2ee.AESCipher.encrypt"><code class="name flex">
+<span>def <span class="ident">encrypt</span></span>(<span>self, plaintext: bytes) ‑> bytes</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def encrypt(self, plaintext: bytes) -&gt; bytes:
+    &#34;&#34;&#34;
+    Encrypts data with AES-256-CBC and signs it with HMAC-SHA256.
+    
+    Args:
+        plaintext (bytes): The data to encrypt.
+
+    Returns:
+        bytes: The encrypted payload.
+    &#34;&#34;&#34;
+    iv = os.urandom(self.iv_size)
+    
+    # Pad plaintext to AES block size
+    padder = padding.PKCS7(algorithms.AES.block_size).padder()
+    padded_data = padder.update(plaintext) + padder.finalize()
+
+    # Encrypt
+    cipher = Cipher(algorithms.AES(self.encryption_key), modes.CBC(iv))
+    encryptor = cipher.encryptor()
+    ciphertext = encryptor.update(padded_data) + encryptor.finalize()
+
+    # Sign the IV and ciphertext
+    mac = hmac.HMAC(self.authentication_key, hashes.SHA256())
+    mac.update(iv + ciphertext)
+    tag = mac.finalize()
+
+    return iv + ciphertext + tag</code></pre>
+</details>
+<div class="desc"><p>Encrypts data with AES-256-CBC and signs it with HMAC-SHA256.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>plaintext</code></strong> :&ensp;<code>bytes</code></dt>
+<dd>The data to encrypt.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bytes</code></dt>
+<dd>The encrypted payload.</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+<dt id="e2eeftp.auth.e2ee.E2EE"><code class="flex name class">
+<span>class <span class="ident">E2EE</span></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class E2EE:
+    &#34;&#34;&#34;
+    Manages the End-to-End Encryption handshake using Elliptic Curve
+    Diffie-Hellman (ECDH) to establish a secure, ephemeral session key.
+    &#34;&#34;&#34;
+    def __init__(self) -&gt; None:
+        &#34;&#34;&#34;
+        Initializes the E2EE object by generating an ephemeral private/public
+        key pair for this session.
+        &#34;&#34;&#34;
+        # Generate an ephemeral private key for this session
+        # Use X25519, the curve used by Signal/WhatsApp
+        self._private_key = x25519.X25519PrivateKey.generate()
+        self.public_key_bytes = self._private_key.public_key().public_bytes(
+            encoding=serialization.Encoding.Raw,
+            format=serialization.PublicFormat.Raw
+        )
+
+    def _derive_cipher(self, peer_public_key_bytes: bytes) -&gt; AESCipher:
+        &#34;&#34;&#34;
+        Derives a shared secret and creates a custom AESCipher object.
+
+        Using the peer&#39;s public key and our own private key, this method
+        computes a shared secret via X25519. It then uses HKDF to derive
+        keys for AES-256 encryption and HMAC-SHA256 authentication.
+
+        Args:
+            peer_public_key_bytes (bytes): The raw public key from the
+                                           other party.
+
+        Returns:
+            AESCipher: The symmetric cipher object for this session.
+        &#34;&#34;&#34;
+        peer_public_key = x25519.X25519PublicKey.from_public_bytes(peer_public_key_bytes)
+        shared_secret = self._private_key.exchange(peer_public_key)
+        
+        # Derive 64 bytes: 32 for AES-256 key, 32 for HMAC-SHA256 key
+        derived_key = HKDF(
+            algorithm=hashes.SHA256(),
+            length=64,
+            salt=None,
+            info=b&#39;file-transfer-e2ee&#39;,
+        ).derive(shared_secret)
+
+        encryption_key = derived_key[:32]
+        authentication_key = derived_key[32:]
+        return AESCipher(encryption_key, authentication_key)
+
+    def client_handshake(self, sock: socket.socket, client_id_priv_key: ed25519.Ed25519PrivateKey, known_server_pub_key: ed25519.Ed25519PublicKey) -&gt; AESCipher:
+        &#34;&#34;&#34;
+        Performs the authenticated client-side handshake.
+
+        This extends the ECDH handshake with a signature-based authentication
+        step to verify both the client&#39;s and the server&#39;s identity, preventing
+        Man-in-the-Middle (MitM) attacks.
+
+        Args:
+            sock (socket.socket): The connected client socket.
+            client_id_priv_key (ed25519.Ed25519PrivateKey): The client&#39;s long-term private identity key.
+            known_server_pub_key (ed25519.Ed25519PublicKey): The server&#39;s expected long-term public identity key.
+
+        Returns:
+            AESCipher: The derived symmetric cipher for this session.
+        
+        Raises:
+            ConnectionError: If the server&#39;s identity cannot be verified.
+        &#34;&#34;&#34;
+        # 1. Sign our ephemeral public key with our long-term identity key.
+        client_signature = client_id_priv_key.sign(self.public_key_bytes)
+        client_id_pub_key_bytes = client_id_priv_key.public_key().public_bytes(
+            encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw
+        )
+
+        # 2. Send our ephemeral key, identity key, and signature.
+        payload = self.public_key_bytes + client_id_pub_key_bytes + client_signature
+        sock.sendall(len(payload).to_bytes(4, &#39;big&#39;))
+        sock.sendall(payload)
+
+        # 3. Receive the server&#39;s response.
+        size_bytes = _recv_all(sock, 4)
+        server_payload_size = int.from_bytes(size_bytes, &#39;big&#39;)
+        server_payload = _recv_all(sock, server_payload_size)
+
+        # 4. Unpack and verify the server&#39;s identity and signature.
+        server_eph_pub_bytes = server_payload[:32]
+        server_id_pub_bytes = server_payload[32:64]
+        server_signature = server_payload[64:]
+
+        # Verify server identity against our known key
+        known_server_pub_key_bytes = known_server_pub_key.public_bytes(
+            encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw
+        )
+        if server_id_pub_bytes != known_server_pub_key_bytes:
+            raise ConnectionError(&#34;Server identity verification failed! Mismatched public key.&#34;)
+
+        # Verify server&#39;s signature
+        try:
+            known_server_pub_key.verify(server_signature, server_eph_pub_bytes)
+        except InvalidSignature:
+            raise ConnectionError(&#34;Server identity verification failed! Invalid signature.&#34;)
+
+        # 5. If all checks pass, derive the shared secret.
+        return self._derive_cipher(server_eph_pub_bytes)
+
+    def server_handshake(self, sock: socket.socket, server_id_priv_key: ed25519.Ed25519PrivateKey, authorized_client_keys: list[ed25519.Ed25519PublicKey]) -&gt; AESCipher:
+        &#34;&#34;&#34;
+        Performs the authenticated server-side handshake.
+
+        This authenticates the client against a list of authorized public keys
+        and proves the server&#39;s identity to the client.
+
+        Args:
+            sock (socket.socket): The connected client socket.
+            server_id_priv_key (ed25519.Ed25519PrivateKey): The server&#39;s long-term private identity key.
+            authorized_client_keys (list[ed25519.Ed25519PublicKey]): A list of authorized client public keys.
+
+        Returns:
+            AESCipher: The derived symmetric cipher for this session.
+        
+        Raises:
+            ConnectionError: If the client is not authorized or sends an invalid signature.
+        &#34;&#34;&#34;
+        # 1. Receive the client&#39;s payload.
+        size_bytes = _recv_all(sock, 4)
+        client_payload_size = int.from_bytes(size_bytes, &#39;big&#39;)
+        client_payload = _recv_all(sock, client_payload_size)
+
+        # 2. Unpack and verify the client&#39;s identity and signature.
+        client_eph_pub_bytes = client_payload[:32]
+        client_id_pub_bytes = client_payload[32:64]
+        client_signature = client_payload[64:]
+
+        # Check if client is authorized
+        authorized_raw_keys = [key.public_bytes(encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw) for key in authorized_client_keys]
+        if client_id_pub_bytes not in authorized_raw_keys:
+            raise ConnectionError(f&#34;Client authentication failed. Unknown public key.&#34;)
+
+        # Verify client&#39;s signature
+        try:
+            client_id_pub_key = ed25519.Ed25519PublicKey.from_public_bytes(client_id_pub_bytes)
+            client_id_pub_key.verify(client_signature, client_eph_pub_bytes)
+        except InvalidSignature:
+            raise ConnectionError(&#34;Client authentication failed. Invalid signature.&#34;)
+
+        # 3. Client is authenticated. Now, prove our identity to the client.
+        server_signature = server_id_priv_key.sign(self.public_key_bytes)
+        server_id_pub_key_bytes = server_id_priv_key.public_key().public_bytes(encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw)
+        payload = self.public_key_bytes + server_id_pub_key_bytes + server_signature
+        sock.sendall(len(payload).to_bytes(4, &#39;big&#39;))
+        sock.sendall(payload)
+
+        # 4. If all checks pass, derive the shared secret.
+        return self._derive_cipher(client_eph_pub_bytes)</code></pre>
+</details>
+<div class="desc"><p>Manages the End-to-End Encryption handshake using Elliptic Curve
+Diffie-Hellman (ECDH) to establish a secure, ephemeral session key.</p>
+<p>Initializes the E2EE object by generating an ephemeral private/public
+key pair for this session.</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="e2eeftp.auth.e2ee.E2EE.client_handshake"><code class="name flex">
+<span>def <span class="ident">client_handshake</span></span>(<span>self,<br>sock: socket.socket,<br>client_id_priv_key: cryptography.hazmat.primitives.asymmetric.ed25519.Ed25519PrivateKey,<br>known_server_pub_key: cryptography.hazmat.primitives.asymmetric.ed25519.Ed25519PublicKey) ‑> <a title="e2eeftp.auth.e2ee.AESCipher" href="#e2eeftp.auth.e2ee.AESCipher">AESCipher</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def client_handshake(self, sock: socket.socket, client_id_priv_key: ed25519.Ed25519PrivateKey, known_server_pub_key: ed25519.Ed25519PublicKey) -&gt; AESCipher:
+    &#34;&#34;&#34;
+    Performs the authenticated client-side handshake.
+
+    This extends the ECDH handshake with a signature-based authentication
+    step to verify both the client&#39;s and the server&#39;s identity, preventing
+    Man-in-the-Middle (MitM) attacks.
+
+    Args:
+        sock (socket.socket): The connected client socket.
+        client_id_priv_key (ed25519.Ed25519PrivateKey): The client&#39;s long-term private identity key.
+        known_server_pub_key (ed25519.Ed25519PublicKey): The server&#39;s expected long-term public identity key.
+
+    Returns:
+        AESCipher: The derived symmetric cipher for this session.
+    
+    Raises:
+        ConnectionError: If the server&#39;s identity cannot be verified.
+    &#34;&#34;&#34;
+    # 1. Sign our ephemeral public key with our long-term identity key.
+    client_signature = client_id_priv_key.sign(self.public_key_bytes)
+    client_id_pub_key_bytes = client_id_priv_key.public_key().public_bytes(
+        encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw
+    )
+
+    # 2. Send our ephemeral key, identity key, and signature.
+    payload = self.public_key_bytes + client_id_pub_key_bytes + client_signature
+    sock.sendall(len(payload).to_bytes(4, &#39;big&#39;))
+    sock.sendall(payload)
+
+    # 3. Receive the server&#39;s response.
+    size_bytes = _recv_all(sock, 4)
+    server_payload_size = int.from_bytes(size_bytes, &#39;big&#39;)
+    server_payload = _recv_all(sock, server_payload_size)
+
+    # 4. Unpack and verify the server&#39;s identity and signature.
+    server_eph_pub_bytes = server_payload[:32]
+    server_id_pub_bytes = server_payload[32:64]
+    server_signature = server_payload[64:]
+
+    # Verify server identity against our known key
+    known_server_pub_key_bytes = known_server_pub_key.public_bytes(
+        encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw
+    )
+    if server_id_pub_bytes != known_server_pub_key_bytes:
+        raise ConnectionError(&#34;Server identity verification failed! Mismatched public key.&#34;)
+
+    # Verify server&#39;s signature
+    try:
+        known_server_pub_key.verify(server_signature, server_eph_pub_bytes)
+    except InvalidSignature:
+        raise ConnectionError(&#34;Server identity verification failed! Invalid signature.&#34;)
+
+    # 5. If all checks pass, derive the shared secret.
+    return self._derive_cipher(server_eph_pub_bytes)</code></pre>
+</details>
+<div class="desc"><p>Performs the authenticated client-side handshake.</p>
+<p>This extends the ECDH handshake with a signature-based authentication
+step to verify both the client's and the server's identity, preventing
+Man-in-the-Middle (MitM) attacks.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sock</code></strong> :&ensp;<code>socket.socket</code></dt>
+<dd>The connected client socket.</dd>
+<dt><strong><code>client_id_priv_key</code></strong> :&ensp;<code>ed25519.Ed25519PrivateKey</code></dt>
+<dd>The client's long-term private identity key.</dd>
+<dt><strong><code>known_server_pub_key</code></strong> :&ensp;<code>ed25519.Ed25519PublicKey</code></dt>
+<dd>The server's expected long-term public identity key.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="e2eeftp.auth.e2ee.AESCipher" href="#e2eeftp.auth.e2ee.AESCipher">AESCipher</a></code></dt>
+<dd>The derived symmetric cipher for this session.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ConnectionError</code></dt>
+<dd>If the server's identity cannot be verified.</dd>
+</dl></div>
+</dd>
+<dt id="e2eeftp.auth.e2ee.E2EE.server_handshake"><code class="name flex">
+<span>def <span class="ident">server_handshake</span></span>(<span>self,<br>sock: socket.socket,<br>server_id_priv_key: cryptography.hazmat.primitives.asymmetric.ed25519.Ed25519PrivateKey,<br>authorized_client_keys: list[cryptography.hazmat.primitives.asymmetric.ed25519.Ed25519PublicKey]) ‑> <a title="e2eeftp.auth.e2ee.AESCipher" href="#e2eeftp.auth.e2ee.AESCipher">AESCipher</a></span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def server_handshake(self, sock: socket.socket, server_id_priv_key: ed25519.Ed25519PrivateKey, authorized_client_keys: list[ed25519.Ed25519PublicKey]) -&gt; AESCipher:
+    &#34;&#34;&#34;
+    Performs the authenticated server-side handshake.
+
+    This authenticates the client against a list of authorized public keys
+    and proves the server&#39;s identity to the client.
+
+    Args:
+        sock (socket.socket): The connected client socket.
+        server_id_priv_key (ed25519.Ed25519PrivateKey): The server&#39;s long-term private identity key.
+        authorized_client_keys (list[ed25519.Ed25519PublicKey]): A list of authorized client public keys.
+
+    Returns:
+        AESCipher: The derived symmetric cipher for this session.
+    
+    Raises:
+        ConnectionError: If the client is not authorized or sends an invalid signature.
+    &#34;&#34;&#34;
+    # 1. Receive the client&#39;s payload.
+    size_bytes = _recv_all(sock, 4)
+    client_payload_size = int.from_bytes(size_bytes, &#39;big&#39;)
+    client_payload = _recv_all(sock, client_payload_size)
+
+    # 2. Unpack and verify the client&#39;s identity and signature.
+    client_eph_pub_bytes = client_payload[:32]
+    client_id_pub_bytes = client_payload[32:64]
+    client_signature = client_payload[64:]
+
+    # Check if client is authorized
+    authorized_raw_keys = [key.public_bytes(encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw) for key in authorized_client_keys]
+    if client_id_pub_bytes not in authorized_raw_keys:
+        raise ConnectionError(f&#34;Client authentication failed. Unknown public key.&#34;)
+
+    # Verify client&#39;s signature
+    try:
+        client_id_pub_key = ed25519.Ed25519PublicKey.from_public_bytes(client_id_pub_bytes)
+        client_id_pub_key.verify(client_signature, client_eph_pub_bytes)
+    except InvalidSignature:
+        raise ConnectionError(&#34;Client authentication failed. Invalid signature.&#34;)
+
+    # 3. Client is authenticated. Now, prove our identity to the client.
+    server_signature = server_id_priv_key.sign(self.public_key_bytes)
+    server_id_pub_key_bytes = server_id_priv_key.public_key().public_bytes(encoding=serialization.Encoding.Raw, format=serialization.PublicFormat.Raw)
+    payload = self.public_key_bytes + server_id_pub_key_bytes + server_signature
+    sock.sendall(len(payload).to_bytes(4, &#39;big&#39;))
+    sock.sendall(payload)
+
+    # 4. If all checks pass, derive the shared secret.
+    return self._derive_cipher(client_eph_pub_bytes)</code></pre>
+</details>
+<div class="desc"><p>Performs the authenticated server-side handshake.</p>
+<p>This authenticates the client against a list of authorized public keys
+and proves the server's identity to the client.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sock</code></strong> :&ensp;<code>socket.socket</code></dt>
+<dd>The connected client socket.</dd>
+<dt><strong><code>server_id_priv_key</code></strong> :&ensp;<code>ed25519.Ed25519PrivateKey</code></dt>
+<dd>The server's long-term private identity key.</dd>
+<dt><strong><code>authorized_client_keys</code></strong> :&ensp;<code>list[ed25519.Ed25519PublicKey]</code></dt>
+<dd>A list of authorized client public keys.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="e2eeftp.auth.e2ee.AESCipher" href="#e2eeftp.auth.e2ee.AESCipher">AESCipher</a></code></dt>
+<dd>The derived symmetric cipher for this session.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ConnectionError</code></dt>
+<dd>If the client is not authorized or sends an invalid signature.</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="e2eeftp.auth" href="index.html">e2eeftp.auth</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="e2eeftp.auth.e2ee.AESCipher" href="#e2eeftp.auth.e2ee.AESCipher">AESCipher</a></code></h4>
+<ul class="">
+<li><code><a title="e2eeftp.auth.e2ee.AESCipher.decrypt" href="#e2eeftp.auth.e2ee.AESCipher.decrypt">decrypt</a></code></li>
+<li><code><a title="e2eeftp.auth.e2ee.AESCipher.encrypt" href="#e2eeftp.auth.e2ee.AESCipher.encrypt">encrypt</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="e2eeftp.auth.e2ee.E2EE" href="#e2eeftp.auth.e2ee.E2EE">E2EE</a></code></h4>
+<ul class="">
+<li><code><a title="e2eeftp.auth.e2ee.E2EE.client_handshake" href="#e2eeftp.auth.e2ee.E2EE.client_handshake">client_handshake</a></code></li>
+<li><code><a title="e2eeftp.auth.e2ee.E2EE.server_handshake" href="#e2eeftp.auth.e2ee.E2EE.server_handshake">server_handshake</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

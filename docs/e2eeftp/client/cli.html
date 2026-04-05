@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>e2eeftp.client.cli API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>e2eeftp.client.cli</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="e2eeftp.client.cli.check_host_status"><code class="name flex">
+<span>def <span class="ident">check_host_status</span></span>(<span>host: str = '127.0.0.1', port: int | None = None) ‑> bool</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def check_host_status(host: str = &#39;127.0.0.1&#39;, port: None | int = None) -&gt; bool:
+    &#34;&#34;&#34;
+    Checks if a host is up. If a port is provided, it attempts a 
+    TCP connection. Otherwise, it defaults to a standard ping.
+
+    Args:
+        host (str): the host ip.
+        port (None | int): the port of the host.
+
+    Returns:
+        bool if the server is up or not.
+    &#34;&#34;&#34;
+    if port:
+        try:
+            # Create a TCP socket and attempt to connect
+            with socket.create_connection((host, int(port)), timeout=2):
+                return True
+        except (socket.timeout, ConnectionRefusedError, OSError):
+            return False
+    else:
+        # Fallback to the original ping logic if no port is provided
+        param = &#39;-n&#39; if platform.system().lower() == &#39;windows&#39; else &#39;-c&#39;
+        command = [&#39;ping&#39;, param, &#39;1&#39;, host]
+        try:
+            subprocess.run(command, capture_output=True, text=True, check=True, timeout=2)
+            return True
+        except Exception:
+            return False</code></pre>
+</details>
+<div class="desc"><p>Checks if a host is up. If a port is provided, it attempts a
+TCP connection. Otherwise, it defaults to a standard ping.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>host</code></strong> :&ensp;<code>str</code></dt>
+<dd>the host ip.</dd>
+<dt><strong><code>port</code></strong> :&ensp;<code>None | int</code></dt>
+<dd>the port of the host.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>bool if the server is up or not.</p></div>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="e2eeftp.client.cli.Prompt"><code class="flex name class">
+<span>class <span class="ident">Prompt</span></span>
+<span>(</span><span>prompt: str | Text = '',<br>*,<br>console: rich.console.Console | None = None,<br>password: bool = False,<br>choices: List[str] | None = None,<br>case_sensitive: bool = True,<br>show_default: bool = True,<br>show_choices: bool = True)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Prompt(PPrompt):
+    prompt_suffix = &#34;&#34;</code></pre>
+</details>
+<div class="desc"><p>A prompt that returns a str.</p>
+<h2 id="example">Example</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; name = Prompt.ask(&quot;Enter your name&quot;)
+</code></pre></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>rich.prompt.Prompt</li>
+<li>rich.prompt.PromptBase</li>
+<li>typing.Generic</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="e2eeftp.client.cli.Prompt.prompt_suffix"><code class="name">var <span class="ident">prompt_suffix</span></code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+</dl>
+</dd>
+<dt id="e2eeftp.client.cli.e2eeftpClientCli"><code class="flex name class">
+<span>class <span class="ident">e2eeftpClientCli</span></span>
+<span>(</span><span>host: str = '127.0.0.1', port: int = 5001)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class e2eeftpClientCli:
+    &#34;&#34;&#34;
+    The CLI for the e2eeftp client for a user frendly TUI experience.
+    &#34;&#34;&#34;
+    def __init__(self, host: str=&#39;127.0.0.1&#39;, port: int=5001):
+        # Initialize client - ensure host is accessible via self.client.host
+        self.client = e2eeftpClient(host=host, port=port, logging=False)
+        self.console = Console()
+
+        self.status_map = {
+            &#34;200&#34;: &#34;[bold green]200: Success[/bold green]&#34;,
+            &#34;226&#34;: &#34;[bold cyan]226: Transfer Complete[/bold cyan]&#34;,
+            &#34;400&#34;: &#34;[bold yellow]400: Bad Request[/bold yellow]&#34;,
+            &#34;404&#34;: &#34;[bold red]404: File Not Found[/bold red]&#34;,
+            &#34;500&#34;: &#34;[bold red]500: Internal Server Error[/bold red]&#34;
+        }
+        self._create_help_table()
+        self.commands = self.client
+
+    def _create_help_table(self):
+        &#34;&#34;&#34;
+        Creates the persistent help table.
+        &#34;&#34;&#34;
+        self.help_table = Table(title=&#34;Available Commands&#34;, header_style=&#34;bold magenta&#34;)
+        self.help_table.add_column(&#34;Command&#34;, style=&#34;cyan&#34;, width=15)
+        self.help_table.add_column(&#34;Description&#34;)
+        self.help_table.add_column(&#34;Syntax&#34;, style=&#34;italic&#34;)
+        
+        self.help_table.add_row(&#34;SEND&#34;, &#34;Upload a file to server&#34;, &#34;SEND &lt;local_path&gt;&#34;)
+        self.help_table.add_row(&#34;GET&#34;, &#34;Download from server&#34;, &#34;GET &lt;remote_path&gt;&#34;)
+        self.help_table.add_row(&#34;LIST&#34;, &#34;List server files&#34;, &#34;LIST&#34;)
+        self.help_table.add_row(&#34;DELETE&#34;, &#34;Delete server file&#34;, &#34;DELETE &lt;remote_path&gt;&#34;)
+        self.help_table.add_row(&#34;HLIST&#34;, &#34;List server commands&#34;, &#34;HLIST&#34;)
+        self.help_table.add_row(&#34;PING&#34;, &#34;Check server status&#34;, &#34;PING&#34;)
+        self.help_table.add_row(&#34;HELP&#34;, &#34;Show this message&#34;, &#34;HELP&#34;)
+        self.help_table.add_row(&#34;EXIT&#34;, &#34;Close the client&#34;, &#34;EXIT&#34;)
+
+    def _get_status_style(self, code):
+        return self.status_map.get(str(code), f&#34;[white]{code}: Unknown Status[/white]&#34;)
+
+    def run(self):
+        self.console.clear()
+        self.console.print(Panel.fit(
+            &#34;[bold cyan]E2EE FTP Client[/bold cyan]&#34;,
+            border_style=&#34;magenta&#34;
+        ))
+        
+        try:
+            while True:
+                # Use Prompt.ask for a clean input experience
+                command_input = Prompt.ask(&#34;[bold green]&gt;&gt;&gt; [/bold green]&#34;).strip()
+                
+                if not command_input:
+                    continue
+                
+                if command_input.upper() == &#34;EXIT&#34;:
+                    rprint(&#34;[yellow]Exiting...[/yellow]&#34;)
+                    break
+                    
+                self._evaluate_command(command_input)
+        except (KeyboardInterrupt, EOFError):
+            rprint(&#34;\n[red]Session terminated.[/red]&#34;)
+
+    def _evaluate_command(self, command: str):
+        parts = command.split(maxsplit=1)
+        method = parts[0].upper()
+        args = parts[1] if len(parts) &gt; 1 else None
+
+        match method:
+            case &#34;SEND&#34;:
+                if args:
+                    if os.path.exists(args):
+                        rprint(f&#34;[blue]Action:[/blue] Uploading {args}...&#34;)
+                        status = self.client.send(args) 
+                        rprint(f&#34;Status: {self._get_status_style(status)}&#34;)
+                    else:
+                        rprint(f&#34;[bold red]Error:[/bold red] Local file &#39;{args}&#39; not found.&#34;)
+                else:
+                    rprint(&#34;[red]Error: Provide a file path.[/red]&#34;)
+            
+            case &#34;GET&#34;:
+                if args:
+                    rprint(f&#34;[blue]Action:[/blue] Downloading {args}...&#34;)
+                    status = self.client.get(args)
+                    rprint(f&#34;Status: {self._get_status_style(status)}&#34;)
+                else:
+                    rprint(&#34;[red]Error: Provide a file path.[/red]&#34;)
+            
+            case &#34;LIST&#34;:
+                rprint(&#34;[blue]Action:[/blue] Requesting file list...&#34;)
+                file_list = self.client.list_files()
+
+                if file_list is not None:
+                    # Handle empty list or list with a single empty string from split
+                    if not file_list or (len(file_list) == 1 and not file_list[0]):
+                        rprint(&#34;[yellow]Server directory is empty.[/yellow]&#34;)
+                        return
+
+                    table = Table(title=&#34;Server Directory&#34;, header_style=&#34;bold magenta&#34;)
+                    table.add_column(&#34;Filename&#34;, style=&#34;white&#34;)
+                    
+                    i = 0
+                    for filename in file_list:
+                        if filename: # Don&#39;t add empty rows
+                            table.add_row(filename)
+                            i += 1
+                    
+                    self.console.print(table)
+                    rprint(&#34;[i][blue]check:[/blue] list.txt[/i]&#34;)
+                    rprint(f&#34;[i][blue]Total files:[/blue] {i}[/i]&#34;)
+                else:
+                    rprint(&#34;[bold red]Error:[/bold red] Could not retrieve directory list. Check logs for details.&#34;)
+            
+            case &#34;DELETE&#34;:
+                if args:
+                    rprint(f&#34;[blue]Action:[/blue] Deleteing {args}...&#34;)
+                    status = self.client.delete(args)
+                    rprint(f&#34;Status: {self._get_status_style(status or 200)}&#34;)
+                else:
+                    rprint(&#34;[red]Error: Provide a file path.[/red]&#34;)
+
+            case &#34;HLIST&#34;:
+                rprint(&#34;[blue]Action:[/blue] Requesting server commands...&#34;)
+                cmd_list = self.client.hlist()
+
+                if cmd_list is not None:
+                    # Handle empty list or list with a single empty string from split
+                    if not cmd_list or (len(cmd_list) == 1 and not cmd_list[0]):
+                        rprint(&#34;[yellow]Server has no commands available.[/yellow]&#34;)
+                        return
+
+                    table = Table(title=&#34;Available Server Commands&#34;, header_style=&#34;bold magenta&#34;)
+                    table.add_column(&#34;Command&#34;, style=&#34;cyan&#34;)
+                    
+                    i = 0
+                    for cmd in cmd_list:
+                        if cmd:  # Don&#39;t add empty rows
+                            table.add_row(cmd)
+                            i += 1
+                    
+                    self.console.print(table)
+                    rprint(f&#34;[i][blue]Total commands:[/blue] {i}[/i]&#34;)
+                else:
+                    rprint(&#34;[bold red]Error:[/bold red] Could not retrieve command list. Check logs for details.&#34;)
+
+            case &#34;HELP&#34;:
+                self.console.print(self.help_table)
+
+            case &#34;PING&#34;:
+                # Use the host and port from your client instance
+                host = getattr(self.client, &#39;host&#39;, &#39;localhost&#39;)
+                port = getattr(self.client, &#39;port&#39;, 21) # Default FTP port is 21
+                
+                rprint(f&#34;[blue]Checking connection to {host}:{port}...[/blue]&#34;)
+                
+                if check_host_status(host, port):
+                    rprint(f&#34;Status: [bold green]UP (Port {port} is open)[/bold green]&#34;)
+                else:
+                    rprint(f&#34;Status: [bold red]DOWN (Could not connect to port {port})[/bold red]&#34;)
+            
+            case _:
+                rprint(f&#34;Status: {self._get_status_style(400)} (Unknown Command &#39;{method}&#39;)&#34;)</code></pre>
+</details>
+<div class="desc"><p>The CLI for the e2eeftp client for a user frendly TUI experience.</p></div>
+<h3>Methods</h3>
+<dl>
+<dt id="e2eeftp.client.cli.e2eeftpClientCli.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self):
+    self.console.clear()
+    self.console.print(Panel.fit(
+        &#34;[bold cyan]E2EE FTP Client[/bold cyan]&#34;,
+        border_style=&#34;magenta&#34;
+    ))
+    
+    try:
+        while True:
+            # Use Prompt.ask for a clean input experience
+            command_input = Prompt.ask(&#34;[bold green]&gt;&gt;&gt; [/bold green]&#34;).strip()
+            
+            if not command_input:
+                continue
+            
+            if command_input.upper() == &#34;EXIT&#34;:
+                rprint(&#34;[yellow]Exiting...[/yellow]&#34;)
+                break
+                
+            self._evaluate_command(command_input)
+    except (KeyboardInterrupt, EOFError):
+        rprint(&#34;\n[red]Session terminated.[/red]&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="e2eeftp.client" href="index.html">e2eeftp.client</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="e2eeftp.client.cli.check_host_status" href="#e2eeftp.client.cli.check_host_status">check_host_status</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="e2eeftp.client.cli.Prompt" href="#e2eeftp.client.cli.Prompt">Prompt</a></code></h4>
+<ul class="">
+<li><code><a title="e2eeftp.client.cli.Prompt.prompt_suffix" href="#e2eeftp.client.cli.Prompt.prompt_suffix">prompt_suffix</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="e2eeftp.client.cli.e2eeftpClientCli" href="#e2eeftp.client.cli.e2eeftpClientCli">e2eeftpClientCli</a></code></h4>
+<ul class="">
+<li><code><a title="e2eeftp.client.cli.e2eeftpClientCli.run" href="#e2eeftp.client.cli.e2eeftpClientCli.run">run</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

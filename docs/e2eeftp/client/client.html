@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>e2eeftp.client.client API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>e2eeftp.client.client</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="e2eeftp.client.client.e2eeftpClient"><code class="flex name class">
+<span>class <span class="ident">e2eeftpClient</span></span>
+<span>(</span><span>host='127.0.0.1',<br>port=5001,<br>logging: bool = True,<br>identity_key_path: str = 'client_id.key',<br>server_key_path: str = 'known_server.pub')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class e2eeftpClient:
+    &#34;&#34;&#34;
+    A client for secure, end-to-end encrypted file transfers.
+
+    This client uses Elliptic Curve Diffie-Hellman (ECDH) to establish a
+    shared secret with the server for every session, ensuring forward secrecy.
+    It can be used to send (upload) and get (download) files from a compatible
+    server.
+    &#34;&#34;&#34; 
+    def __init__(self, host=&#39;127.0.0.1&#39;, port=5001, logging: bool = True, identity_key_path: str = &#34;client_id.key&#34;, server_key_path: str = &#34;known_server.pub&#34;) -&gt; None:
+        &#34;&#34;&#34;
+        Initializes the client with server connection details.
+
+        Args:
+            host (str): The IP address or hostname of the server. Defaults to &#39;127.0.0.1&#39;.
+            port (int): The port number the server is listening on. Defaults to 5001.
+            logging (bool): Whether to enable logging. Defaults to True.
+            identity_key_path (str): Path to the client&#39;s private identity key.
+            server_key_path (str): Path to the server&#39;s known public key.
+        &#34;&#34;&#34;
+        self.host = host
+        self.port = port
+        self.identity_key_path = identity_key_path
+        self.server_key_path = server_key_path
+        self.logging = logging
+
+        log.disabled = not self.logging
+
+    def _recv_until(self, sock: socket.socket, delimiter: bytes) -&gt; bytes:
+        &#34;&#34;&#34;
+        Receives data from the socket until a delimiter is found.
+
+        Args:
+            socket (socket.socket): The socket to receive data from.
+            delimiter (bytes): The sequence of bytes to look for.
+
+        Returns:
+            bytes: The received data until the delimiter is found.
+        &#34;&#34;&#34;
+        data = b&#39;&#39;
+        while not data.endswith(delimiter):
+            chunk = sock.recv(1)
+            if not chunk: break
+            data += chunk
+        return data
+
+    @contextmanager
+    def _secure_channel(self) -&gt; tuple[socket.socket | None, AESCipher | None]: # type: ignore
+        &#34;&#34;&#34;
+        A context manager that establishes and tears down a secure channel.
+        
+        It handles key loading, connection, handshake, and socket closure. It loads
+        keys *before* connecting to provide clearer errors and avoid broken pipes.
+        
+        Yields:
+            A tuple of (socket, cipher) on success, or (None, None) on failure.
+        &#34;&#34;&#34;
+        # 1. Load keys before attempting any network connection.
+        try:
+            log.info(&#34;Loading identity keys...&#34;)
+            with open(self.identity_key_path, &#34;rb&#34;) as f:
+                client_id_priv_key = serialization.load_pem_private_key(f.read(), password=None)
+            with open(self.server_key_path, &#34;rb&#34;) as f:
+                known_server_pub_key = serialization.load_pem_public_key(f.read())
+        except FileNotFoundError as e:
+            log.error(f&#34;Identity key file not found: {e}.&#34;)
+            log.warning(&#34;Run &#39;generate_keys.py&#39; and ensure &#39;known_server.pub&#39; from the server is present.&#34;)
+            yield None, None
+            return
+
+        # 2. If keys are loaded, proceed with connection and handshake.
+        sock = None
+        try:
+            sock = socket.create_connection((self.host, self.port))
+            cipher = E2EE().client_handshake(sock, client_id_priv_key, known_server_pub_key)
+            log.info(&#34;Secure handshake complete.&#34;)
+            yield sock, cipher
+        except ConnectionRefusedError:
+            log.error(f&#34;Connection to {self.host}:{self.port} refused. Is the server running?&#34;)
+            yield None, None
+        except ConnectionError as e:
+            log.error(f&#34;Handshake failed: {e}&#34;)
+            log.warning(&#34;This can happen if the server does not authorize your client key or if server identity is wrong.&#34;)
+            yield None, None
+        finally:
+            if sock: sock.close()
+
+    def send(self, filepath: str) -&gt; int:
+        &#34;&#34;&#34;
+        Encrypts and sends a file to the connected server.
+
+        A new connection and handshake are performed for each file transfer.
+        The protocol for sending is: &#34;SEND|&lt;filename&gt;|&lt;filesize&gt;&#34;.
+
+        Args:
+            filepath (str): The local path to the file to be sent.
+
+        Returns:
+            The status code of the response from the server.
+        &#34;&#34;&#34;
+        if not os.path.exists(filepath): 
+            log.error(f&#34;File not found: {filepath}&#34;)
+            return 404
+        
+        log.info(f&#34;Attempting to send {os.path.basename(filepath)}...&#34;)
+        code = 500
+        try:
+            with self._secure_channel() as (sock, cipher):
+                if not sock or not cipher:
+                    return 500
+
+                with open(filepath, &#34;rb&#34;) as f:
+                    data = f.read()
+                encrypted_data = cipher.encrypt(data)
+                header = f&#34;SEND|{os.path.basename(filepath)}|{len(encrypted_data)}\n&#34;
+                sock.sendall(header.encode())
+                sock.sendall(encrypted_data)
+
+                response = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+                log.info(f&#34;Server response: {response}&#34;)
+                res_code, _ = response.split(&#34;|&#34;, 1)
+                code = int(res_code)
+        except Exception as e:
+            log.error(f&#34;An error occurred during send operation: {e}&#34;)
+        return code
+
+    def get(self, filename: str) -&gt; int:
+        &#34;&#34;&#34;Requests, receives, and decrypts a file from the server.
+
+        A new connection and handshake are performed for each file transfer.
+        The file is saved locally with a &#34;downloaded_&#34; prefix.
+
+        Args:
+            filename (str): The name of the file to request from the server.
+
+        Returns:
+            the status code of the response from the server.
+        &#34;&#34;&#34;
+        log.info(f&#34;Attempting to get {filename}...&#34;)
+        code = 500
+        try:
+            with self._secure_channel() as (sock, cipher):
+                if not sock or not cipher:
+                    return 500
+
+                sock.sendall(f&#34;GET|{filename}\n&#34;.encode())
+                header = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+                if not header:
+                    log.error(&#34;Connection closed by server without a response.&#34;)
+                    return 500
+
+                try:
+                    code, val = header.split(&#34;|&#34;, 1)
+                except ValueError:
+                    log.error(f&#34;Received malformed header: {header}&#34;)
+                    return 400
+                
+                code = int(code)
+                if code == 200:
+                    filesize = int(val)
+                    log.info(f&#34;Receiving {filename} ({filesize} bytes)...&#34;)
+                    buf = b&#34;&#34;
+                    while len(buf) &lt; filesize:
+                        chunk = sock.recv(min(filesize - len(buf), 4096))
+                        if not chunk: 
+                            log.error(&#34;Connection lost during file download.&#34;)
+                            break
+                        buf += chunk
+                    
+                    if len(buf) == filesize:
+                        try:
+                            decrypted_data = cipher.decrypt(buf)
+                            with open(f&#34;downloaded_{filename}&#34;, &#34;wb&#34;) as f:
+                                f.write(decrypted_data)
+                            log.info(f&#34;Successfully downloaded and saved to downloaded_{filename}&#34;)
+                        except Exception as e:
+                            log.error(f&#34;Failed to decrypt file: {e}&#34;)
+                    else:
+                        log.error(&#34;File download was incomplete.&#34;)
+                else:
+                    log.error(f&#34;Server error: {val}&#34;)
+        except Exception as e:
+            log.error(f&#34;An error occurred during get operation: {e}&#34;)
+        return code
+
+    def list_files(self) -&gt; list[str] | None:
+        &#34;&#34;&#34;
+        Requests and prints a list of available files from the server.
+
+        Returns:
+            A list of filenames on success, None on failure.
+        &#34;&#34;&#34;
+        log.info(&#34;Requesting file list from server...&#34;)
+
+        try:
+            with self._secure_channel() as (sock, cipher):
+                if not sock or not cipher:
+                    return None
+                
+                sock.sendall(b&#34;LIST\n&#34;)
+                
+                header = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+                if not header:
+                    log.error(&#34;Connection closed by server without a response.&#34;)
+                    return None
+
+                try:
+                    code, val = header.split(&#34;|&#34;, 1)
+                except ValueError:
+                    log.error(f&#34;Received malformed header: {header}&#34;)
+                    return None
+
+                code = int(code)
+                if code == 200:
+                    list_size = int(val)
+                    if list_size == 0:
+                        log.info(&#34;Server has no files available.&#34;)
+                        return []
+
+                    log.info(f&#34;Receiving file list ({list_size} bytes)...&#34;)
+                    buf = b&#34;&#34;
+                    while len(buf) &lt; list_size:
+                        chunk = sock.recv(min(list_size - len(buf), 4096))
+                        if not chunk:
+                            log.error(&#34;Connection lost while receiving file list.&#34;)
+                            break
+                        buf += chunk
+
+                    if len(buf) == list_size:
+                        file_list_str = buf.decode()
+                        return file_list_str.split(&#39;\n&#39;)
+                    else:
+                        log.error(&#34;File list reception was incomplete.&#34;)
+                        return None
+                else:
+                    log.error(f&#34;Server error: {val}&#34;)
+                    return None
+        except Exception as e:
+            log.error(f&#34;An error occurred during list operation: {e}&#34;)
+        return None
+
+    def delete(self, filename: str) -&gt; int:
+        &#34;&#34;&#34;
+        Requests the server to delete a file.
+
+        Args:
+            filename (str): The name of the file to delete.
+
+        Returns:
+            The status code of the response from the server.
+        &#34;&#34;&#34;
+        log.info(f&#34;Attempting to delete {filename}...&#34;)
+        code = 500
+        try:
+            with self._secure_channel() as (sock, cipher):
+                if not sock or not cipher:
+                    return 500
+                
+                sock.sendall(f&#34;DELETE|{filename}\n&#34;.encode())
+                response = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+                
+                if not response:
+                    log.error(&#34;Connection closed by server without a response.&#34;)
+                    return 500
+
+                try:
+                    code_str, val = response.split(&#34;|&#34;, 1)
+                    code = int(code_str)
+                    if code == 200:
+                        log.info(f&#34;Server: {val}&#34;)
+                    else:
+                        log.error(f&#34;Server error: {val}&#34;)
+                except ValueError:
+                    log.error(f&#34;Received malformed response: {response}&#34;)
+                    return 400
+        except Exception as e:
+            log.error(f&#34;An error occurred during delete operation: {e}&#34;)
+        return code
+    
+    def hlist(self) -&gt; list[str] | None:
+        &#34;&#34;&#34;Request the list of commands offered by the server.
+        
+        Returns:
+            A list of command names on success, None on failure.
+        &#34;&#34;&#34;
+        log.info(&#34;Requesting command list from server...&#34;)
+
+        try:
+            with self._secure_channel() as (sock, cipher):
+                if not sock or not cipher:
+                    return None
+                
+                sock.sendall(b&#34;HLIST\n&#34;)
+                
+                header = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+                if not header:
+                    log.error(&#34;Connection closed by server without a response.&#34;)
+                    return None
+
+                try:
+                    code, val = header.split(&#34;|&#34;, 1)
+                except ValueError:
+                    log.error(f&#34;Received malformed header: {header}&#34;)
+                    return None
+
+                code = int(code)
+                if code == 200:
+                    list_size = int(val)
+                    log.info(f&#34;Receiving command list ({list_size} bytes)...&#34;)
+                    buf = b&#34;&#34;
+                    while len(buf) &lt; list_size:
+                        chunk = sock.recv(min(list_size - len(buf), 4096))
+                        if not chunk:
+                            log.error(&#34;Connection lost while receiving command list.&#34;)
+                            break
+                        buf += chunk
+
+                    if len(buf) == list_size:
+                        cmd_list_str = buf.decode()
+                        return cmd_list_str.split(&#39;\n&#39;)
+                    else:
+                        log.error(&#34;Command list reception was incomplete.&#34;)
+                        return None
+                else:
+                    log.error(f&#34;Server error: {val}&#34;)
+                    return None
+        except Exception as e:
+            log.error(f&#34;An error occurred during hlist operation: {e}&#34;)
+        return None</code></pre>
+</details>
+<div class="desc"><p>A client for secure, end-to-end encrypted file transfers.</p>
+<p>This client uses Elliptic Curve Diffie-Hellman (ECDH) to establish a
+shared secret with the server for every session, ensuring forward secrecy.
+It can be used to send (upload) and get (download) files from a compatible
+server.</p>
+<p>Initializes the client with server connection details.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>host</code></strong> :&ensp;<code>str</code></dt>
+<dd>The IP address or hostname of the server. Defaults to '127.0.0.1'.</dd>
+<dt><strong><code>port</code></strong> :&ensp;<code>int</code></dt>
+<dd>The port number the server is listening on. Defaults to 5001.</dd>
+<dt><strong><code>logging</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether to enable logging. Defaults to True.</dd>
+<dt><strong><code>identity_key_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the client's private identity key.</dd>
+<dt><strong><code>server_key_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to the server's known public key.</dd>
+</dl></div>
+<h3>Methods</h3>
+<dl>
+<dt id="e2eeftp.client.client.e2eeftpClient.delete"><code class="name flex">
+<span>def <span class="ident">delete</span></span>(<span>self, filename: str) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def delete(self, filename: str) -&gt; int:
+    &#34;&#34;&#34;
+    Requests the server to delete a file.
+
+    Args:
+        filename (str): The name of the file to delete.
+
+    Returns:
+        The status code of the response from the server.
+    &#34;&#34;&#34;
+    log.info(f&#34;Attempting to delete {filename}...&#34;)
+    code = 500
+    try:
+        with self._secure_channel() as (sock, cipher):
+            if not sock or not cipher:
+                return 500
+            
+            sock.sendall(f&#34;DELETE|{filename}\n&#34;.encode())
+            response = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+            
+            if not response:
+                log.error(&#34;Connection closed by server without a response.&#34;)
+                return 500
+
+            try:
+                code_str, val = response.split(&#34;|&#34;, 1)
+                code = int(code_str)
+                if code == 200:
+                    log.info(f&#34;Server: {val}&#34;)
+                else:
+                    log.error(f&#34;Server error: {val}&#34;)
+            except ValueError:
+                log.error(f&#34;Received malformed response: {response}&#34;)
+                return 400
+    except Exception as e:
+        log.error(f&#34;An error occurred during delete operation: {e}&#34;)
+    return code</code></pre>
+</details>
+<div class="desc"><p>Requests the server to delete a file.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the file to delete.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The status code of the response from the server.</p></div>
+</dd>
+<dt id="e2eeftp.client.client.e2eeftpClient.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self, filename: str) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(self, filename: str) -&gt; int:
+    &#34;&#34;&#34;Requests, receives, and decrypts a file from the server.
+
+    A new connection and handshake are performed for each file transfer.
+    The file is saved locally with a &#34;downloaded_&#34; prefix.
+
+    Args:
+        filename (str): The name of the file to request from the server.
+
+    Returns:
+        the status code of the response from the server.
+    &#34;&#34;&#34;
+    log.info(f&#34;Attempting to get {filename}...&#34;)
+    code = 500
+    try:
+        with self._secure_channel() as (sock, cipher):
+            if not sock or not cipher:
+                return 500
+
+            sock.sendall(f&#34;GET|{filename}\n&#34;.encode())
+            header = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+            if not header:
+                log.error(&#34;Connection closed by server without a response.&#34;)
+                return 500
+
+            try:
+                code, val = header.split(&#34;|&#34;, 1)
+            except ValueError:
+                log.error(f&#34;Received malformed header: {header}&#34;)
+                return 400
+            
+            code = int(code)
+            if code == 200:
+                filesize = int(val)
+                log.info(f&#34;Receiving {filename} ({filesize} bytes)...&#34;)
+                buf = b&#34;&#34;
+                while len(buf) &lt; filesize:
+                    chunk = sock.recv(min(filesize - len(buf), 4096))
+                    if not chunk: 
+                        log.error(&#34;Connection lost during file download.&#34;)
+                        break
+                    buf += chunk
+                
+                if len(buf) == filesize:
+                    try:
+                        decrypted_data = cipher.decrypt(buf)
+                        with open(f&#34;downloaded_{filename}&#34;, &#34;wb&#34;) as f:
+                            f.write(decrypted_data)
+                        log.info(f&#34;Successfully downloaded and saved to downloaded_{filename}&#34;)
+                    except Exception as e:
+                        log.error(f&#34;Failed to decrypt file: {e}&#34;)
+                else:
+                    log.error(&#34;File download was incomplete.&#34;)
+            else:
+                log.error(f&#34;Server error: {val}&#34;)
+    except Exception as e:
+        log.error(f&#34;An error occurred during get operation: {e}&#34;)
+    return code</code></pre>
+</details>
+<div class="desc"><p>Requests, receives, and decrypts a file from the server.</p>
+<p>A new connection and handshake are performed for each file transfer.
+The file is saved locally with a "downloaded_" prefix.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filename</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the file to request from the server.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>the status code of the response from the server.</p></div>
+</dd>
+<dt id="e2eeftp.client.client.e2eeftpClient.hlist"><code class="name flex">
+<span>def <span class="ident">hlist</span></span>(<span>self) ‑> list[str] | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def hlist(self) -&gt; list[str] | None:
+    &#34;&#34;&#34;Request the list of commands offered by the server.
+    
+    Returns:
+        A list of command names on success, None on failure.
+    &#34;&#34;&#34;
+    log.info(&#34;Requesting command list from server...&#34;)
+
+    try:
+        with self._secure_channel() as (sock, cipher):
+            if not sock or not cipher:
+                return None
+            
+            sock.sendall(b&#34;HLIST\n&#34;)
+            
+            header = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+            if not header:
+                log.error(&#34;Connection closed by server without a response.&#34;)
+                return None
+
+            try:
+                code, val = header.split(&#34;|&#34;, 1)
+            except ValueError:
+                log.error(f&#34;Received malformed header: {header}&#34;)
+                return None
+
+            code = int(code)
+            if code == 200:
+                list_size = int(val)
+                log.info(f&#34;Receiving command list ({list_size} bytes)...&#34;)
+                buf = b&#34;&#34;
+                while len(buf) &lt; list_size:
+                    chunk = sock.recv(min(list_size - len(buf), 4096))
+                    if not chunk:
+                        log.error(&#34;Connection lost while receiving command list.&#34;)
+                        break
+                    buf += chunk
+
+                if len(buf) == list_size:
+                    cmd_list_str = buf.decode()
+                    return cmd_list_str.split(&#39;\n&#39;)
+                else:
+                    log.error(&#34;Command list reception was incomplete.&#34;)
+                    return None
+            else:
+                log.error(f&#34;Server error: {val}&#34;)
+                return None
+    except Exception as e:
+        log.error(f&#34;An error occurred during hlist operation: {e}&#34;)
+    return None</code></pre>
+</details>
+<div class="desc"><p>Request the list of commands offered by the server.</p>
+<h2 id="returns">Returns</h2>
+<p>A list of command names on success, None on failure.</p></div>
+</dd>
+<dt id="e2eeftp.client.client.e2eeftpClient.list_files"><code class="name flex">
+<span>def <span class="ident">list_files</span></span>(<span>self) ‑> list[str] | None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list_files(self) -&gt; list[str] | None:
+    &#34;&#34;&#34;
+    Requests and prints a list of available files from the server.
+
+    Returns:
+        A list of filenames on success, None on failure.
+    &#34;&#34;&#34;
+    log.info(&#34;Requesting file list from server...&#34;)
+
+    try:
+        with self._secure_channel() as (sock, cipher):
+            if not sock or not cipher:
+                return None
+            
+            sock.sendall(b&#34;LIST\n&#34;)
+            
+            header = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+            if not header:
+                log.error(&#34;Connection closed by server without a response.&#34;)
+                return None
+
+            try:
+                code, val = header.split(&#34;|&#34;, 1)
+            except ValueError:
+                log.error(f&#34;Received malformed header: {header}&#34;)
+                return None
+
+            code = int(code)
+            if code == 200:
+                list_size = int(val)
+                if list_size == 0:
+                    log.info(&#34;Server has no files available.&#34;)
+                    return []
+
+                log.info(f&#34;Receiving file list ({list_size} bytes)...&#34;)
+                buf = b&#34;&#34;
+                while len(buf) &lt; list_size:
+                    chunk = sock.recv(min(list_size - len(buf), 4096))
+                    if not chunk:
+                        log.error(&#34;Connection lost while receiving file list.&#34;)
+                        break
+                    buf += chunk
+
+                if len(buf) == list_size:
+                    file_list_str = buf.decode()
+                    return file_list_str.split(&#39;\n&#39;)
+                else:
+                    log.error(&#34;File list reception was incomplete.&#34;)
+                    return None
+            else:
+                log.error(f&#34;Server error: {val}&#34;)
+                return None
+    except Exception as e:
+        log.error(f&#34;An error occurred during list operation: {e}&#34;)
+    return None</code></pre>
+</details>
+<div class="desc"><p>Requests and prints a list of available files from the server.</p>
+<h2 id="returns">Returns</h2>
+<p>A list of filenames on success, None on failure.</p></div>
+</dd>
+<dt id="e2eeftp.client.client.e2eeftpClient.send"><code class="name flex">
+<span>def <span class="ident">send</span></span>(<span>self, filepath: str) ‑> int</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def send(self, filepath: str) -&gt; int:
+    &#34;&#34;&#34;
+    Encrypts and sends a file to the connected server.
+
+    A new connection and handshake are performed for each file transfer.
+    The protocol for sending is: &#34;SEND|&lt;filename&gt;|&lt;filesize&gt;&#34;.
+
+    Args:
+        filepath (str): The local path to the file to be sent.
+
+    Returns:
+        The status code of the response from the server.
+    &#34;&#34;&#34;
+    if not os.path.exists(filepath): 
+        log.error(f&#34;File not found: {filepath}&#34;)
+        return 404
+    
+    log.info(f&#34;Attempting to send {os.path.basename(filepath)}...&#34;)
+    code = 500
+    try:
+        with self._secure_channel() as (sock, cipher):
+            if not sock or not cipher:
+                return 500
+
+            with open(filepath, &#34;rb&#34;) as f:
+                data = f.read()
+            encrypted_data = cipher.encrypt(data)
+            header = f&#34;SEND|{os.path.basename(filepath)}|{len(encrypted_data)}\n&#34;
+            sock.sendall(header.encode())
+            sock.sendall(encrypted_data)
+
+            response = self._recv_until(sock, b&#39;\n&#39;).decode().strip()
+            log.info(f&#34;Server response: {response}&#34;)
+            res_code, _ = response.split(&#34;|&#34;, 1)
+            code = int(res_code)
+    except Exception as e:
+        log.error(f&#34;An error occurred during send operation: {e}&#34;)
+    return code</code></pre>
+</details>
+<div class="desc"><p>Encrypts and sends a file to the connected server.</p>
+<p>A new connection and handshake are performed for each file transfer.
+The protocol for sending is: "SEND|<filename>|<filesize>".</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>filepath</code></strong> :&ensp;<code>str</code></dt>
+<dd>The local path to the file to be sent.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The status code of the response from the server.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="e2eeftp.client" href="index.html">e2eeftp.client</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="e2eeftp.client.client.e2eeftpClient" href="#e2eeftp.client.client.e2eeftpClient">e2eeftpClient</a></code></h4>
+<ul class="">
+<li><code><a title="e2eeftp.client.client.e2eeftpClient.delete" href="#e2eeftp.client.client.e2eeftpClient.delete">delete</a></code></li>
+<li><code><a title="e2eeftp.client.client.e2eeftpClient.get" href="#e2eeftp.client.client.e2eeftpClient.get">get</a></code></li>
+<li><code><a title="e2eeftp.client.client.e2eeftpClient.hlist" href="#e2eeftp.client.client.e2eeftpClient.hlist">hlist</a></code></li>
+<li><code><a title="e2eeftp.client.client.e2eeftpClient.list_files" href="#e2eeftp.client.client.e2eeftpClient.list_files">list_files</a></code></li>
+<li><code><a title="e2eeftp.client.client.e2eeftpClient.send" href="#e2eeftp.client.client.e2eeftpClient.send">send</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

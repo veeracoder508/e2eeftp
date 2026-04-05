@@ -202,7 +202,7 @@ class e2eeftpClient:
             log.error(f"An error occurred during get operation: {e}")
         return code
 
-    def list(self) -> list[str] | None:
+    def list_files(self) -> list[str] | None:
         """
         Requests and prints a list of available files from the server.
 
