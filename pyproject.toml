@@ -32,6 +32,8 @@ e2eeftp = "e2eeftp.cli:cli"
 [tool.uv.workspace]
 members = [
     ".",
+    ".",
+    ".",
 ]
 
 [tool.uv.sources]

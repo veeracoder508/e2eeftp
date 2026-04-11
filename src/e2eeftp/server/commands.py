@@ -18,7 +18,7 @@ class HList:
     """
     __hlist__: str
 
-    def __init__(self, request, log: Logger): 
+    def __init__(self, request, log: Logger) -> None: 
         """
         Args:
             request: The socket request object for the current client connection.
@@ -27,14 +27,14 @@ class HList:
         self.request = request
         self.log: Logger = log
 
-    def __script__(self): 
+    def __script__(self) -> None: 
         """ 
         A placeholder method that can be implemented by subclasses to define the command's behavior. 
 
         This method is intended to be overridden by subclasses to provide specific functionality for each command type.
         """
 
-    def run(self):
+    def run(self) -> None:
         """
         Executes the command by calling its `__script__` method. 
 
@@ -80,7 +80,7 @@ class Send(HList):
     - On success: `b"226|Transfer Complete\\n"`
     - On decryption failure: `b"500|Decryption Failed\\n"`
     """
-    def __init__(self, filename: str, filesize: int, cipher: AESCipher, **kwargs):
+    def __init__(self, filename: str, filesize: int, cipher: AESCipher, **kwargs) -> None:
         """The initializer for the `SEND` method.
 
         Args:

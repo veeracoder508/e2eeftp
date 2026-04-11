@@ -1,4 +1,4 @@
-from .client import e2eeftpClient
+from src.e2eeftp.client.client import e2eeftpClient
 from rich.console import Console
 from rich.panel import Panel
 from rich.prompt import Prompt as PPrompt
