@@ -6,10 +6,10 @@ import os
 from ..auth import AESCipher
 
 
-__all__ = ["HList", "Send", "Get", "List", "Delete", "Hlist"]
+__all__ = ["Comm", "Send", "Get", "List", "Delete", "Hlist"]
 
 
-class HList:
+class Comm:
     """
     The base class for all commands, used to identify the command type in a structured way.
 
@@ -57,7 +57,7 @@ class HList:
         return self.__hlist__
 
 
-class Send(HList):
+class Send(Comm):
     """
     This method is a placeholder and should be implemented with the actual logic to receive a file from the client, 
     save it to the server, and send an appropriate response back to the client. 
@@ -118,7 +118,7 @@ class Send(HList):
             self.log.error(f"Decryption failed for {self.filename}: {e}")
             self.request.sendall(b"500|Decryption Failed\n")
         
-class Get(HList):
+class Get(Comm):
     """
     This method is a placeholder and should be implemented with the actual logic to read a file from the server,
     encrypt it, and send it back to the client.
@@ -174,7 +174,7 @@ class Get(HList):
             self.log.error(f"Error reading or sending file {self.filename}: {e}")
             self.request.sendall(b"500|Server Read Error\n")
 
-class List(HList):
+class List(Comm):
     """
     This method is a placeholder and should be implemented with the actual logic to list files in the 'received' directory.
 
@@ -203,7 +203,7 @@ class List(HList):
         self.request.sendall(file_list.encode())
         self.log.info(f"200|Sent file list with {len(files)} entries")
 
-class Delete(HList):
+class Delete(Comm):
     """
     This method is a placeholder and should be implemented with the actual logic to delete a file from the server's 'received' directory.
 
@@ -239,7 +239,7 @@ class Delete(HList):
             self.request.sendall(b"404|File not found\n")
             self.log.warning(f"404|File not found for deletion: {self.filename}")
 
-class Hlist(HList):
+class Hlist(Comm):
     """
     The script method for the Hlist command, which returns the list of supported
     commands as plain text.

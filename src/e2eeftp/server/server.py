@@ -45,7 +45,11 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         "HLIST": "_hlist"
     }
 
-    req: dict[str, HList] = {}
+    req: dict[str, Comm] = {}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.update_command_handlers() # Create the handelers.
 
     def handle(self):
         """
@@ -265,6 +269,12 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         self.req["GET"].set_hlist(self._send_file.__name__)
         self.req["GET"].run()
 
+    def update_command_handlers(self):
+        self.command_handlers.clear() # Clear the handeler list to rewrite it.
+        for comm_name, comm in tuple(self.req.items()):
+            self.command_handlers[comm_name] = comm.get_hlist()
+        print(self.command_handlers)
+
 
 class e2eeftp(socketserver.ThreadingTCPServer):
     """
@@ -364,3 +374,12 @@ class e2eeftp(socketserver.ThreadingTCPServer):
             log.warning("Shutting down...")
         finally:
             self.server_close()
+
+
+def main():
+    server = e2eeftp()
+    server.run()
+
+
+if __name__ == "__main__":
+    main()

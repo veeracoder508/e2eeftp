@@ -8,3 +8,6 @@
 - [ ] finish the documentaion in the /docs floder
 - [ ] hariram to update the index.html according the the /docs folder by me
 - [ ] publish it to PyPi index.
+
+# Ideas to add.
+- [ ] PERs (Protocol Enrichment Rules)
