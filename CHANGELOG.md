@@ -1,5 +1,11 @@
-# Change log for e2eeftp 0.0.0b4
-- Change in file structure. **(tag: struct)**
+# CHANGELOG
+version: 0.0.0b4
+
+type: beta
+
+*****
+
+- Changed file structure. **(tag: struct)**
     ```
     src\
     ├── benchmarker\ 
@@ -23,7 +29,10 @@
         ├── __init__.py
         └── cli.py
     ```
-    * Made the benchmarker a seperate module.
+    * Made the benchmarker a separate module.
 
-- Changed the name of the command base class from `HList` to `Comm`. **(tag: name_scheme)**
+- Renamed the command base class from `HList` to `Comm`. **(tag: name_scheme)**
+
 - Added `e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers()` to update the `e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers: dict[str, str]` each time the server is initialized. **(tag: feature)**
+
+- Added PERs directory `PERs/`. **(tag: feature)**
