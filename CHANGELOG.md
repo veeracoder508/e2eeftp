@@ -34,5 +34,3 @@ type: beta
 - Renamed the command base class from `HList` to `Comm`. **(tag: name_scheme)**
 
 - Added `e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers()` to update the `e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers: dict[str, str]` each time the server is initialized. **(tag: feature)**
-
-- Added PERs directory `PERs/`. **(tag: feature)**
