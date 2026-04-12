@@ -67,7 +67,7 @@ The Discussions-To header provides the URL to the current canonical discussion t
 
 The Type header specifies the type of PER: Standards Track, Informational, or Process.
 
-The Created header records the date that the PER was assigned a number, while Post-History is used to record the dates of and corresponding URLs to the Discussions-To threads for the PER, with the former as the linked text, and the latter as the link target. Both sets of dates should be in dd-mmm-yyyy format, e.g. 14-Aug-2001.
+The Created header records the date that the PER was assigned a number, while Post-History is used to record the dates of and corresponding URLs to the Discussions-To threads for the PER, with the former as the linked text, and the latter as the link target. Both sets of dates should be in alphanumeric format, e.g. 12 April 2026.
 
 Standards Track PERs will typically have a Python-Version header which indicates the version of Python that the feature will be released with. Standards Track PERs without a Python-Version header indicate interoperability standards that will initially be supported through external libraries and tools, and then potentially supplemented by a later PER to add support to the standard library. Informational and Process PERs do not need a Python-Version header.
 
