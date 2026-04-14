@@ -3,9 +3,11 @@ version: 0.0.0b4
 
 type: beta
 
+total changes: 6
+
 *****
 
-- Changed file structure. **(tag: struct)**
+- Changed file structure. **(tag: structure)**
     ```
     src\
     ├── benchmarker\ 

@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
 <title>e2eeftp.server.commands API documentation</title>
-<meta name="description" content="This modudle contains all the command handlers for the secure file transfer server.">
+<meta name="description" content="Command handlers for E2EEFTP server operations …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" crossorigin>
 <style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
@@ -28,6 +28,50 @@ el.replaceWith(d);
 });
 }, 100);
 })</script>
+<style>:root{--highlight-color:#44475a}.flex{display:flex !important}body{background:#282a36;color:#f8f8f2;line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #44475a;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#8be9fd;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#bd93f9}a:hover{color:#ff79c6}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#50fa7b;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#21222c;color:#f8f8f2;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #44475a;border-bottom:1px solid #44475a;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #44475a}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#44475a;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#6272a4}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#6272a4;border-left:5px solid #44475a;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#6272a4;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#11324d}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#1e3822}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#524010}.admonition.error,.admonition.danger,.admonition.caution{background:#4f1919}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #44475a}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<style>
+/* Prevent horizontal overflow and force text wrapping */
+body, html {
+overflow-x: clip;
+}
+pre, code, pre code, .source pre code {
+white-space: pre-wrap !important;
+/* Forces text to wrap to the next line */
+word-break: break-word !important;
+/* Breaks extremely long words/strings if necessary */
+overflow-wrap: break-word !important;
+overflow-x: hidden !important;
+/* Disables horizontal scrolling */
+min-width: 0 !important;
+/* Overrides the default stretching behavior */
+}
+/* Firefox Scrollbar */
+* {
+scrollbar-width: thin;
+scrollbar-color: #555555 #1e1e1e;
+}
+/* Chrome, Edge, and Safari Scrollbar */
+::-webkit-scrollbar {
+width: 12px;
+/* width of the vertical scrollbar */
+height: 12px;
+/* height of the horizontal scrollbar */
+}
+::-webkit-scrollbar-track {
+background: #1e1e1e; /* color of the tracking area */
+}
+::-webkit-scrollbar-thumb {
+background-color: #555555; /* color of the scroll thumb */
+border-radius: 10px;
+/* roundness of the scroll thumb */
+border: 3px solid #1e1e1e; /* creates padding around the thumb */
+}
+::-webkit-scrollbar-thumb:hover {
+background-color: #777777; /* lighter color when hovering */
+}
+</style>
 </head>
 <body>
 <main>
@@ -36,7 +80,14 @@ el.replaceWith(d);
 <h1 class="title">Module <code>e2eeftp.server.commands</code></h1>
 </header>
 <section id="section-intro">
-<p>This modudle contains all the command handlers for the secure file transfer server.</p>
+<p>Command handlers for E2EEFTP server operations.</p>
+<p>This module defines the command classes that handle various FTP operations
+in the E2EEFTP server. Each command inherits from the base Comm class and
+implements the <strong>script</strong> method to perform specific operations like sending
+files, receiving files, listing directories, deleting files, and providing
+help information.</p>
+<p>All commands work with encrypted data using the AESCipher for secure
+communication between client and server.</p>
 </section>
 <section>
 </section>
@@ -47,6 +98,145 @@ el.replaceWith(d);
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
+<dt id="e2eeftp.server.commands.Comm"><code class="flex name class">
+<span>class <span class="ident">Comm</span></span>
+<span>(</span><span>request, log: logging.Logger)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Comm:
+    &#34;&#34;&#34;
+    The base class for all commands, used to identify the command type in a structured way.
+
+    Args:
+        __hlist__ (str): A string identifier for the command type, used for dispatching.
+    &#34;&#34;&#34;
+    __hlist__: str
+
+    def __init__(self, request, log: Logger) -&gt; None: 
+        &#34;&#34;&#34;
+        Args:
+            request: The socket request object for the current client connection.
+            log (Logger): A logger instance for logging command execution details.  
+        &#34;&#34;&#34;
+        self.request = request
+        self.log: Logger = log
+
+    def __script__(self) -&gt; None: 
+        &#34;&#34;&#34; 
+        A placeholder method that can be implemented by subclasses to define the command&#39;s behavior. 
+
+        This method is intended to be overridden by subclasses to provide specific functionality for each command type.
+        &#34;&#34;&#34;
+
+    def run(self) -&gt; None:
+        &#34;&#34;&#34;
+        Executes the command by calling its `__script__` method. 
+
+        This method serves as the entry point for executing the command&#39;s logic, allowing for any necessary setup or teardown to be handled in a consistent manner.
+        &#34;&#34;&#34;
+        self.__script__()
+
+    def set_hlist(self, hlist_value: str) -&gt; None:
+        &#34;&#34;&#34;
+        Sets the `__hlist__` value for this command instance.
+        &#34;&#34;&#34;
+        self.__hlist__ = hlist_value
+
+    def get_hlist(self) -&gt; str: 
+        &#34;&#34;&#34;Returns the `__hlist__` value for the given command.
+
+        Returns:
+            str: the method name of the function in the request handeler.
+        &#34;&#34;&#34;
+        return self.__hlist__</code></pre>
+</details>
+<div class="desc"><p>The base class for all commands, used to identify the command type in a structured way.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>__hlist__</code></strong> :&ensp;<code>str</code></dt>
+<dd>A string identifier for the command type, used for dispatching.</dd>
+</dl>
+<h2 id="args_1">Args</h2>
+<dl>
+<dt><strong><code>request</code></strong></dt>
+<dd>The socket request object for the current client connection.</dd>
+<dt><strong><code>log</code></strong> :&ensp;<code>Logger</code></dt>
+<dd>A logger instance for logging command execution details.</dd>
+</dl></div>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="e2eeftp.server.commands.Delete" href="#e2eeftp.server.commands.Delete">Delete</a></li>
+<li><a title="e2eeftp.server.commands.Get" href="#e2eeftp.server.commands.Get">Get</a></li>
+<li><a title="e2eeftp.server.commands.Hlist" href="#e2eeftp.server.commands.Hlist">Hlist</a></li>
+<li><a title="e2eeftp.server.commands.List" href="#e2eeftp.server.commands.List">List</a></li>
+<li><a title="e2eeftp.server.commands.Send" href="#e2eeftp.server.commands.Send">Send</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="e2eeftp.server.commands.Comm.get_hlist"><code class="name flex">
+<span>def <span class="ident">get_hlist</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_hlist(self) -&gt; str: 
+    &#34;&#34;&#34;Returns the `__hlist__` value for the given command.
+
+    Returns:
+        str: the method name of the function in the request handeler.
+    &#34;&#34;&#34;
+    return self.__hlist__</code></pre>
+</details>
+<div class="desc"><p>Returns the <code>__hlist__</code> value for the given command.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>the method name of the function in the request handeler.</dd>
+</dl></div>
+</dd>
+<dt id="e2eeftp.server.commands.Comm.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self) -&gt; None:
+    &#34;&#34;&#34;
+    Executes the command by calling its `__script__` method. 
+
+    This method serves as the entry point for executing the command&#39;s logic, allowing for any necessary setup or teardown to be handled in a consistent manner.
+    &#34;&#34;&#34;
+    self.__script__()</code></pre>
+</details>
+<div class="desc"><p>Executes the command by calling its <code>__script__</code> method. </p>
+<p>This method serves as the entry point for executing the command's logic, allowing for any necessary setup or teardown to be handled in a consistent manner.</p></div>
+</dd>
+<dt id="e2eeftp.server.commands.Comm.set_hlist"><code class="name flex">
+<span>def <span class="ident">set_hlist</span></span>(<span>self, hlist_value: str) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_hlist(self, hlist_value: str) -&gt; None:
+    &#34;&#34;&#34;
+    Sets the `__hlist__` value for this command instance.
+    &#34;&#34;&#34;
+    self.__hlist__ = hlist_value</code></pre>
+</details>
+<div class="desc"><p>Sets the <code>__hlist__</code> value for this command instance.</p></div>
+</dd>
+</dl>
+</dd>
 <dt id="e2eeftp.server.commands.Delete"><code class="flex name class">
 <span>class <span class="ident">Delete</span></span>
 <span>(</span><span>filename: str, **kwargs)</span>
@@ -56,7 +246,7 @@ el.replaceWith(d);
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Delete(HList):
+<pre><code class="python">class Delete(Comm):
     &#34;&#34;&#34;
     This method is a placeholder and should be implemented with the actual logic to delete a file from the server&#39;s &#39;received&#39; directory.
 
@@ -83,6 +273,17 @@ el.replaceWith(d);
         self.filename = filename
 
     def __script__(self):
+        &#34;&#34;&#34;
+        Execute the DELETE command to remove a file from the server.
+
+        This method attempts to delete the specified file from the &#39;received&#39;
+        directory. If the file exists, it is removed and a success response
+        is sent to the client. If the file does not exist, a 404 error
+        response is sent instead.
+
+        The operation is logged with appropriate severity levels for
+        monitoring and debugging.
+        &#34;&#34;&#34;
         self.filepath = os.path.join(&#34;received&#34;, self.filename)
         if os.path.exists(self.filepath):
             os.remove(self.filepath)
@@ -112,15 +313,15 @@ el.replaceWith(d);
 </dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></li>
+<li><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></li>
 </ul>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></b></code>:
+<li><code><b><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></b></code>:
 <ul class="hlist">
-<li><code><a title="e2eeftp.server.commands.HList.get_hlist" href="#e2eeftp.server.commands.HList.get_hlist">get_hlist</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.run" href="#e2eeftp.server.commands.HList.run">run</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.set_hlist" href="#e2eeftp.server.commands.HList.set_hlist">set_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.get_hlist" href="#e2eeftp.server.commands.Comm.get_hlist">get_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.run" href="#e2eeftp.server.commands.Comm.run">run</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.set_hlist" href="#e2eeftp.server.commands.Comm.set_hlist">set_hlist</a></code></li>
 </ul>
 </li>
 </ul>
@@ -134,7 +335,7 @@ el.replaceWith(d);
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Get(HList):
+<pre><code class="python">class Get(Comm):
     &#34;&#34;&#34;
     This method is a placeholder and should be implemented with the actual logic to read a file from the server,
     encrypt it, and send it back to the client.
@@ -171,6 +372,17 @@ el.replaceWith(d);
         self.cipher = cipher
 
     def __script__(self):
+        &#34;&#34;&#34;
+        Execute the GET command to encrypt and send a file to the client.
+
+        This method locates the requested file in the &#39;received&#39; directory,
+        reads its contents, encrypts it using the session cipher, and sends
+        the encrypted data to the client. It first sends a header with the
+        encrypted data size, followed by the encrypted file data.
+
+        If the file does not exist, a 404 response is sent. If any error
+        occurs during reading or encryption, a 500 error response is sent.
+        &#34;&#34;&#34;
         filepath = os.path.join(&#34;received&#34;, self.filename)
         if not os.path.exists(filepath):
             self.log.warning(f&#34;Client requested non-existent file: {self.filename}&#34;)
@@ -220,157 +432,18 @@ with the session cipher, and sent over the socket.</p>
 </dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></li>
+<li><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></li>
 </ul>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></b></code>:
+<li><code><b><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></b></code>:
 <ul class="hlist">
-<li><code><a title="e2eeftp.server.commands.HList.get_hlist" href="#e2eeftp.server.commands.HList.get_hlist">get_hlist</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.run" href="#e2eeftp.server.commands.HList.run">run</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.set_hlist" href="#e2eeftp.server.commands.HList.set_hlist">set_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.get_hlist" href="#e2eeftp.server.commands.Comm.get_hlist">get_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.run" href="#e2eeftp.server.commands.Comm.run">run</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.set_hlist" href="#e2eeftp.server.commands.Comm.set_hlist">set_hlist</a></code></li>
 </ul>
 </li>
 </ul>
-</dd>
-<dt id="e2eeftp.server.commands.HList"><code class="flex name class">
-<span>class <span class="ident">HList</span></span>
-<span>(</span><span>request, log: logging.Logger)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class HList:
-    &#34;&#34;&#34;
-    The base class for all commands, used to identify the command type in a structured way.
-
-    Args:
-        __hlist__ (str): A string identifier for the command type, used for dispatching.
-    &#34;&#34;&#34;
-    __hlist__: str
-
-    def __init__(self, request, log: Logger): 
-        &#34;&#34;&#34;
-        Args:
-            request: The socket request object for the current client connection.
-            log (Logger): A logger instance for logging command execution details.  
-        &#34;&#34;&#34;
-        self.request = request
-        self.log: Logger = log
-
-    def __script__(self): 
-        &#34;&#34;&#34; 
-        A placeholder method that can be implemented by subclasses to define the command&#39;s behavior. 
-
-        This method is intended to be overridden by subclasses to provide specific functionality for each command type.
-        &#34;&#34;&#34;
-
-    def run(self):
-        &#34;&#34;&#34;
-        Executes the command by calling its `__script__` method. 
-
-        This method serves as the entry point for executing the command&#39;s logic, allowing for any necessary setup or teardown to be handled in a consistent manner.
-        &#34;&#34;&#34;
-        self.__script__()
-
-    def set_hlist(self, hlist_value: str) -&gt; None:
-        &#34;&#34;&#34;
-        Sets the `__hlist__` value for this command instance.
-        &#34;&#34;&#34;
-        self.__hlist__ = hlist_value
-
-    def get_hlist(self) -&gt; str: 
-        &#34;&#34;&#34;Returns the `__hlist__` value for the given command.
-
-        Returns:
-            str: the method name of the function in the request handeler.
-        &#34;&#34;&#34;
-        return self.__hlist__</code></pre>
-</details>
-<div class="desc"><p>The base class for all commands, used to identify the command type in a structured way.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>__hlist__</code></strong> :&ensp;<code>str</code></dt>
-<dd>A string identifier for the command type, used for dispatching.</dd>
-</dl>
-<h2 id="args_1">Args</h2>
-<dl>
-<dt><strong><code>request</code></strong></dt>
-<dd>The socket request object for the current client connection.</dd>
-<dt><strong><code>log</code></strong> :&ensp;<code>Logger</code></dt>
-<dd>A logger instance for logging command execution details.</dd>
-</dl></div>
-<h3>Subclasses</h3>
-<ul class="hlist">
-<li><a title="e2eeftp.server.commands.Delete" href="#e2eeftp.server.commands.Delete">Delete</a></li>
-<li><a title="e2eeftp.server.commands.Get" href="#e2eeftp.server.commands.Get">Get</a></li>
-<li><a title="e2eeftp.server.commands.Hlist" href="#e2eeftp.server.commands.Hlist">Hlist</a></li>
-<li><a title="e2eeftp.server.commands.List" href="#e2eeftp.server.commands.List">List</a></li>
-<li><a title="e2eeftp.server.commands.Send" href="#e2eeftp.server.commands.Send">Send</a></li>
-</ul>
-<h3>Methods</h3>
-<dl>
-<dt id="e2eeftp.server.commands.HList.get_hlist"><code class="name flex">
-<span>def <span class="ident">get_hlist</span></span>(<span>self) ‑> str</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_hlist(self) -&gt; str: 
-    &#34;&#34;&#34;Returns the `__hlist__` value for the given command.
-
-    Returns:
-        str: the method name of the function in the request handeler.
-    &#34;&#34;&#34;
-    return self.__hlist__</code></pre>
-</details>
-<div class="desc"><p>Returns the <code>__hlist__</code> value for the given command.</p>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>str</code></dt>
-<dd>the method name of the function in the request handeler.</dd>
-</dl></div>
-</dd>
-<dt id="e2eeftp.server.commands.HList.run"><code class="name flex">
-<span>def <span class="ident">run</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def run(self):
-    &#34;&#34;&#34;
-    Executes the command by calling its `__script__` method. 
-
-    This method serves as the entry point for executing the command&#39;s logic, allowing for any necessary setup or teardown to be handled in a consistent manner.
-    &#34;&#34;&#34;
-    self.__script__()</code></pre>
-</details>
-<div class="desc"><p>Executes the command by calling its <code>__script__</code> method. </p>
-<p>This method serves as the entry point for executing the command's logic, allowing for any necessary setup or teardown to be handled in a consistent manner.</p></div>
-</dd>
-<dt id="e2eeftp.server.commands.HList.set_hlist"><code class="name flex">
-<span>def <span class="ident">set_hlist</span></span>(<span>self, hlist_value: str) ‑> None</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def set_hlist(self, hlist_value: str) -&gt; None:
-    &#34;&#34;&#34;
-    Sets the `__hlist__` value for this command instance.
-    &#34;&#34;&#34;
-    self.__hlist__ = hlist_value</code></pre>
-</details>
-<div class="desc"><p>Sets the <code>__hlist__</code> value for this command instance.</p></div>
-</dd>
-</dl>
 </dd>
 <dt id="e2eeftp.server.commands.Hlist"><code class="flex name class">
 <span>class <span class="ident">Hlist</span></span>
@@ -381,7 +454,7 @@ with the session cipher, and sent over the socket.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Hlist(HList):
+<pre><code class="python">class Hlist(Comm):
     &#34;&#34;&#34;
     The script method for the Hlist command, which returns the list of supported
     commands as plain text.
@@ -402,6 +475,15 @@ with the session cipher, and sent over the socket.</p>
         self.commands = commands
 
     def __script__(self):
+        &#34;&#34;&#34;
+        Execute the HLIST command to send the list of supported commands to the client.
+
+        This method formats the list of available commands as a newline-separated
+        string, encodes it, and sends it to the client. It first sends a header
+        with the size of the command list payload, followed by the actual list.
+
+        This helps clients understand what operations are available on the server.
+        &#34;&#34;&#34;
         command_list = &#34;\n&#34;.join(self.commands)
         payload = command_list.encode()
         self.request.sendall(f&#34;200|{len(payload)}\n&#34;.encode())
@@ -424,15 +506,15 @@ commands as plain text.</p>
 </dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></li>
+<li><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></li>
 </ul>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></b></code>:
+<li><code><b><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></b></code>:
 <ul class="hlist">
-<li><code><a title="e2eeftp.server.commands.HList.get_hlist" href="#e2eeftp.server.commands.HList.get_hlist">get_hlist</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.run" href="#e2eeftp.server.commands.HList.run">run</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.set_hlist" href="#e2eeftp.server.commands.HList.set_hlist">set_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.get_hlist" href="#e2eeftp.server.commands.Comm.get_hlist">get_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.run" href="#e2eeftp.server.commands.Comm.run">run</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.set_hlist" href="#e2eeftp.server.commands.Comm.set_hlist">set_hlist</a></code></li>
 </ul>
 </li>
 </ul>
@@ -446,7 +528,7 @@ commands as plain text.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class List(HList):
+<pre><code class="python">class List(Comm):
     &#34;&#34;&#34;
     This method is a placeholder and should be implemented with the actual logic to list files in the &#39;received&#39; directory.
 
@@ -469,6 +551,17 @@ commands as plain text.</p>
         super().__init__(**kwargs)
 
     def __script__(self):
+        &#34;&#34;&#34;
+        Execute the LIST command to send a list of available files to the client.
+
+        This method retrieves the list of files in the &#39;received&#39; directory,
+        formats them as a newline-separated string, and sends this list to
+        the client. It first sends a header with the size of the file list
+        string, followed by the actual list data.
+
+        The response includes all files present in the received directory,
+        allowing clients to see what files are available for download.
+        &#34;&#34;&#34;
         files = os.listdir(&#34;received&#34;)
         file_list = &#34;\n&#34;.join(files)
         self.request.sendall(f&#34;200|{len(file_list)}\n&#34;.encode())
@@ -489,15 +582,15 @@ Sends body: A string of filenames.</p>
 <p>the initializer for the <code>LIST</code> method.</p></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></li>
+<li><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></li>
 </ul>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></b></code>:
+<li><code><b><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></b></code>:
 <ul class="hlist">
-<li><code><a title="e2eeftp.server.commands.HList.get_hlist" href="#e2eeftp.server.commands.HList.get_hlist">get_hlist</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.run" href="#e2eeftp.server.commands.HList.run">run</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.set_hlist" href="#e2eeftp.server.commands.HList.set_hlist">set_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.get_hlist" href="#e2eeftp.server.commands.Comm.get_hlist">get_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.run" href="#e2eeftp.server.commands.Comm.run">run</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.set_hlist" href="#e2eeftp.server.commands.Comm.set_hlist">set_hlist</a></code></li>
 </ul>
 </li>
 </ul>
@@ -511,7 +604,7 @@ Sends body: A string of filenames.</p>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Send(HList):
+<pre><code class="python">class Send(Comm):
     &#34;&#34;&#34;
     This method is a placeholder and should be implemented with the actual logic to receive a file from the client, 
     save it to the server, and send an appropriate response back to the client. 
@@ -534,7 +627,7 @@ Sends body: A string of filenames.</p>
     - On success: `b&#34;226|Transfer Complete\\n&#34;`
     - On decryption failure: `b&#34;500|Decryption Failed\\n&#34;`
     &#34;&#34;&#34;
-    def __init__(self, filename: str, filesize: int, cipher: AESCipher, **kwargs):
+    def __init__(self, filename: str, filesize: int, cipher: AESCipher, **kwargs) -&gt; None:
         &#34;&#34;&#34;The initializer for the `SEND` method.
 
         Args:
@@ -548,6 +641,18 @@ Sends body: A string of filenames.</p>
         self.cipher = cipher
 
     def __script__(self):
+        &#34;&#34;&#34;
+        Execute the SEND command to receive and decrypt a file from the client.
+
+        This method reads the encrypted file data from the socket based on the
+        specified filesize, decrypts it using the session cipher, and saves the
+        decrypted file to the &#39;received&#39; directory. It sends appropriate response
+        codes back to the client indicating success or failure.
+
+        The method handles partial reads by accumulating data until the full
+        encrypted buffer is received. If decryption fails, an error response
+        is sent and the operation is logged.
+        &#34;&#34;&#34;
         self.log.info(f&#34;Receiving encrypted file: {self.filename} ({self.filesize} bytes)&#34;)
         received_dir = &#34;received&#34;
         os.makedirs(received_dir, exist_ok=True)
@@ -604,15 +709,15 @@ data using the session's cipher and saves it to the <code>received</code> direct
 </dl></div>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></li>
+<li><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></li>
 </ul>
 <h3>Inherited members</h3>
 <ul class="hlist">
-<li><code><b><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></b></code>:
+<li><code><b><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></b></code>:
 <ul class="hlist">
-<li><code><a title="e2eeftp.server.commands.HList.get_hlist" href="#e2eeftp.server.commands.HList.get_hlist">get_hlist</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.run" href="#e2eeftp.server.commands.HList.run">run</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.set_hlist" href="#e2eeftp.server.commands.HList.set_hlist">set_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.get_hlist" href="#e2eeftp.server.commands.Comm.get_hlist">get_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.run" href="#e2eeftp.server.commands.Comm.run">run</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.set_hlist" href="#e2eeftp.server.commands.Comm.set_hlist">set_hlist</a></code></li>
 </ul>
 </li>
 </ul>
@@ -633,18 +738,18 @@ data using the session's cipher and saves it to the <code>received</code> direct
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
+<h4><code><a title="e2eeftp.server.commands.Comm" href="#e2eeftp.server.commands.Comm">Comm</a></code></h4>
+<ul class="">
+<li><code><a title="e2eeftp.server.commands.Comm.get_hlist" href="#e2eeftp.server.commands.Comm.get_hlist">get_hlist</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.run" href="#e2eeftp.server.commands.Comm.run">run</a></code></li>
+<li><code><a title="e2eeftp.server.commands.Comm.set_hlist" href="#e2eeftp.server.commands.Comm.set_hlist">set_hlist</a></code></li>
+</ul>
+</li>
+<li>
 <h4><code><a title="e2eeftp.server.commands.Delete" href="#e2eeftp.server.commands.Delete">Delete</a></code></h4>
 </li>
 <li>
 <h4><code><a title="e2eeftp.server.commands.Get" href="#e2eeftp.server.commands.Get">Get</a></code></h4>
-</li>
-<li>
-<h4><code><a title="e2eeftp.server.commands.HList" href="#e2eeftp.server.commands.HList">HList</a></code></h4>
-<ul class="">
-<li><code><a title="e2eeftp.server.commands.HList.get_hlist" href="#e2eeftp.server.commands.HList.get_hlist">get_hlist</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.run" href="#e2eeftp.server.commands.HList.run">run</a></code></li>
-<li><code><a title="e2eeftp.server.commands.HList.set_hlist" href="#e2eeftp.server.commands.HList.set_hlist">set_hlist</a></code></li>
-</ul>
 </li>
 <li>
 <h4><code><a title="e2eeftp.server.commands.Hlist" href="#e2eeftp.server.commands.Hlist">Hlist</a></code></h4>
