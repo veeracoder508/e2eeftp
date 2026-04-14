@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.6">
 <title>e2eeftp.server.server API documentation</title>
-<meta name="description" content="e2eeftp server using `socketserver` module.">
+<meta name="description" content="E2EEFTP server implementation …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" crossorigin>
 <style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
@@ -28,6 +28,50 @@ el.replaceWith(d);
 });
 }, 100);
 })</script>
+<style>:root{--highlight-color:#44475a}.flex{display:flex !important}body{background:#282a36;color:#f8f8f2;line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #44475a;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#8be9fd;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#bd93f9}a:hover{color:#ff79c6}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#50fa7b;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#21222c;color:#f8f8f2;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #44475a;border-bottom:1px solid #44475a;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #44475a}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#44475a;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#6272a4}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#6272a4;border-left:5px solid #44475a;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#6272a4;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#11324d}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#1e3822}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#524010}.admonition.error,.admonition.danger,.admonition.caution{background:#4f1919}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #44475a}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<style>
+/* Prevent horizontal overflow and force text wrapping */
+body, html {
+overflow-x: clip;
+}
+pre, code, pre code, .source pre code {
+white-space: pre-wrap !important;
+/* Forces text to wrap to the next line */
+word-break: break-word !important;
+/* Breaks extremely long words/strings if necessary */
+overflow-wrap: break-word !important;
+overflow-x: hidden !important;
+/* Disables horizontal scrolling */
+min-width: 0 !important;
+/* Overrides the default stretching behavior */
+}
+/* Firefox Scrollbar */
+* {
+scrollbar-width: thin;
+scrollbar-color: #555555 #1e1e1e;
+}
+/* Chrome, Edge, and Safari Scrollbar */
+::-webkit-scrollbar {
+width: 12px;
+/* width of the vertical scrollbar */
+height: 12px;
+/* height of the horizontal scrollbar */
+}
+::-webkit-scrollbar-track {
+background: #1e1e1e; /* color of the tracking area */
+}
+::-webkit-scrollbar-thumb {
+background-color: #555555; /* color of the scroll thumb */
+border-radius: 10px;
+/* roundness of the scroll thumb */
+border: 3px solid #1e1e1e; /* creates padding around the thumb */
+}
+::-webkit-scrollbar-thumb:hover {
+background-color: #777777; /* lighter color when hovering */
+}
+</style>
 </head>
 <body>
 <main>
@@ -36,13 +80,50 @@ el.replaceWith(d);
 <h1 class="title">Module <code>e2eeftp.server.server</code></h1>
 </header>
 <section id="section-intro">
-<p>e2eeftp server using <code>socketserver</code> module.</p>
+<p>E2EEFTP server implementation.</p>
+<p>This module provides the server-side components for the End-to-End Encrypted FTP
+protocol. It includes a multi-threaded TCP server that handles secure file transfers
+with authentication and encryption.</p>
+<p>The server uses Elliptic Curve Diffie-Hellman for key exchange and Ed25519 for
+identity verification, ensuring secure, authenticated connections. Each client
+connection is handled in a separate thread, allowing concurrent operations.</p>
+<p>Key components:
+- E2EEFTPRequestHandler: Handles individual client connections and command processing
+- e2eeftp: The main server class extending ThreadingTCPServer
+- Command handlers for SEND, GET, LIST, DELETE, and HLIST operations</p>
 </section>
 <section>
 </section>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="e2eeftp.server.server.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    &#34;&#34;&#34;
+    Main entry point for running the E2EEFTP server.
+
+    This function creates an instance of the e2eeftp server and starts it,
+    beginning the listening loop for incoming client connections. The server
+    will run until interrupted (e.g., via KeyboardInterrupt).
+    &#34;&#34;&#34;
+    server = e2eeftp()
+    server.run()</code></pre>
+</details>
+<div class="desc"><p>Main entry point for running the E2EEFTP server.</p>
+<p>This function creates an instance of the e2eeftp server and starts it,
+beginning the listening loop for incoming client connections. The server
+will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
+</dd>
+</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
@@ -78,7 +159,15 @@ el.replaceWith(d);
         &#34;HLIST&#34;: &#34;_hlist&#34;
     }
 
-    req: dict[str, HList] = {}
+    req: dict[str, Comm] = {}
+
+    def setup(self) -&gt; None:
+        &#34;&#34;&#34;
+        Called before handle() to perform any initialization actions.
+        Runs exactly once per connection/instance.
+        &#34;&#34;&#34;
+        self.update_command_handlers()
+        super().setup()
 
     def handle(self):
         &#34;&#34;&#34;
@@ -200,7 +289,7 @@ el.replaceWith(d);
         Returns:
             tuple: The arguments to be passed to the command handler method, based on the command type. The mapping is as follows:
         &#34;&#34;&#34;
-        cmd_args: tuple = ()
+        cmd_args: list = []
         command = request_parts[0].upper()
         if command == &#34;SEND&#34;:
             cmd_args = [request_parts[1], int(request_parts[2]), cipher]
@@ -296,7 +385,21 @@ el.replaceWith(d);
         &#34;&#34;&#34;
         self.req[&#34;GET&#34;] = Get(filename=filename, cipher=cipher, request=self.request, log=log)
         self.req[&#34;GET&#34;].set_hlist(self._send_file.__name__)
-        self.req[&#34;GET&#34;].run()</code></pre>
+        self.req[&#34;GET&#34;].run()
+
+    def update_command_handlers(self):
+        &#34;&#34;&#34;
+        Update the command handlers dictionary with dynamic handlers from request objects.
+
+        This method iterates through the req dictionary (containing command objects)
+        and updates the command_handlers mapping to include the __hlist__ method
+        names for each command. This allows for dynamic command handler registration
+        based on the current request state.
+
+        The updated handlers are logged at debug level for troubleshooting.
+        &#34;&#34;&#34;
+        self.command_handlers.update({comm_name: comm.__hlist__ for comm_name, comm in self.req.items()})
+        log.debug(self.command_handlers)</code></pre>
 </details>
 <div class="desc"><p>Request handler for each client connection, instantiated by the socketserver.</p>
 <p>This class manages the entire lifecycle of a client connection. It is
@@ -316,7 +419,7 @@ changing _handle_request logic.</p></div>
 <dd>
 <div class="desc"><p>The type of the None singleton.</p></div>
 </dd>
-<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.req"><code class="name">var <span class="ident">req</span> : dict[str, <a title="e2eeftp.server.commands.HList" href="commands.html#e2eeftp.server.commands.HList">HList</a>]</code></dt>
+<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.req"><code class="name">var <span class="ident">req</span> : dict[str, <a title="e2eeftp.server.commands.Comm" href="commands.html#e2eeftp.server.commands.Comm">Comm</a>]</code></dt>
 <dd>
 <div class="desc"><p>The type of the None singleton.</p></div>
 </dd>
@@ -398,6 +501,54 @@ Calls the internal method corresponding to the command.
 Handles any exceptions during the session.
 5.
 Ensures the connection is logged and closed cleanly.</p></div>
+</dd>
+<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.setup"><code class="name flex">
+<span>def <span class="ident">setup</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setup(self) -&gt; None:
+    &#34;&#34;&#34;
+    Called before handle() to perform any initialization actions.
+    Runs exactly once per connection/instance.
+    &#34;&#34;&#34;
+    self.update_command_handlers()
+    super().setup()</code></pre>
+</details>
+<div class="desc"><p>Called before handle() to perform any initialization actions.
+Runs exactly once per connection/instance.</p></div>
+</dd>
+<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers"><code class="name flex">
+<span>def <span class="ident">update_command_handlers</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_command_handlers(self):
+    &#34;&#34;&#34;
+    Update the command handlers dictionary with dynamic handlers from request objects.
+
+    This method iterates through the req dictionary (containing command objects)
+    and updates the command_handlers mapping to include the __hlist__ method
+    names for each command. This allows for dynamic command handler registration
+    based on the current request state.
+
+    The updated handlers are logged at debug level for troubleshooting.
+    &#34;&#34;&#34;
+    self.command_handlers.update({comm_name: comm.__hlist__ for comm_name, comm in self.req.items()})
+    log.debug(self.command_handlers)</code></pre>
+</details>
+<div class="desc"><p>Update the command handlers dictionary with dynamic handlers from request objects.</p>
+<p>This method iterates through the req dictionary (containing command objects)
+and updates the command_handlers mapping to include the <strong>hlist</strong> method
+names for each command. This allows for dynamic command handler registration
+based on the current request state.</p>
+<p>The updated handlers are logged at debug level for troubleshooting.</p></div>
 </dd>
 </dl>
 </dd>
@@ -613,6 +764,11 @@ connections. Each connection is then passed to an instance of
 <li><code><a title="e2eeftp.server" href="index.html">e2eeftp.server</a></code></li>
 </ul>
 </li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="e2eeftp.server.server.main" href="#e2eeftp.server.server.main">main</a></code></li>
+</ul>
+</li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
@@ -621,6 +777,8 @@ connections. Each connection is then passed to an instance of
 <li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers" href="#e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers">command_handlers</a></code></li>
 <li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.handle" href="#e2eeftp.server.server.E2EEFTPRequestHandler.handle">handle</a></code></li>
 <li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.req" href="#e2eeftp.server.server.E2EEFTPRequestHandler.req">req</a></code></li>
+<li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.setup" href="#e2eeftp.server.server.E2EEFTPRequestHandler.setup">setup</a></code></li>
+<li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers" href="#e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers">update_command_handlers</a></code></li>
 </ul>
 </li>
 <li>

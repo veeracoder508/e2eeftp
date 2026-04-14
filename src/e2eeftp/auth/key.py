@@ -1,3 +1,12 @@
+"""
+Key generation utilities for E2EEFTP authentication.
+
+This module provides functions for generating Ed25519 key pairs used in the
+end-to-end encryption authentication system. It handles the creation of server
+and client keys, saving them to appropriate files, and managing the authorized
+clients list.
+"""
+
 from cryptography.hazmat.primitives.asymmetric import ed25519
 from cryptography.hazmat.primitives import serialization
 import base64
@@ -5,7 +14,23 @@ from rich import print
 
 def generate_keys():
     """
-    Generates and saves key pairs for server and client.
+    Generates and saves Ed25519 key pairs for server and client authentication.
+
+    This function creates cryptographic key pairs for both the server and client
+    components of E2EEFTP. It generates:
+
+    - Server private key (server_id.key) - kept secret on the server
+    - Server public key (known_server.pub) - shared with clients
+    - Client private key (client_id.key) - kept secret on the client
+    - Client public key - added to authorized_clients.pub for server authorization
+
+    The keys are saved in PEM format for private keys and appropriate formats
+    for public keys. The function provides user feedback about where to place
+    the generated files.
+
+    Note:
+        This function appends to authorized_clients.pub if it exists, allowing
+        multiple client keys to be authorized.
     """
     # --- Generate Server Keys ---
     print("--- Generating Server Keys ---")

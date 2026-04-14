@@ -1,6 +1,6 @@
 [project]
 name = "e2eeftp"
-version = "0.0.0b3"
+version = "0.0.0b4"
 authors = [
   { name="R A Veeraragavan", email="veeracoder123@gmail.com" },
 ]
@@ -31,6 +31,10 @@ e2eeftp = "e2eeftp.cli:cli"
 
 [tool.uv.workspace]
 members = [
+    ".",
+    ".",
+    ".",
+    ".",
     ".",
 ]
 

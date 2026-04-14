@@ -1,7 +1,19 @@
-from .client import e2eeftpClient
+"""
+Command-line interface for E2EEFTP client.
+
+This module provides an interactive command-line interface for the E2EEFTP client,
+allowing users to perform secure file transfers through a rich text-based UI.
+It includes commands for connecting to servers, uploading/downloading files,
+listing remote files, and managing connections.
+
+The CLI uses Rich for enhanced terminal output and provides a user-friendly
+interface for interacting with E2EEFTP servers.
+"""
+
+from ..client.client import e2eeftpClient
 from rich.console import Console
 from rich.panel import Panel
-from rich.prompt import Prompt as PPrompt
+from rich.prompt import Prompt
 from rich.table import Table
 from rich import print as rprint
 import subprocess
@@ -10,7 +22,13 @@ import os
 import socket
 
 
-class Prompt(PPrompt):
+class _Prompt(Prompt):
+    """
+    Custom prompt class extending Rich's Prompt with modified styling.
+
+    This class customizes the prompt appearance by removing the default
+    prompt suffix, providing a cleaner interface for the E2EEFTP CLI.
+    """
     prompt_suffix = ""
 
 def check_host_status(host: str = '127.0.0.1', port: None | int = None) -> bool:
@@ -47,6 +65,17 @@ class e2eeftpClientCli:
     The CLI for the e2eeftp client for a user frendly TUI experience.
     """
     def __init__(self, host: str='127.0.0.1', port: int=5001):
+        """
+        Initialize the E2EEFTP client CLI with server connection details.
+
+        Args:
+            host (str): The hostname or IP address of the E2EEFTP server.
+            port (int): The port number on which the server is listening.
+
+        This method sets up the client connection, console for rich output,
+        status code mappings for user-friendly messages, and initializes
+        the help system and command interface.
+        """
         # Initialize client - ensure host is accessible via self.client.host
         self.client = e2eeftpClient(host=host, port=port, logging=False)
         self.console = Console()
@@ -80,9 +109,31 @@ class e2eeftpClientCli:
         self.help_table.add_row("EXIT", "Close the client", "EXIT")
 
     def _get_status_style(self, code):
+        """
+        Get the styled status message for a given status code.
+
+        Args:
+            code: The HTTP-like status code returned by server operations.
+
+        Returns:
+            str: A Rich-formatted string with appropriate colors and styling
+                 for the status code, or a generic unknown status message.
+        """
         return self.status_map.get(str(code), f"[white]{code}: Unknown Status[/white]")
 
     def run(self):
+        """
+        Start the interactive CLI session for the E2EEFTP client.
+
+        This method clears the console, displays a welcome panel, and enters
+        an interactive loop where it accepts user commands. It handles special
+        commands like EXIT and delegates other commands to _evaluate_command
+        for processing. The loop continues until the user exits or an interrupt
+        occurs.
+
+        The interface provides a clean, Rich-enhanced terminal experience with
+        colored output and formatted panels.
+        """
         self.console.clear()
         self.console.print(Panel.fit(
             "[bold cyan]E2EE FTP Client[/bold cyan]",
@@ -92,7 +143,7 @@ class e2eeftpClientCli:
         try:
             while True:
                 # Use Prompt.ask for a clean input experience
-                command_input = Prompt.ask("[bold green]>>> [/bold green]").strip()
+                command_input = _Prompt.ask("[bold green]>>> [/bold green]").strip()
                 
                 if not command_input:
                     continue
@@ -106,6 +157,27 @@ class e2eeftpClientCli:
             rprint("\n[red]Session terminated.[/red]")
 
     def _evaluate_command(self, command: str):
+        """
+        Parse and execute a user-entered command.
+
+        Args:
+            command (str): The raw command string entered by the user.
+
+        This method parses the command, determines the operation type, and
+        executes the appropriate action. Supported commands include:
+        - SEND: Upload a file to the server
+        - GET: Download a file from the server
+        - LIST: Display server's file directory
+        - DELETE: Remove a file from the server
+        - HLIST: Show available server commands
+        - HELP: Display the help table
+        - PING: Check server connectivity
+        - EXIT: Terminate the session (handled in run())
+
+        For file operations, it validates arguments and provides user feedback
+        through Rich-formatted console output. Invalid commands are reported
+        with appropriate error messages.
+        """
         parts = command.split(maxsplit=1)
         method = parts[0].upper()
         args = parts[1] if len(parts) > 1 else None

@@ -1,15 +1,25 @@
 """
-This modudle contains all the command handlers for the secure file transfer server.
+Command handlers for E2EEFTP server operations.
+
+This module defines the command classes that handle various FTP operations
+in the E2EEFTP server. Each command inherits from the base Comm class and
+implements the __script__ method to perform specific operations like sending
+files, receiving files, listing directories, deleting files, and providing
+help information.
+
+All commands work with encrypted data using the AESCipher for secure
+communication between client and server.
 """
+
 from logging import Logger
 import os
 from ..auth import AESCipher
 
 
-__all__ = ["HList", "Send", "Get", "List", "Delete", "Hlist"]
+__all__ = ["Comm", "Send", "Get", "List", "Delete", "Hlist"]
 
 
-class HList:
+class Comm:
     """
     The base class for all commands, used to identify the command type in a structured way.
 
@@ -18,7 +28,7 @@ class HList:
     """
     __hlist__: str
 
-    def __init__(self, request, log: Logger): 
+    def __init__(self, request, log: Logger) -> None: 
         """
         Args:
             request: The socket request object for the current client connection.
@@ -27,14 +37,14 @@ class HList:
         self.request = request
         self.log: Logger = log
 
-    def __script__(self): 
+    def __script__(self) -> None: 
         """ 
         A placeholder method that can be implemented by subclasses to define the command's behavior. 
 
         This method is intended to be overridden by subclasses to provide specific functionality for each command type.
         """
 
-    def run(self):
+    def run(self) -> None:
         """
         Executes the command by calling its `__script__` method. 
 
@@ -57,7 +67,7 @@ class HList:
         return self.__hlist__
 
 
-class Send(HList):
+class Send(Comm):
     """
     This method is a placeholder and should be implemented with the actual logic to receive a file from the client, 
     save it to the server, and send an appropriate response back to the client. 
@@ -80,7 +90,7 @@ class Send(HList):
     - On success: `b"226|Transfer Complete\\n"`
     - On decryption failure: `b"500|Decryption Failed\\n"`
     """
-    def __init__(self, filename: str, filesize: int, cipher: AESCipher, **kwargs):
+    def __init__(self, filename: str, filesize: int, cipher: AESCipher, **kwargs) -> None:
         """The initializer for the `SEND` method.
 
         Args:
@@ -94,6 +104,18 @@ class Send(HList):
         self.cipher = cipher
 
     def __script__(self):
+        """
+        Execute the SEND command to receive and decrypt a file from the client.
+
+        This method reads the encrypted file data from the socket based on the
+        specified filesize, decrypts it using the session cipher, and saves the
+        decrypted file to the 'received' directory. It sends appropriate response
+        codes back to the client indicating success or failure.
+
+        The method handles partial reads by accumulating data until the full
+        encrypted buffer is received. If decryption fails, an error response
+        is sent and the operation is logged.
+        """
         self.log.info(f"Receiving encrypted file: {self.filename} ({self.filesize} bytes)")
         received_dir = "received"
         os.makedirs(received_dir, exist_ok=True)
@@ -118,7 +140,7 @@ class Send(HList):
             self.log.error(f"Decryption failed for {self.filename}: {e}")
             self.request.sendall(b"500|Decryption Failed\n")
         
-class Get(HList):
+class Get(Comm):
     """
     This method is a placeholder and should be implemented with the actual logic to read a file from the server,
     encrypt it, and send it back to the client.
@@ -155,6 +177,17 @@ class Get(HList):
         self.cipher = cipher
 
     def __script__(self):
+        """
+        Execute the GET command to encrypt and send a file to the client.
+
+        This method locates the requested file in the 'received' directory,
+        reads its contents, encrypts it using the session cipher, and sends
+        the encrypted data to the client. It first sends a header with the
+        encrypted data size, followed by the encrypted file data.
+
+        If the file does not exist, a 404 response is sent. If any error
+        occurs during reading or encryption, a 500 error response is sent.
+        """
         filepath = os.path.join("received", self.filename)
         if not os.path.exists(filepath):
             self.log.warning(f"Client requested non-existent file: {self.filename}")
@@ -174,7 +207,7 @@ class Get(HList):
             self.log.error(f"Error reading or sending file {self.filename}: {e}")
             self.request.sendall(b"500|Server Read Error\n")
 
-class List(HList):
+class List(Comm):
     """
     This method is a placeholder and should be implemented with the actual logic to list files in the 'received' directory.
 
@@ -197,13 +230,24 @@ class List(HList):
         super().__init__(**kwargs)
 
     def __script__(self):
+        """
+        Execute the LIST command to send a list of available files to the client.
+
+        This method retrieves the list of files in the 'received' directory,
+        formats them as a newline-separated string, and sends this list to
+        the client. It first sends a header with the size of the file list
+        string, followed by the actual list data.
+
+        The response includes all files present in the received directory,
+        allowing clients to see what files are available for download.
+        """
         files = os.listdir("received")
         file_list = "\n".join(files)
         self.request.sendall(f"200|{len(file_list)}\n".encode())
         self.request.sendall(file_list.encode())
         self.log.info(f"200|Sent file list with {len(files)} entries")
 
-class Delete(HList):
+class Delete(Comm):
     """
     This method is a placeholder and should be implemented with the actual logic to delete a file from the server's 'received' directory.
 
@@ -230,6 +274,17 @@ class Delete(HList):
         self.filename = filename
 
     def __script__(self):
+        """
+        Execute the DELETE command to remove a file from the server.
+
+        This method attempts to delete the specified file from the 'received'
+        directory. If the file exists, it is removed and a success response
+        is sent to the client. If the file does not exist, a 404 error
+        response is sent instead.
+
+        The operation is logged with appropriate severity levels for
+        monitoring and debugging.
+        """
         self.filepath = os.path.join("received", self.filename)
         if os.path.exists(self.filepath):
             os.remove(self.filepath)
@@ -239,7 +294,7 @@ class Delete(HList):
             self.request.sendall(b"404|File not found\n")
             self.log.warning(f"404|File not found for deletion: {self.filename}")
 
-class Hlist(HList):
+class Hlist(Comm):
     """
     The script method for the Hlist command, which returns the list of supported
     commands as plain text.
@@ -260,6 +315,15 @@ class Hlist(HList):
         self.commands = commands
 
     def __script__(self):
+        """
+        Execute the HLIST command to send the list of supported commands to the client.
+
+        This method formats the list of available commands as a newline-separated
+        string, encodes it, and sends it to the client. It first sends a header
+        with the size of the command list payload, followed by the actual list.
+
+        This helps clients understand what operations are available on the server.
+        """
         command_list = "\n".join(self.commands)
         payload = command_list.encode()
         self.request.sendall(f"200|{len(payload)}\n".encode())

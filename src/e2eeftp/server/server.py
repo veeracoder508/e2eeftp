@@ -1,6 +1,20 @@
-""" 
-e2eeftp server using `socketserver` module.
 """
+E2EEFTP server implementation.
+
+This module provides the server-side components for the End-to-End Encrypted FTP
+protocol. It includes a multi-threaded TCP server that handles secure file transfers
+with authentication and encryption.
+
+The server uses Elliptic Curve Diffie-Hellman for key exchange and Ed25519 for
+identity verification, ensuring secure, authenticated connections. Each client
+connection is handled in a separate thread, allowing concurrent operations.
+
+Key components:
+- E2EEFTPRequestHandler: Handles individual client connections and command processing
+- e2eeftp: The main server class extending ThreadingTCPServer
+- Command handlers for SEND, GET, LIST, DELETE, and HLIST operations
+"""
+
 import socketserver
 import logging
 import os
@@ -45,7 +59,15 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         "HLIST": "_hlist"
     }
 
-    req: dict[str, HList] = {}
+    req: dict[str, Comm] = {}
+
+    def setup(self) -> None:
+        """
+        Called before handle() to perform any initialization actions.
+        Runs exactly once per connection/instance.
+        """
+        self.update_command_handlers()
+        super().setup()
 
     def handle(self):
         """
@@ -167,7 +189,7 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         Returns:
             tuple: The arguments to be passed to the command handler method, based on the command type. The mapping is as follows:
         """
-        cmd_args: tuple = ()
+        cmd_args: list = []
         command = request_parts[0].upper()
         if command == "SEND":
             cmd_args = [request_parts[1], int(request_parts[2]), cipher]
@@ -264,6 +286,20 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         self.req["GET"] = Get(filename=filename, cipher=cipher, request=self.request, log=log)
         self.req["GET"].set_hlist(self._send_file.__name__)
         self.req["GET"].run()
+
+    def update_command_handlers(self):
+        """
+        Update the command handlers dictionary with dynamic handlers from request objects.
+
+        This method iterates through the req dictionary (containing command objects)
+        and updates the command_handlers mapping to include the __hlist__ method
+        names for each command. This allows for dynamic command handler registration
+        based on the current request state.
+
+        The updated handlers are logged at debug level for troubleshooting.
+        """
+        self.command_handlers.update({comm_name: comm.__hlist__ for comm_name, comm in self.req.items()})
+        log.debug(self.command_handlers)
 
 
 class e2eeftp(socketserver.ThreadingTCPServer):
@@ -364,3 +400,19 @@ class e2eeftp(socketserver.ThreadingTCPServer):
             log.warning("Shutting down...")
         finally:
             self.server_close()
+
+
+def main():
+    """
+    Main entry point for running the E2EEFTP server.
+
+    This function creates an instance of the e2eeftp server and starts it,
+    beginning the listening loop for incoming client connections. The server
+    will run until interrupted (e.g., via KeyboardInterrupt).
+    """
+    server = e2eeftp()
+    server.run()
+
+
+if __name__ == "__main__":
+    main()

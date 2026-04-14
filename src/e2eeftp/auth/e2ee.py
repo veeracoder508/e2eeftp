@@ -1,3 +1,21 @@
+"""
+End-to-End Encryption implementation for E2EEFTP.
+
+This module provides the cryptographic primitives and handshake protocols for
+establishing secure, authenticated connections between E2EEFTP clients and servers.
+It implements the Signal protocol-inspired end-to-end encryption using:
+
+- X25519 for Elliptic Curve Diffie-Hellman key exchange
+- Ed25519 for identity verification and signatures
+- AES-256-CBC for symmetric encryption
+- HMAC-SHA256 for message authentication
+- HKDF for key derivation
+
+The module includes classes for symmetric encryption (AESCipher) and the full
+E2EE handshake process (E2EE), ensuring forward secrecy and protection against
+man-in-the-middle attacks.
+"""
+
 import socket
 import os
 from cryptography.hazmat.primitives import hashes, serialization

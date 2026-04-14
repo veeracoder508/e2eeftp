@@ -1,4 +1,4 @@
-from e2eeftp.benchmarker import BenchMark
+from benchmarker import BenchMark
 from e2eeftp import e2eeftpClient
 
 
