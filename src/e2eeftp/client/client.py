@@ -1,3 +1,16 @@
+"""
+E2EEFTP client implementation.
+
+This module provides the client-side components for the End-to-End Encrypted FTP
+protocol. It includes a client class that can connect to E2EEFTP servers,
+perform secure handshakes, and execute file transfer operations with full
+encryption and authentication.
+
+The client uses Ed25519 keys for identity verification and X25519 for
+establishing ephemeral session keys, ensuring secure and authenticated
+communication with the server.
+"""
+
 import socket
 import os
 import logging
@@ -346,3 +359,11 @@ class e2eeftpClient:
         except Exception as e:
             log.error(f"An error occurred during hlist operation: {e}")
         return None
+
+    def __enter__(self):
+        client = self
+
+        return client
+    
+    def __exit__(self, exc_type, exc, tb):
+        pass

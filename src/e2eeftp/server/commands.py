@@ -1,6 +1,16 @@
 """
-This modudle contains all the command handlers for the secure file transfer server.
+Command handlers for E2EEFTP server operations.
+
+This module defines the command classes that handle various FTP operations
+in the E2EEFTP server. Each command inherits from the base Comm class and
+implements the __script__ method to perform specific operations like sending
+files, receiving files, listing directories, deleting files, and providing
+help information.
+
+All commands work with encrypted data using the AESCipher for secure
+communication between client and server.
 """
+
 from logging import Logger
 import os
 from ..auth import AESCipher
@@ -94,6 +104,18 @@ class Send(Comm):
         self.cipher = cipher
 
     def __script__(self):
+        """
+        Execute the SEND command to receive and decrypt a file from the client.
+
+        This method reads the encrypted file data from the socket based on the
+        specified filesize, decrypts it using the session cipher, and saves the
+        decrypted file to the 'received' directory. It sends appropriate response
+        codes back to the client indicating success or failure.
+
+        The method handles partial reads by accumulating data until the full
+        encrypted buffer is received. If decryption fails, an error response
+        is sent and the operation is logged.
+        """
         self.log.info(f"Receiving encrypted file: {self.filename} ({self.filesize} bytes)")
         received_dir = "received"
         os.makedirs(received_dir, exist_ok=True)
@@ -155,6 +177,17 @@ class Get(Comm):
         self.cipher = cipher
 
     def __script__(self):
+        """
+        Execute the GET command to encrypt and send a file to the client.
+
+        This method locates the requested file in the 'received' directory,
+        reads its contents, encrypts it using the session cipher, and sends
+        the encrypted data to the client. It first sends a header with the
+        encrypted data size, followed by the encrypted file data.
+
+        If the file does not exist, a 404 response is sent. If any error
+        occurs during reading or encryption, a 500 error response is sent.
+        """
         filepath = os.path.join("received", self.filename)
         if not os.path.exists(filepath):
             self.log.warning(f"Client requested non-existent file: {self.filename}")
@@ -197,6 +230,17 @@ class List(Comm):
         super().__init__(**kwargs)
 
     def __script__(self):
+        """
+        Execute the LIST command to send a list of available files to the client.
+
+        This method retrieves the list of files in the 'received' directory,
+        formats them as a newline-separated string, and sends this list to
+        the client. It first sends a header with the size of the file list
+        string, followed by the actual list data.
+
+        The response includes all files present in the received directory,
+        allowing clients to see what files are available for download.
+        """
         files = os.listdir("received")
         file_list = "\n".join(files)
         self.request.sendall(f"200|{len(file_list)}\n".encode())
@@ -230,6 +274,17 @@ class Delete(Comm):
         self.filename = filename
 
     def __script__(self):
+        """
+        Execute the DELETE command to remove a file from the server.
+
+        This method attempts to delete the specified file from the 'received'
+        directory. If the file exists, it is removed and a success response
+        is sent to the client. If the file does not exist, a 404 error
+        response is sent instead.
+
+        The operation is logged with appropriate severity levels for
+        monitoring and debugging.
+        """
         self.filepath = os.path.join("received", self.filename)
         if os.path.exists(self.filepath):
             os.remove(self.filepath)
@@ -260,6 +315,15 @@ class Hlist(Comm):
         self.commands = commands
 
     def __script__(self):
+        """
+        Execute the HLIST command to send the list of supported commands to the client.
+
+        This method formats the list of available commands as a newline-separated
+        string, encodes it, and sends it to the client. It first sends a header
+        with the size of the command list payload, followed by the actual list.
+
+        This helps clients understand what operations are available on the server.
+        """
         command_list = "\n".join(self.commands)
         payload = command_list.encode()
         self.request.sendall(f"200|{len(payload)}\n".encode())
