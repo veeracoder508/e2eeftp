@@ -1,61 +1,39 @@
 # CHANGELOG
-version: 0.0.0b4
+version: 0.0.0
 
-type: beta
+type: production
 
-total changes: 6
+total changes: 12
 
 *****
 
-- Changed file structure. **(tag: structure)**
-    ```
-    src\
-    ├── benchmarker\ 
-    │   ├── __init__.py
-    │   └── bm.py
-    │
-    └── e2eeftp\
-        ├── auth\
-        │   ├── __init__.py
-        │   ├── e2ee.py
-        │   └── key.py
-        ├── client\
-        │   ├── __init__.py
-        │   ├── __main__.py
-        │   ├── cli.py
-        │   └── client.py
-        ├── server\
-        │   ├── __init__.py
-        │   ├── commands.py
-        │   └── server.py
-        ├── __init__.py
-        └── cli.py
-    ```
-    * Made the benchmarker a separate module.
+- Fixed `AttributeError` in `Comm` subclasses by ensuring all instance attributes are assigned before calling the base class constructor. **(tag: fix)**
 
-- Renamed the command base class from `HList` to `Comm`. **(tag: name_scheme)**
+- Prevented state leakage between client sessions by moving `command_handlers` and `req` from class attributes to instance-specific attributes in `E2EEFTPRequestHandler`. **(tag: fix/security)**
 
-- Added `method:e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers() -> None` to update the `e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers: dict[str, str]` each time the client sends an request. **(tag: feature)**
+- Fixed a typo in `_send_list` command registration that caused the server to incorrectly attempt a file transfer instead of a directory listing. **(tag: fix)**
 
-- Changed `class:e2eeftp.client.client.e2eeftpClient` to also work with `with..as` statement. **(tag: feature_change)**
+- Corrected `match/case` syntax in `_arg_paser` to use the bitwise OR (`|`) for multiple patterns instead of a tuple-matching comma. **(tag: fix)**
+
+- Fixed missing command registration in `custom_server.py` to ensure `RENAME` and `STAT` are correctly dispatched to their handlers. **(tag: fix)**
+
+- Added 2 new commands "S_SESSION", "E_SESSION". **(tag: feature)**
+
+- Renamed: **(tag: rename)**
+    * `e2eeftp.server.commands.Comm.__hlist__: str` >> `e2eeftp.server.commands.Comm.__comm__: str`
+    * `e2eeftp.server.commands.Comm.set_hlist() -> None` >> `e2eeftp.server.commands.Comm.set_comm() -> None`
+    * `e2eeftp.server.commands.Comm.get_hlist() -> str` >> `e2eeftp.server.commands.Comm.get_comm() -> str`
+
+- Changes the arguments for `e2eeftp.server.commands.Comm`. **(tag: change)**
     ```python
-    # syntax: 
-    from e2eeftp import e2eeftpClient
-    
-    with e2eeftpClient(host='127.0.0.1', port=8080) as client:
-        client.send("file.jpg")    # Testing send request
-        client.get('file.jpg')     # Testing get request
-        print(client.list_files()) # Testing list request
-        print(client.hlist())      # Testing hlist request
+    Comm(request, log: Logger)            # Old
+    Comm(request, log: Logger, comm: str) # New
     ```
 
-- Added `method:e2eeftp.server.server.E2EEFTPRequestHandler.setup() -> None` to run the setup script `method:e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers() -> None`. **(tag: feature)**
+- Added `e2eeftp.server.commands.StartSession(Comm)` and `e2eeftp.server.commands.EndSession(Comm)`. **(tag: change)**
 
-- Added docstrings:
-    * `example._server.py`
-    * `example.client_cli.py`
-    * `example.client.py`
-    * `example.server.py`
-    * `src.benchmarker.__init__.py`
-    * `src.benchmarker.__init__.py`
-    * `src.auth.e2ee.py`
+- Added `e2eeftp.client.client.e2eeftpClient.start_session(user_id: str)` and `e2eeftp.client.client.e2eeftpClient.end_session()`. **(tag: )**
+
+- Added `e2eeftp.client.client.e2eeftpClient.__str__: str`. **(tag: feature)**
+
+- Removed `e2eeftp.server.server.main()`. **(tag: removal)**

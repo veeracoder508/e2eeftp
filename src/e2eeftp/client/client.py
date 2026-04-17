@@ -215,7 +215,7 @@ class e2eeftpClient:
             log.error(f"An error occurred during get operation: {e}")
         return code
 
-    def list_files(self) -> list[str] | None:
+    def list(self) -> list[str] | None:
         """
         Requests and prints a list of available files from the server.
 
@@ -359,11 +359,20 @@ class e2eeftpClient:
         except Exception as e:
             log.error(f"An error occurred during hlist operation: {e}")
         return None
+    
+    def start_session(self, user_id: str): 
+        self.user_id = user_id
+        raise NotImplementedError()
+
+    def end_session(self): 
+        raise NotImplementedError()
 
     def __enter__(self):
         client = self
-
         return client
     
     def __exit__(self, exc_type, exc, tb):
         pass
+
+    def __str__(self):
+        return f"{self.user_id=}\n{self.host=}\n{self.port=}\n{self.identity_key_path}\n{self.server_key_path}"

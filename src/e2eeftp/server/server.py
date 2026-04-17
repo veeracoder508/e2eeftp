@@ -59,13 +59,16 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         "HLIST": "_hlist"
     }
 
-    req: dict[str, Comm] = {}
-
     def setup(self) -> None:
         """
         Called before handle() to perform any initialization actions.
         Runs exactly once per connection/instance.
         """
+        # Initialize instance-specific attributes to prevent state leakage
+        # between different client sessions.
+        self.command_handlers = self.command_handlers.copy()
+        self.req: dict[str, Comm] = {}
+        
         self.update_command_handlers()
         super().setup()
 
@@ -191,14 +194,22 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         """
         cmd_args: list = []
         command = request_parts[0].upper()
-        if command == "SEND":
-            cmd_args = [request_parts[1], int(request_parts[2]), cipher]
-        elif command == "GET":
-            cmd_args = [request_parts[1], cipher]
-        elif command == "LIST" or command == "HLIST":
-            cmd_args = []
-        elif command == "DELETE":
-            cmd_args = [request_parts[1]]
+        
+        match command:
+            # File Commands
+            case "SEND":
+                cmd_args = [request_parts[1], int(request_parts[2]), cipher]
+            case "GET":
+                cmd_args = [request_parts[1], cipher]
+            case "LIST" | "HLIST":
+                cmd_args = []
+            case "DELETE":
+                cmd_args = [request_parts[1]]
+            
+            # Server config commands
+            case "S_SESSION" | "E_SESSION":
+                cmd_args = [request_parts[1]]
+
         return tuple(cmd_args) 
 
     def _hlist(self) -> None:
@@ -210,9 +221,12 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         1.  Sends header: `b"200|<size>"`
         2.  Sends body: A string of commands.
         """
-        self.req["HLIST"] = Hlist(commands=list(self.command_handlers.keys()), request=self.request, log=log, )
-        self.req["HLIST"].__hlist__ = self._hlist.__name__
-        self.req["HLIST"].run()
+        self.req["HLIST"] = Hlist(
+            commands=list(self.command_handlers.keys()), 
+            request=self.request, 
+            log=log, 
+            comm=self._hlist.__name__
+        )
 
     def _send_list(self) -> None:
         """
@@ -225,9 +239,11 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         1.  Sends header: `b"200|<size>"`
         2.  Sends body: A string of filenames.
         """
-        self.req["LIST"] = List(request=self.request, log=log)
-        self.req["LIST"].set_hlist(self._send_list.__name__)
-        self.req["LIST"].run()
+        self.req["LIST"] = List(
+            request=self.request, 
+            log=log, 
+            comm=self._send_list.__name__
+        )
 
     def _delete_file(self, filename: str) -> None:
         """
@@ -240,9 +256,12 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - On success: `b"200|File deleted\\n"`
         - If file not found: `b"404|File not found\\n"`
         """
-        self.req["DELETE"] = Delete(filename=filename, request=self.request, log=log)
-        self.req["DELETE"].set_hlist(self._delete_file.__name__)
-        self.req["DELETE"].run()
+        self.req["DELETE"] = Delete(
+            filename=filename, 
+            request=self.request, 
+            log=log, 
+            comm=self._delete_file.__name__
+        )
 
     def _receive_file(self, filename: str, filesize: int, cipher: AESCipher) -> None:
         """
@@ -261,9 +280,14 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - On success: `b"226|Transfer Complete\\n"`
         - On decryption failure: `b"500|Decryption Failed\\n"`
         """
-        self.req["SEND"] = Send(filename=filename, filesize=filesize, cipher=cipher, request=self.request, log=log)
-        self.req["SEND"].set_hlist(self._receive_file.__name__)
-        self.req["SEND"].run()
+        self.req["SEND"] = Send(
+            filename=filename, 
+            filesize=filesize, 
+            cipher=cipher, 
+            request=self.request, 
+            log=log, 
+            comm=self._receive_file.__name__
+        )
 
     def _send_file(self, filename: str, cipher: AESCipher) -> None:
         """
@@ -283,9 +307,13 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         - If file not found: `b"404|File not found: {filename}\\n"`
         - On server-side error: `b"500|Server Read Error\\n"`
         """
-        self.req["GET"] = Get(filename=filename, cipher=cipher, request=self.request, log=log)
-        self.req["GET"].set_hlist(self._send_file.__name__)
-        self.req["GET"].run()
+        self.req["GET"] = Get(
+            filename=filename, 
+            cipher=cipher, 
+            request=self.request, 
+            log=log, 
+            comm=self._send_file.__name__
+        )
 
     def update_command_handlers(self):
         """
@@ -298,7 +326,9 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
 
         The updated handlers are logged at debug level for troubleshooting.
         """
-        self.command_handlers.update({comm_name: comm.__hlist__ for comm_name, comm in self.req.items()})
+        self.command_handlers.update(
+            {comm_name: comm.__comm__ for comm_name, comm in self.req.items()}
+        )
         log.debug(self.command_handlers)
 
 
@@ -334,7 +364,10 @@ class e2eeftp(socketserver.ThreadingTCPServer):
         - SEND: SEND|filename|encrypted_data
         - GET: GET|filename
         - LIST: LIST
+        - HLIST: HLIST
         - DELETE: DELETE|filename
+        - S_SESSION: S_SESSION|user_id
+        - E_SESSION: E_SESSION|user_id
     """
     allow_reuse_address = True
 
@@ -400,19 +433,3 @@ class e2eeftp(socketserver.ThreadingTCPServer):
             log.warning("Shutting down...")
         finally:
             self.server_close()
-
-
-def main():
-    """
-    Main entry point for running the E2EEFTP server.
-
-    This function creates an instance of the e2eeftp server and starts it,
-    beginning the listening loop for incoming client connections. The server
-    will run until interrupted (e.g., via KeyboardInterrupt).
-    """
-    server = e2eeftp()
-    server.run()
-
-
-if __name__ == "__main__":
-    main()
