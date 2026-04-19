@@ -3,7 +3,7 @@ version: 0.0.0
 
 type: production
 
-total changes: 12
+total changes: 13
 
 *****
 
@@ -16,8 +16,6 @@ total changes: 12
 - Corrected `match/case` syntax in `_arg_paser` to use the bitwise OR (`|`) for multiple patterns instead of a tuple-matching comma. **(tag: fix)**
 
 - Fixed missing command registration in `custom_server.py` to ensure `RENAME` and `STAT` are correctly dispatched to their handlers. **(tag: fix)**
-
-- Added 2 new commands "S_SESSION", "E_SESSION". **(tag: feature)**
 
 - Renamed: **(tag: rename)**
     * `e2eeftp.server.commands.Comm.__hlist__: str` >> `e2eeftp.server.commands.Comm.__comm__: str`
@@ -37,3 +35,9 @@ total changes: 12
 - Added `e2eeftp.client.client.e2eeftpClient.__str__: str`. **(tag: feature)**
 
 - Removed `e2eeftp.server.server.main()`. **(tag: removal)**
+
+- Implemented automatic command registration for `E2EEFTPRequestHandler` subclasses using the `__init_subclass__` hook, allowing seamless inheritance and merging of command mappings. **(tag: feature)**
+
+- Centralized application versioning by moving `__version__` to the root `__init__.py`, ensuring a single source of truth for the server and client components. **(tag: structure)**
+
+- Enhanced the CLI `PING` command to perform a TCP connection check when a port is provided, providing a more accurate status for the service than standard ICMP pings. **(tag: feature)**

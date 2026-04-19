@@ -16,7 +16,7 @@ import os
 from ..auth import AESCipher
 
 
-__all__ = ["Comm", "Send", "Get", "List", "Delete", "Hlist"]
+__all__ = ["Comm", "Send", "Get", "List", "Delete", "Hlist", "StartSession", "EndSession"]
 
 
 class Comm:
@@ -67,11 +67,6 @@ class Comm:
             str: the method name of the function in the request handeler.
         """
         return self.__comm__
-
-
-class StartSession(Comm): ...
-
-class EndSession(Comm): ...
 
 class Send(Comm):
     """
@@ -335,3 +330,37 @@ class Hlist(Comm):
         self.request.sendall(f"200|{len(payload)}\n".encode())
         self.request.sendall(payload)
         self.log.info(f"200|Executed Hlist with {len(self.commands)} commands")
+
+
+class StartSession(Comm):
+    """
+    Handles the start of a user session.
+    """
+    def __init__(self, user_id: str, **kwargs) -> None:
+        self.user_id = user_id
+        super().__init__(**kwargs)
+
+    def __script__(self) -> None:
+        """
+        Logic for starting a session (e.g., database logging).
+        """
+        self.log.info(f"Session started for user: {self.user_id}")
+        # TODO: Add database logic here
+        # db.execute("INSERT INTO sessions (user_id, start_time) VALUES (?, ?)", (self.user_id, now))
+        self.request.sendall(f"200|Session started for {self.user_id}\n".encode())
+
+
+class EndSession(Comm):
+    """
+    Handles the end of a user session.
+    """
+    def __init__(self, user_id: str, **kwargs) -> None:
+        self.user_id = user_id
+        super().__init__(**kwargs)
+
+    def __script__(self) -> None:
+        """
+        Logic for ending a session (e.g., database logging).
+        """
+        self.log.info(f"Session ended for user: {self.user_id}")
+        self.request.sendall(f"200|Session ended for {self.user_id}\n".encode())

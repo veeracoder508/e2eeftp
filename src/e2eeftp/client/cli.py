@@ -204,7 +204,7 @@ class e2eeftpClientCli:
             
             case "LIST":
                 rprint("[blue]Action:[/blue] Requesting file list...")
-                file_list = self.client.list_files()
+                file_list = self.client.list()
 
                 if file_list is not None:
                     # Handle empty list or list with a single empty string from split

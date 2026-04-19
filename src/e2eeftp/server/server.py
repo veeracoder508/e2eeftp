@@ -19,14 +19,17 @@ import socketserver
 import logging
 import os
 import base64
-from ..auth import E2EE, AESCipher
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ed25519
-from .commands import *
 from rich.logging import RichHandler
+from rich.console import Console
+from .. import __version__
+from ..auth import E2EE, AESCipher
+from .commands import *
 
 
 rh = RichHandler()
+console = Console()
 # Configure logging with Rich
 logging.basicConfig(
     level=logging.INFO,
@@ -52,12 +55,25 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
     """
 
     command_handlers: dict[str, str] = {
+        # All the default commands.
         "SEND": "_receive_file",
         "GET": "_send_file",
         "LIST": "_send_list",
         "DELETE": "_delete_file",
-        "HLIST": "_hlist"
+        "HLIST": "_hlist",
     }
+
+    def __init_subclass__(cls, **kwargs):
+        """
+        Automatically merges command_handlers from the inheritance chain.
+        This ensures subclasses only need to define their NEW commands.
+        """
+        super().__init_subclass__(**kwargs)
+        combined = {}
+        for base in reversed(cls.__mro__):
+            if "command_handlers" in base.__dict__:
+                combined.update(base.__dict__["command_handlers"])
+        cls.command_handlers = combined
 
     def setup(self) -> None:
         """
@@ -68,8 +84,6 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
         # between different client sessions.
         self.command_handlers = self.command_handlers.copy()
         self.req: dict[str, Comm] = {}
-        
-        self.update_command_handlers()
         super().setup()
 
     def handle(self):
@@ -205,13 +219,13 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
                 cmd_args = []
             case "DELETE":
                 cmd_args = [request_parts[1]]
-            
-            # Server config commands
-            case "S_SESSION" | "E_SESSION":
-                cmd_args = [request_parts[1]]
+
+            case _:
+                log.error(f"Unknown command: {command}")
 
         return tuple(cmd_args) 
 
+    # All server commands logic.
     def _hlist(self) -> None:
         """
         Sends a text file of all available commands that the server supports to the client.
@@ -315,22 +329,6 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
             comm=self._send_file.__name__
         )
 
-    def update_command_handlers(self):
-        """
-        Update the command handlers dictionary with dynamic handlers from request objects.
-
-        This method iterates through the req dictionary (containing command objects)
-        and updates the command_handlers mapping to include the __hlist__ method
-        names for each command. This allows for dynamic command handler registration
-        based on the current request state.
-
-        The updated handlers are logged at debug level for troubleshooting.
-        """
-        self.command_handlers.update(
-            {comm_name: comm.__comm__ for comm_name, comm in self.req.items()}
-        )
-        log.debug(self.command_handlers)
-
 
 class e2eeftp(socketserver.ThreadingTCPServer):
     """
@@ -366,8 +364,6 @@ class e2eeftp(socketserver.ThreadingTCPServer):
         - LIST: LIST
         - HLIST: HLIST
         - DELETE: DELETE|filename
-        - S_SESSION: S_SESSION|user_id
-        - E_SESSION: E_SESSION|user_id
     """
     allow_reuse_address = True
 
@@ -384,6 +380,7 @@ class e2eeftp(socketserver.ThreadingTCPServer):
         super().__init__((host, port), E2EEFTPRequestHandler)
         self.host, self.port = host, port
         self.enable_logging = logging
+        self.prompt: str = ""
         log.disabled = not self.enable_logging
 
     def _generate_server_keys_if_missing(self) -> None:
@@ -423,10 +420,10 @@ class e2eeftp(socketserver.ThreadingTCPServer):
         connections. Each connection is then passed to an instance of
         `E2EEFTPRequestHandler` for processing in a new thread.
         """
+        console.print(f"[bold blue]E2EEFTP Server {f"({self.prompt})" if self.prompt != "" else ""} v{__version__}[/bold blue]")
+        console.print(f" * Running on [bold cyan underline]{self.host}:{self.port}[/bold cyan underline] (Press CTRL+C to quit)")
+
         self._generate_server_keys_if_missing()
-        log.info(f"host: {self.host}, port: {self.port}")
-        log.info("press ctrl+c to exit")
-        log.info(f"Server listening on {self.host}:{self.port}")
         try:
             self.serve_forever()
         except KeyboardInterrupt:

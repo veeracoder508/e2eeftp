@@ -4,9 +4,9 @@ This script runs the secure file transfer server.
 It instantiates and starts the Server from the pyproto package, which listens
 for incoming client connections.
 """
-from e2eeftp.server.server import E2EEFTPRequestHandler, e2eeftp
-from e2eeftp.server.commands import Comm
-from e2eeftp.auth.e2ee import AESCipher
+from src.e2eeftp.server.server import E2EEFTPRequestHandler, e2eeftp
+from src.e2eeftp.server.commands import Comm
+from src.e2eeftp.auth.e2ee import AESCipher
 import os
 import logging
 import socketserver
@@ -119,6 +119,12 @@ class CustomE2EERequestHandler(E2EEFTPRequestHandler):
     """
     An extended request handler that adds support for RENAME and STAT commands.
     """
+    # Now we only need to define the new commands. 
+    # The base class automatically merges these with the defaults.
+    command_handlers = {
+        "RENAME": "_rename_file",
+        "STAT": "_get_file_stats"
+    }
 
     def _arg_paser(self, request_parts, cipher) -> tuple:
         """
@@ -153,10 +159,6 @@ class CustomE2EERequestHandler(E2EEFTPRequestHandler):
             case "RENAME":
                 cmd_args = [request_parts[1], request_parts[2]]
             case "STAT":
-                cmd_args = [request_parts[1]]
-            
-            # Server config commands
-            case "S_SESSION" | "E_SESSION":
                 cmd_args = [request_parts[1]]
         
         return tuple(cmd_args) 
@@ -203,8 +205,10 @@ class CustomE2EEFTPServer(e2eeftp):
     instead of the standard handler, enabling support for additional file operations.
     """
     def __init__(self, host: str='127.0.0.1', port: int=5001):
-        socketserver.ThreadingTCPServer.__init__(self, (host, port), CustomE2EERequestHandler)
-        self.host, self.port = host, port
+        super().__init__(host, port)
+        # Explicitly set the request handler to our custom version
+        self.RequestHandlerClass = CustomE2EERequestHandler
+        self.prompt = "dev"
 
 
 def main():

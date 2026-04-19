@@ -359,13 +359,6 @@ class e2eeftpClient:
         except Exception as e:
             log.error(f"An error occurred during hlist operation: {e}")
         return None
-    
-    def start_session(self, user_id: str): 
-        self.user_id = user_id
-        raise NotImplementedError()
-
-    def end_session(self): 
-        raise NotImplementedError()
 
     def __enter__(self):
         client = self
