@@ -4,9 +4,7 @@ Benchmarker for the e2eeftp server.
 
 from pathlib import Path
 from time import perf_counter
-import sys
 import threading
-import time
 
 
 class BenchMark:

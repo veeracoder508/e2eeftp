@@ -1,7 +1,7 @@
 # CHANGELOG
 version: 0.0.0
 
-type: production
+type: stable
 
 total changes: 13
 
