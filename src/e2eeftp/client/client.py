@@ -19,6 +19,7 @@ from rich.logging import RichHandler
 from ..auth import E2EE, AESCipher
 from cryptography.hazmat.primitives import serialization
 
+
 rh = RichHandler()
 # Configure logging with Rich
 logging.basicConfig(
@@ -362,8 +363,10 @@ class e2eeftpClient:
 
     def __enter__(self):
         client = self
-
         return client
     
     def __exit__(self, exc_type, exc, tb):
         pass
+
+    def __str__(self):
+        return f"{self.user_id=}\n{self.host=}\n{self.port=}\n{self.identity_key_path}\n{self.server_key_path}"

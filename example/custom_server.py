@@ -4,9 +4,9 @@ This script runs the secure file transfer server.
 It instantiates and starts the Server from the pyproto package, which listens
 for incoming client connections.
 """
-from e2eeftp.server.server import E2EEFTPRequestHandler, e2eeftp
-from e2eeftp.server.commands import Comm
-from e2eeftp.auth.e2ee import AESCipher
+from src.e2eeftp.server.server import E2EEFTPRequestHandler, e2eeftp
+from src.e2eeftp.server.commands import Comm
+from src.e2eeftp.auth.e2ee import AESCipher
 import os
 import logging
 import socketserver
@@ -25,16 +25,16 @@ class Rename(Comm):
     - On other errors: `b"500|Rename failed\\n"`
     """
 
-    def __init__(self, old_filename: str, new_filename: str, *args) -> None:
+    def __init__(self, old_filename: str, new_filename: str, **kwargs) -> None:
         """The initializer for the `RNAME` method.
 
         Args:
             old_filename (str): The current name of the file.
             new_filename (str): The new name for the file.
         """
-        super().__init__(*args)
         self.old_filename = old_filename
         self.new_filename = new_filename
+        super().__init__(**kwargs)
 
     def __script__(self) -> None:
         """
@@ -78,14 +78,14 @@ class Stat(Comm):
     - If file not found: `b"404|File not found\\n"`
     """
 
-    def __init__(self, filename: str, *args) -> None:
+    def __init__(self, filename: str, **kwargs) -> None:
         """The initializer for the `STAT` method.
 
         Args:
             filename (str): The name of the file to get stats for.
         """
-        super().__init__(*args)
         self.filename = filename
+        super().__init__(**kwargs)
 
     def __script__(self):
         """
@@ -119,6 +119,12 @@ class CustomE2EERequestHandler(E2EEFTPRequestHandler):
     """
     An extended request handler that adds support for RENAME and STAT commands.
     """
+    # Now we only need to define the new commands. 
+    # The base class automatically merges these with the defaults.
+    command_handlers = {
+        "RENAME": "_rename_file",
+        "STAT": "_get_file_stats"
+    }
 
     def _arg_paser(self, request_parts, cipher) -> tuple:
         """
@@ -135,22 +141,26 @@ class CustomE2EERequestHandler(E2EEFTPRequestHandler):
         Returns:
             tuple: Parsed arguments for the command handler.
         """
-        super()._arg_paser(request_parts, cipher)
         # For custamizing your server, you can modify this methos to parse the command header and return the appropriate arguments for your custom commands.
         cmd_args: list = []
         command = request_parts[0].upper()
-        if command == "SEND":
-            cmd_args = [request_parts[1], int(request_parts[2]), cipher]
-        elif command == "GET":
-            cmd_args = [request_parts[1], cipher]
-        elif command == "LIST" or command == "HLIST":
-            cmd_args = []
-        elif command == "DELETE":
-            cmd_args = [request_parts[1]]
-        elif command == "RENAME":
-            cmd_args = [request_parts[1], request_parts[2]]
-        elif command == "STAT":
-            cmd_args = [request_parts[1]]
+
+        match command:
+            # File Commands
+            case "SEND":
+                cmd_args = [request_parts[1], int(request_parts[2]), cipher]
+            case "GET":
+                cmd_args = [request_parts[1], cipher]
+            case "LIST" | "HLIST":
+                cmd_args = []
+            case "DELETE":
+                cmd_args = [request_parts[1]]
+            # Custom commands
+            case "RENAME":
+                cmd_args = [request_parts[1], request_parts[2]]
+            case "STAT":
+                cmd_args = [request_parts[1]]
+        
         return tuple(cmd_args) 
 
     def _rename_file(self, old_filename: str, new_filename: str) -> None:
@@ -161,9 +171,13 @@ class CustomE2EERequestHandler(E2EEFTPRequestHandler):
             old_filename (str): The current filename to rename.
             new_filename (str): The new filename.
         """
-        self.req["RENAME"] = Rename(old_filename, new_filename, self.request, log)
-        self.req["RENAME"].set_hlist(self._rename_file.__name__)
-        self.req["RENAME"].run()
+        self.req["RENAME"] = Rename(
+            old_filename=old_filename, 
+            new_filename=new_filename, 
+            request=self.request, 
+            log=log, 
+            comm=self._rename_file.__name__
+        )
 
     def _get_file_stats(self, filename: str) -> None:
         """
@@ -172,9 +186,12 @@ class CustomE2EERequestHandler(E2EEFTPRequestHandler):
         Args:
             filename (str): The name of the file to get statistics for.
         """
-        self.req["STAT"] = Stat(filename, self.request, log)
-        self.req["STAT"].set_hlist(self._get_file_stats.__name__)
-        self.req["STAT"].run()
+        self.req["STAT"] = Stat(
+            filename=filename, 
+            request=self.request, 
+            log=log, 
+            comm=self._get_file_stats.__name__
+        )
 
     # Inherits flexible dispatch from E2EEFTPRequestHandler.
     # This subclass only overrides command implementations (RENAME, STAT) and
@@ -188,8 +205,10 @@ class CustomE2EEFTPServer(e2eeftp):
     instead of the standard handler, enabling support for additional file operations.
     """
     def __init__(self, host: str='127.0.0.1', port: int=5001):
-        socketserver.ThreadingTCPServer.__init__(self, (host, port), CustomE2EERequestHandler)
-        self.host, self.port = host, port
+        super().__init__(host, port)
+        # Explicitly set the request handler to our custom version
+        self.RequestHandlerClass = CustomE2EERequestHandler
+        self.prompt = "dev"
 
 
 def main():

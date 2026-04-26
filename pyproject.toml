@@ -1,6 +1,6 @@
 [project]
 name = "e2eeftp"
-version = "0.0.0b4"
+version = "0.0.0"
 authors = [
   { name="R A Veeraragavan", email="veeracoder123@gmail.com" },
 ]
@@ -9,11 +9,8 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "cryptography>=46.0.5",
-    "pdoc>=16.0.0",
-    "pdoc3>=0.11.6",
     "rich>=14.3.3",
     "watchdog>=6.0.0",
-    "wkhtmltopdf>=0.2",
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
@@ -31,6 +28,33 @@ e2eeftp = "e2eeftp.cli:cli"
 
 [tool.uv.workspace]
 members = [
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
+    ".",
     ".",
     ".",
     ".",

@@ -8,7 +8,7 @@
 <meta name="description" content="E2EEFTP client implementation …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
 <style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
@@ -28,50 +28,357 @@ el.replaceWith(d);
 });
 }, 100);
 })</script>
-<style>:root{--highlight-color:#44475a}.flex{display:flex !important}body{background:#282a36;color:#f8f8f2;line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #44475a;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#8be9fd;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#bd93f9}a:hover{color:#ff79c6}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#50fa7b;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#21222c;color:#f8f8f2;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #44475a;border-bottom:1px solid #44475a;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #44475a}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#44475a;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#6272a4}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#6272a4;border-left:5px solid #44475a;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#6272a4;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#11324d}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#1e3822}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#524010}.admonition.error,.admonition.danger,.admonition.caution{background:#4f1919}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #44475a}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'system-ui', 'sans-serif'],
+mono: ['JetBrains Mono', 'monospace']
+}
+}
+}
+}
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+document.documentElement.classList.add('dark');
+</script>
 <style>
-/* Prevent horizontal overflow and force text wrapping */
-body, html {
+/* 1. Scrollbar - Zinc Style [cite: 2, 3, 4] */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+/* 2. Global Resets - Unified Zinc Palette [cite: 5, 6] */
+:root {
+--bg: #09090b !important;
+--text: #f4f4f5 !important;
+--accent: #3b82f6 !important;
+}
+html, body {
+background-color: #09090b !important;
+color: #f4f4f5 !important;
+font-family: 'Inter', system-ui, sans-serif !important;
 overflow-x: clip;
+scroll-behavior: smooth;
 }
-pre, code, pre code, .source pre code {
-white-space: pre-wrap !important;
-/* Forces text to wrap to the next line */
+/* 3. Sidebar - Layout & Anti-Warping [cite: 7, 8, 9, 10] */
+#sidebar {
+width: 280px !important;
+min-width: 280px !important;
+max-width: 280px !important;
+flex: 0 0 280px !important;
+background-color: #0c0c0e !important;
+border-right: 1px solid #18181b !important;
+padding: 2.5rem 1.5rem !important;
+box-shadow: none !important;
+}
+#sidebar h1, #sidebar h2, #sidebar h3 {
+color: #fafafa !important;
+font-size: 0.875rem !important;
+font-weight: 600 !important;
+letter-spacing: -0.01em !important;
+border-bottom: none !important;
+margin-top: 1.5rem !important;
+margin-bottom: 0.75rem !important;
+padding: 0 !important;
+}
+#sidebar h1 { font-size: 1rem !important; margin-left: 0.5rem !important; }
+#sidebar ul { margin: 0 !important; padding: 0 !important; border: none !important; }
+#sidebar li { margin: 0 !important; padding: 0 !important; border: none !important; }
+#sidebar a {
+display: block !important;
+color: #a1a1aa !important; /* Zinc-400 [cite: 16] */
+text-decoration: none !important;
+margin-bottom: 0.25rem !important;
+padding: 0.4rem 0.75rem !important;
+border-radius: 0.5rem !important;
+font-size: 0.875rem !important;
+transition: all 0.2s ease !important;
+/* Text Warping Fixes */
+white-space: normal !important;
+overflow-wrap: anywhere !important;
 word-break: break-word !important;
-/* Breaks extremely long words/strings if necessary */
-overflow-wrap: break-word !important;
-overflow-x: hidden !important;
-/* Disables horizontal scrolling */
+line-height: 1.4 !important;
+}
+#sidebar a:hover {
+background-color: #18181b !important;
+color: #3b82f6 !important; /* Blue-500 [cite: 32] */
+}
+#sidebar code {
+padding: 0;
+margin: 0;
+}
+/* 4. Main Content - Balanced Spacing [cite: 21, 22] */
+#content {
+flex: 1 !important;
 min-width: 0 !important;
-/* Overrides the default stretching behavior */
+padding: 3rem 4rem !important;
+max-width: 64rem !important;
+margin: 0 auto !important;
+border-left: none !important;
 }
-/* Firefox Scrollbar */
-* {
-scrollbar-width: thin;
-scrollbar-color: #555555 #1e1e1e;
+#content h1.title {
+font-size: 2.5rem !important;
+font-weight: 800 !important;
+letter-spacing: -0.04em !important;
+color: #ffffff !important;
+margin-bottom: 2rem !important;
 }
-/* Chrome, Edge, and Safari Scrollbar */
-::-webkit-scrollbar {
-width: 12px;
-/* width of the vertical scrollbar */
-height: 12px;
-/* height of the horizontal scrollbar */
+#content h2.section-title {
+font-size: 1.25rem !important;
+font-weight: 600 !important;
+color: #f4f4f5 !important;
+border-bottom: 1px solid #18181b !important;
+padding-bottom: 0.75rem !important;
+margin-top: 3rem !important;
+margin-bottom: 1.5rem !important;
 }
-::-webkit-scrollbar-track {
-background: #1e1e1e; /* color of the tracking area */
+/* 5. Signatures (dt) - Code Container [cite: 27, 28, 29] */
+dt {
+background-color: #111113 !important;
+border: 1px solid #27272a !important; /* Zinc-800 */
+border-radius: 0.75rem !important;
+padding: 1rem 1.25rem !important;
+margin-top: 1.5rem !important;
+margin-bottom: 1rem !important;
+font-family: 'JetBrains Mono', monospace !important;
+font-size: 0.875rem !important;
+color: #e4e4e7 !important;
+line-height: 1.6 !important;
+/* Prevent long method names from warping outside */
+overflow-x: auto !important;
+white-space: pre-wrap !important;
 }
-::-webkit-scrollbar-thumb {
-background-color: #555555; /* color of the scroll thumb */
-border-radius: 10px;
-/* roundness of the scroll thumb */
-border: 3px solid #1e1e1e; /* creates padding around the thumb */
+dt .name {
+color: #60a5fa !important; /* Blue-400 [cite: 46] */
+font-weight: 600 !important;
+background: transparent !important;
 }
-::-webkit-scrollbar-thumb:hover {
-background-color: #777777; /* lighter color when hovering */
+/* Source Code Expansion */
+details.source pre {
+background-color: #0a0a0a !important; /* Deep black background
+*/
+border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Subtle border [cite: 34] */
+border-radius: 0.75rem !important; /* Rounded corners [cite: 34] */
+padding: 1.25rem !important; /* Internal spacing [cite: 34] */
+margin-top: 0.5rem !important; /* Top margin [cite: 34] */
+color: #d4d4d8 !important; /* Zinc-300 light text [cite: 34] */
+overflow-x: auto !important; /* Enable horizontal scroll if needed */
+}
+details.source pre code {
+background-color: transparent !important;
+color: inherit !important;
+}
+/* Description Text */
+.desc {
+color: #a1a1aa !important;
+line-height: 1.625 !important;
+font-size: 1rem !important;
+}
+.desc code {
+background-color: #18181b !important; /* Zinc-900 */
+border: 1px solid #27272a !important;
+padding: 0.2rem 0.4rem !important;
+border-radius: 0.375rem !important;
+color: #f4f4f5 !important; /* Zinc-100 */
+font-size: 0.9em !important;
+}
+.desc a { color: #60a5fa !important; text-decoration: none !important; }
+.desc a:hover { color: #fff !important; }
+/* -----------------------------------------
+Visibility Fixes (Targets & Code Links)
+----------------------------------------- */
+/* 1. Fix the yellow background on targeted headers (e.g., URL #hashes) */
+:target {
+background-color: rgba(59, 130, 246, 0.15) !important; /* Subtle blue highlight */
+color: inherit !important;
+}
+/* 2. Fix the dark red default text on module names and code links */
+#content code.name,
+#content code.name a,
+#content .name,
+#content .name a {
+color: #60a5fa !important; /* Tailwind Blue-400 */
+text-decoration: none !important;
+}
+/* Add a slight hover effect for those links so they feel interactive */
+#content code.name a:hover,
+#content .name a:hover {
+color: #93c5fd !important; /* Tailwind Blue-300 */
+}
+/* 3. General fallback for any other unstyled code blocks */
+#content code {
+color: #e4e4e7 !important; /* Tailwind Zinc-200 */
 }
 </style>
+<!--
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+}
+}
+}
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+document.documentElement.classList.add('dark');
+</script>
+<style>
+/* 1. Scrollbar (Identical to index.html) */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #52525b; }
+/* 2. Global Resets */
+:root {
+--bg: #000 !important;
+--text: #fff !important;
+}
+html, body {
+background-color: #000 !important;
+color: #fff !important;
+font-family: 'Inter', system-ui, sans-serif !important;
+overflow-x: clip;
+scroll-behavior: smooth;
+}
+/* 3. Sidebar Override */
+#sidebar {
+width: 280px !important;
+min-width: 280px !important;
+max-width: 280px !important;
+flex: 0 0 280px !important;
+background-color: #000 !important;
+border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+padding: 2.5rem 1.5rem !important;
+box-shadow: none !important;
+}
+#sidebar h1, #sidebar h2, #sidebar h3 {
+color: #fff !important;
+font-size: 0.875rem !important;
+font-weight: 600 !important;
+letter-spacing: -0.025em !important;
+border-bottom: none !important;
+margin-top: 1.5rem !important;
+margin-bottom: 0.75rem !important;
+padding: 0 !important;
+}
+#sidebar h1 { font-size: 1rem !important; margin-left: 0.5rem !important; }
+#sidebar ul { margin: 0 !important; padding: 0 !important; border: none !important; }
+#sidebar li { margin: 0 !important; padding: 0 !important; border: none !important; }
+#sidebar a {
+display: block !important;
+color: #a1a1aa !important; /* Zinc-400 */
+text-decoration: none !important;
+margin-bottom: 0.25rem !important;
+border-radius: 0.375rem !important;
+font-size: 0.875rem !important;
+transition: all 0.2s !important;
+white-space: normal !important;
+word-wrap: break-word !important;
+line-height: 1.5 !important;
+}
+#sidebar a:hover {
+background-color: rgba(255, 255, 255, 0.05) !important;
+color: #fff !important;
+}
+#sidebar code {
+padding: 0;
+margin: 0;
+}
+/* 4. Main Content Layout */
+#content {
+flex: 1 !important;
+min-width: 0 !important;
+padding: 3rem 4rem !important;
+max-width: 56rem !important;
+margin: 0 auto !important;
+border-left: none !important;
+}
+/* Typography */
+#content h1.title {
+font-size: 3rem !important;
+font-weight: 800 !important;
+letter-spacing: -0.05em !important;
+color: #fff !important;
+border: none !important;
+margin-bottom: 2rem !important;
+padding: 0 !important;
+}
+#content h2.section-title {
+font-size: 1.5rem !important;
+font-weight: 700 !important;
+letter-spacing: -0.025em !important;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+padding-bottom: 1rem !important;
+margin-top: 3rem !important;
+margin-bottom: 1.5rem !important;
+background-color: inherit;
+}
+/* 5. Code Blocks & Signatures (Matched to index.html) */
+dt {
+background-color: #050505 !important; /* Deeper black for high contrast */
+border: 1px solid #27272a !important; /* Zinc-800 border */
+border-radius: 0.75rem !important;
+padding: 1.25rem 1.5rem !important;
+margin-top: 1.5rem !important;
+margin-bottom: 1rem !important;
+font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+font-size: 0.875rem !important;
+color: #e4e4e7 !important; /* Zinc-200 for better readability */
+line-height: 1.6 !important;
+}
+dt .name {
+color: #3b82f6 !important; /* Highlight function/class names in Blue */
+font-weight: 700 !important;
+background: transparent !important;
+}
+/* Source Code Expansion */
+details.source pre {
+background-color: #0a0a0a !important; /* Deep black background
+*/
+border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Subtle border [cite: 34] */
+border-radius: 0.75rem !important; /* Rounded corners [cite: 34] */
+padding: 1.25rem !important; /* Internal spacing [cite: 34] */
+margin-top: 0.5rem !important; /* Top margin [cite: 34] */
+color: #d4d4d8 !important; /* Zinc-300 light text [cite: 34] */
+overflow-x: auto !important; /* Enable horizontal scroll if needed */
+}
+details.source pre code {
+background-color: transparent !important;
+color: inherit !important;
+}
+/* Description Text */
+.desc {
+color: #a1a1aa !important;
+line-height: 1.625 !important;
+font-size: 1rem !important;
+}
+.desc code {
+background-color: #18181b !important; /* Zinc-900 */
+border: 1px solid #27272a !important;
+padding: 0.2rem 0.4rem !important;
+border-radius: 0.375rem !important;
+color: #f4f4f5 !important; /* Zinc-100 */
+font-size: 0.9em !important;
+}
+.desc a { color: #60a5fa !important; text-decoration: none !important; }
+.desc a:hover { color: #fff !important; }
+</style>
+-->
 </head>
 <body>
 <main>
@@ -439,11 +746,13 @@ communication with the server.</p>
 
     def __enter__(self):
         client = self
-
         return client
     
     def __exit__(self, exc_type, exc, tb):
-        pass</code></pre>
+        pass
+
+    def __str__(self):
+        return f&#34;{self.user_id=}\n{self.host=}\n{self.port=}\n{self.identity_key_path}\n{self.server_key_path}&#34;</code></pre>
 </details>
 <div class="desc"><p>A client for secure, end-to-end encrypted file transfers.</p>
 <p>This client uses Elliptic Curve Diffie-Hellman (ECDH) to establish a

@@ -8,7 +8,7 @@
 <meta name="description" content="E2EEFTP server implementation …">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
 <style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
@@ -28,50 +28,357 @@ el.replaceWith(d);
 });
 }, 100);
 })</script>
-<style>:root{--highlight-color:#44475a}.flex{display:flex !important}body{background:#282a36;color:#f8f8f2;line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #44475a;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#8be9fd;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#bd93f9}a:hover{color:#ff79c6}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#50fa7b;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#21222c;color:#f8f8f2;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #44475a;border-bottom:1px solid #44475a;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #44475a}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#44475a;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#6272a4}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#6272a4;border-left:5px solid #44475a;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#6272a4;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#11324d}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#1e3822}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#524010}.admonition.error,.admonition.danger,.admonition.caution{background:#4f1919}</style>
-<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #44475a}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
-<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'system-ui', 'sans-serif'],
+mono: ['JetBrains Mono', 'monospace']
+}
+}
+}
+}
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+document.documentElement.classList.add('dark');
+</script>
 <style>
-/* Prevent horizontal overflow and force text wrapping */
-body, html {
+/* 1. Scrollbar - Zinc Style [cite: 2, 3, 4] */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+/* 2. Global Resets - Unified Zinc Palette [cite: 5, 6] */
+:root {
+--bg: #09090b !important;
+--text: #f4f4f5 !important;
+--accent: #3b82f6 !important;
+}
+html, body {
+background-color: #09090b !important;
+color: #f4f4f5 !important;
+font-family: 'Inter', system-ui, sans-serif !important;
 overflow-x: clip;
+scroll-behavior: smooth;
 }
-pre, code, pre code, .source pre code {
-white-space: pre-wrap !important;
-/* Forces text to wrap to the next line */
+/* 3. Sidebar - Layout & Anti-Warping [cite: 7, 8, 9, 10] */
+#sidebar {
+width: 280px !important;
+min-width: 280px !important;
+max-width: 280px !important;
+flex: 0 0 280px !important;
+background-color: #0c0c0e !important;
+border-right: 1px solid #18181b !important;
+padding: 2.5rem 1.5rem !important;
+box-shadow: none !important;
+}
+#sidebar h1, #sidebar h2, #sidebar h3 {
+color: #fafafa !important;
+font-size: 0.875rem !important;
+font-weight: 600 !important;
+letter-spacing: -0.01em !important;
+border-bottom: none !important;
+margin-top: 1.5rem !important;
+margin-bottom: 0.75rem !important;
+padding: 0 !important;
+}
+#sidebar h1 { font-size: 1rem !important; margin-left: 0.5rem !important; }
+#sidebar ul { margin: 0 !important; padding: 0 !important; border: none !important; }
+#sidebar li { margin: 0 !important; padding: 0 !important; border: none !important; }
+#sidebar a {
+display: block !important;
+color: #a1a1aa !important; /* Zinc-400 [cite: 16] */
+text-decoration: none !important;
+margin-bottom: 0.25rem !important;
+padding: 0.4rem 0.75rem !important;
+border-radius: 0.5rem !important;
+font-size: 0.875rem !important;
+transition: all 0.2s ease !important;
+/* Text Warping Fixes */
+white-space: normal !important;
+overflow-wrap: anywhere !important;
 word-break: break-word !important;
-/* Breaks extremely long words/strings if necessary */
-overflow-wrap: break-word !important;
-overflow-x: hidden !important;
-/* Disables horizontal scrolling */
+line-height: 1.4 !important;
+}
+#sidebar a:hover {
+background-color: #18181b !important;
+color: #3b82f6 !important; /* Blue-500 [cite: 32] */
+}
+#sidebar code {
+padding: 0;
+margin: 0;
+}
+/* 4. Main Content - Balanced Spacing [cite: 21, 22] */
+#content {
+flex: 1 !important;
 min-width: 0 !important;
-/* Overrides the default stretching behavior */
+padding: 3rem 4rem !important;
+max-width: 64rem !important;
+margin: 0 auto !important;
+border-left: none !important;
 }
-/* Firefox Scrollbar */
-* {
-scrollbar-width: thin;
-scrollbar-color: #555555 #1e1e1e;
+#content h1.title {
+font-size: 2.5rem !important;
+font-weight: 800 !important;
+letter-spacing: -0.04em !important;
+color: #ffffff !important;
+margin-bottom: 2rem !important;
 }
-/* Chrome, Edge, and Safari Scrollbar */
-::-webkit-scrollbar {
-width: 12px;
-/* width of the vertical scrollbar */
-height: 12px;
-/* height of the horizontal scrollbar */
+#content h2.section-title {
+font-size: 1.25rem !important;
+font-weight: 600 !important;
+color: #f4f4f5 !important;
+border-bottom: 1px solid #18181b !important;
+padding-bottom: 0.75rem !important;
+margin-top: 3rem !important;
+margin-bottom: 1.5rem !important;
 }
-::-webkit-scrollbar-track {
-background: #1e1e1e; /* color of the tracking area */
+/* 5. Signatures (dt) - Code Container [cite: 27, 28, 29] */
+dt {
+background-color: #111113 !important;
+border: 1px solid #27272a !important; /* Zinc-800 */
+border-radius: 0.75rem !important;
+padding: 1rem 1.25rem !important;
+margin-top: 1.5rem !important;
+margin-bottom: 1rem !important;
+font-family: 'JetBrains Mono', monospace !important;
+font-size: 0.875rem !important;
+color: #e4e4e7 !important;
+line-height: 1.6 !important;
+/* Prevent long method names from warping outside */
+overflow-x: auto !important;
+white-space: pre-wrap !important;
 }
-::-webkit-scrollbar-thumb {
-background-color: #555555; /* color of the scroll thumb */
-border-radius: 10px;
-/* roundness of the scroll thumb */
-border: 3px solid #1e1e1e; /* creates padding around the thumb */
+dt .name {
+color: #60a5fa !important; /* Blue-400 [cite: 46] */
+font-weight: 600 !important;
+background: transparent !important;
 }
-::-webkit-scrollbar-thumb:hover {
-background-color: #777777; /* lighter color when hovering */
+/* Source Code Expansion */
+details.source pre {
+background-color: #0a0a0a !important; /* Deep black background
+*/
+border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Subtle border [cite: 34] */
+border-radius: 0.75rem !important; /* Rounded corners [cite: 34] */
+padding: 1.25rem !important; /* Internal spacing [cite: 34] */
+margin-top: 0.5rem !important; /* Top margin [cite: 34] */
+color: #d4d4d8 !important; /* Zinc-300 light text [cite: 34] */
+overflow-x: auto !important; /* Enable horizontal scroll if needed */
+}
+details.source pre code {
+background-color: transparent !important;
+color: inherit !important;
+}
+/* Description Text */
+.desc {
+color: #a1a1aa !important;
+line-height: 1.625 !important;
+font-size: 1rem !important;
+}
+.desc code {
+background-color: #18181b !important; /* Zinc-900 */
+border: 1px solid #27272a !important;
+padding: 0.2rem 0.4rem !important;
+border-radius: 0.375rem !important;
+color: #f4f4f5 !important; /* Zinc-100 */
+font-size: 0.9em !important;
+}
+.desc a { color: #60a5fa !important; text-decoration: none !important; }
+.desc a:hover { color: #fff !important; }
+/* -----------------------------------------
+Visibility Fixes (Targets & Code Links)
+----------------------------------------- */
+/* 1. Fix the yellow background on targeted headers (e.g., URL #hashes) */
+:target {
+background-color: rgba(59, 130, 246, 0.15) !important; /* Subtle blue highlight */
+color: inherit !important;
+}
+/* 2. Fix the dark red default text on module names and code links */
+#content code.name,
+#content code.name a,
+#content .name,
+#content .name a {
+color: #60a5fa !important; /* Tailwind Blue-400 */
+text-decoration: none !important;
+}
+/* Add a slight hover effect for those links so they feel interactive */
+#content code.name a:hover,
+#content .name a:hover {
+color: #93c5fd !important; /* Tailwind Blue-300 */
+}
+/* 3. General fallback for any other unstyled code blocks */
+#content code {
+color: #e4e4e7 !important; /* Tailwind Zinc-200 */
 }
 </style>
+<!--
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+}
+}
+}
+</script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+document.documentElement.classList.add('dark');
+</script>
+<style>
+/* 1. Scrollbar (Identical to index.html) */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #52525b; }
+/* 2. Global Resets */
+:root {
+--bg: #000 !important;
+--text: #fff !important;
+}
+html, body {
+background-color: #000 !important;
+color: #fff !important;
+font-family: 'Inter', system-ui, sans-serif !important;
+overflow-x: clip;
+scroll-behavior: smooth;
+}
+/* 3. Sidebar Override */
+#sidebar {
+width: 280px !important;
+min-width: 280px !important;
+max-width: 280px !important;
+flex: 0 0 280px !important;
+background-color: #000 !important;
+border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+padding: 2.5rem 1.5rem !important;
+box-shadow: none !important;
+}
+#sidebar h1, #sidebar h2, #sidebar h3 {
+color: #fff !important;
+font-size: 0.875rem !important;
+font-weight: 600 !important;
+letter-spacing: -0.025em !important;
+border-bottom: none !important;
+margin-top: 1.5rem !important;
+margin-bottom: 0.75rem !important;
+padding: 0 !important;
+}
+#sidebar h1 { font-size: 1rem !important; margin-left: 0.5rem !important; }
+#sidebar ul { margin: 0 !important; padding: 0 !important; border: none !important; }
+#sidebar li { margin: 0 !important; padding: 0 !important; border: none !important; }
+#sidebar a {
+display: block !important;
+color: #a1a1aa !important; /* Zinc-400 */
+text-decoration: none !important;
+margin-bottom: 0.25rem !important;
+border-radius: 0.375rem !important;
+font-size: 0.875rem !important;
+transition: all 0.2s !important;
+white-space: normal !important;
+word-wrap: break-word !important;
+line-height: 1.5 !important;
+}
+#sidebar a:hover {
+background-color: rgba(255, 255, 255, 0.05) !important;
+color: #fff !important;
+}
+#sidebar code {
+padding: 0;
+margin: 0;
+}
+/* 4. Main Content Layout */
+#content {
+flex: 1 !important;
+min-width: 0 !important;
+padding: 3rem 4rem !important;
+max-width: 56rem !important;
+margin: 0 auto !important;
+border-left: none !important;
+}
+/* Typography */
+#content h1.title {
+font-size: 3rem !important;
+font-weight: 800 !important;
+letter-spacing: -0.05em !important;
+color: #fff !important;
+border: none !important;
+margin-bottom: 2rem !important;
+padding: 0 !important;
+}
+#content h2.section-title {
+font-size: 1.5rem !important;
+font-weight: 700 !important;
+letter-spacing: -0.025em !important;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+padding-bottom: 1rem !important;
+margin-top: 3rem !important;
+margin-bottom: 1.5rem !important;
+background-color: inherit;
+}
+/* 5. Code Blocks & Signatures (Matched to index.html) */
+dt {
+background-color: #050505 !important; /* Deeper black for high contrast */
+border: 1px solid #27272a !important; /* Zinc-800 border */
+border-radius: 0.75rem !important;
+padding: 1.25rem 1.5rem !important;
+margin-top: 1.5rem !important;
+margin-bottom: 1rem !important;
+font-family: 'JetBrains Mono', ui-monospace, monospace !important;
+font-size: 0.875rem !important;
+color: #e4e4e7 !important; /* Zinc-200 for better readability */
+line-height: 1.6 !important;
+}
+dt .name {
+color: #3b82f6 !important; /* Highlight function/class names in Blue */
+font-weight: 700 !important;
+background: transparent !important;
+}
+/* Source Code Expansion */
+details.source pre {
+background-color: #0a0a0a !important; /* Deep black background
+*/
+border: 1px solid rgba(255, 255, 255, 0.1) !important; /* Subtle border [cite: 34] */
+border-radius: 0.75rem !important; /* Rounded corners [cite: 34] */
+padding: 1.25rem !important; /* Internal spacing [cite: 34] */
+margin-top: 0.5rem !important; /* Top margin [cite: 34] */
+color: #d4d4d8 !important; /* Zinc-300 light text [cite: 34] */
+overflow-x: auto !important; /* Enable horizontal scroll if needed */
+}
+details.source pre code {
+background-color: transparent !important;
+color: inherit !important;
+}
+/* Description Text */
+.desc {
+color: #a1a1aa !important;
+line-height: 1.625 !important;
+font-size: 1rem !important;
+}
+.desc code {
+background-color: #18181b !important; /* Zinc-900 */
+border: 1px solid #27272a !important;
+padding: 0.2rem 0.4rem !important;
+border-radius: 0.375rem !important;
+color: #f4f4f5 !important; /* Zinc-100 */
+font-size: 0.9em !important;
+}
+.desc a { color: #60a5fa !important; text-decoration: none !important; }
+.desc a:hover { color: #fff !important; }
+</style>
+-->
 </head>
 <body>
 <main>
@@ -97,33 +404,6 @@ connection is handled in a separate thread, allowing concurrent operations.</p>
 <section>
 </section>
 <section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="e2eeftp.server.server.main"><code class="name flex">
-<span>def <span class="ident">main</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def main():
-    &#34;&#34;&#34;
-    Main entry point for running the E2EEFTP server.
-
-    This function creates an instance of the e2eeftp server and starts it,
-    beginning the listening loop for incoming client connections. The server
-    will run until interrupted (e.g., via KeyboardInterrupt).
-    &#34;&#34;&#34;
-    server = e2eeftp()
-    server.run()</code></pre>
-</details>
-<div class="desc"><p>Main entry point for running the E2EEFTP server.</p>
-<p>This function creates an instance of the e2eeftp server and starts it,
-beginning the listening loop for incoming client connections. The server
-will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
-</dd>
-</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
@@ -152,21 +432,35 @@ will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
     &#34;&#34;&#34;
 
     command_handlers: dict[str, str] = {
+        # All the default commands.
         &#34;SEND&#34;: &#34;_receive_file&#34;,
         &#34;GET&#34;: &#34;_send_file&#34;,
         &#34;LIST&#34;: &#34;_send_list&#34;,
         &#34;DELETE&#34;: &#34;_delete_file&#34;,
-        &#34;HLIST&#34;: &#34;_hlist&#34;
+        &#34;HLIST&#34;: &#34;_hlist&#34;,
     }
 
-    req: dict[str, Comm] = {}
+    def __init_subclass__(cls, **kwargs):
+        &#34;&#34;&#34;
+        Automatically merges command_handlers from the inheritance chain.
+        This ensures subclasses only need to define their NEW commands.
+        &#34;&#34;&#34;
+        super().__init_subclass__(**kwargs)
+        combined = {}
+        for base in reversed(cls.__mro__):
+            if &#34;command_handlers&#34; in base.__dict__:
+                combined.update(base.__dict__[&#34;command_handlers&#34;])
+        cls.command_handlers = combined
 
     def setup(self) -&gt; None:
         &#34;&#34;&#34;
         Called before handle() to perform any initialization actions.
         Runs exactly once per connection/instance.
         &#34;&#34;&#34;
-        self.update_command_handlers()
+        # Initialize instance-specific attributes to prevent state leakage
+        # between different client sessions.
+        self.command_handlers = self.command_handlers.copy()
+        self.req: dict[str, Comm] = {}
         super().setup()
 
     def handle(self):
@@ -281,7 +575,7 @@ will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
             self.request.sendall(b&#34;400|Malformed request\n&#34;)
 
     def _arg_paser(self, request_parts: list[str], cipher: AESCipher) -&gt; tuple:
-        &#34;&#34;&#34;_summary_
+        &#34;&#34;&#34;The paser for the command.
 
         Args:
             request_parts (list[str]): The list of parts from the client&#39;s command header in the form of a list.
@@ -291,16 +585,24 @@ will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
         &#34;&#34;&#34;
         cmd_args: list = []
         command = request_parts[0].upper()
-        if command == &#34;SEND&#34;:
-            cmd_args = [request_parts[1], int(request_parts[2]), cipher]
-        elif command == &#34;GET&#34;:
-            cmd_args = [request_parts[1], cipher]
-        elif command == &#34;LIST&#34; or command == &#34;HLIST&#34;:
-            cmd_args = []
-        elif command == &#34;DELETE&#34;:
-            cmd_args = [request_parts[1]]
+        
+        match command:
+            # File Commands
+            case &#34;SEND&#34;:
+                cmd_args = [request_parts[1], int(request_parts[2]), cipher]
+            case &#34;GET&#34;:
+                cmd_args = [request_parts[1], cipher]
+            case &#34;LIST&#34; | &#34;HLIST&#34;:
+                cmd_args = []
+            case &#34;DELETE&#34;:
+                cmd_args = [request_parts[1]]
+
+            case _:
+                log.error(f&#34;Unknown command: {command}&#34;)
+
         return tuple(cmd_args) 
 
+    # All server commands logic.
     def _hlist(self) -&gt; None:
         &#34;&#34;&#34;
         Sends a text file of all available commands that the server supports to the client.
@@ -310,9 +612,12 @@ will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
         1.  Sends header: `b&#34;200|&lt;size&gt;&#34;`
         2.  Sends body: A string of commands.
         &#34;&#34;&#34;
-        self.req[&#34;HLIST&#34;] = Hlist(commands=list(self.command_handlers.keys()), request=self.request, log=log, )
-        self.req[&#34;HLIST&#34;].__hlist__ = self._hlist.__name__
-        self.req[&#34;HLIST&#34;].run()
+        self.req[&#34;HLIST&#34;] = Hlist(
+            commands=list(self.command_handlers.keys()), 
+            request=self.request, 
+            log=log, 
+            comm=self._hlist.__name__
+        )
 
     def _send_list(self) -&gt; None:
         &#34;&#34;&#34;
@@ -325,9 +630,11 @@ will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
         1.  Sends header: `b&#34;200|&lt;size&gt;&#34;`
         2.  Sends body: A string of filenames.
         &#34;&#34;&#34;
-        self.req[&#34;LIST&#34;] = List(request=self.request, log=log)
-        self.req[&#34;LIST&#34;].set_hlist(self._send_list.__name__)
-        self.req[&#34;LIST&#34;].run()
+        self.req[&#34;LIST&#34;] = List(
+            request=self.request, 
+            log=log, 
+            comm=self._send_list.__name__
+        )
 
     def _delete_file(self, filename: str) -&gt; None:
         &#34;&#34;&#34;
@@ -340,9 +647,12 @@ will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
         - On success: `b&#34;200|File deleted\\n&#34;`
         - If file not found: `b&#34;404|File not found\\n&#34;`
         &#34;&#34;&#34;
-        self.req[&#34;DELETE&#34;] = Delete(filename=filename, request=self.request, log=log)
-        self.req[&#34;DELETE&#34;].set_hlist(self._delete_file.__name__)
-        self.req[&#34;DELETE&#34;].run()
+        self.req[&#34;DELETE&#34;] = Delete(
+            filename=filename, 
+            request=self.request, 
+            log=log, 
+            comm=self._delete_file.__name__
+        )
 
     def _receive_file(self, filename: str, filesize: int, cipher: AESCipher) -&gt; None:
         &#34;&#34;&#34;
@@ -361,9 +671,14 @@ will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
         - On success: `b&#34;226|Transfer Complete\\n&#34;`
         - On decryption failure: `b&#34;500|Decryption Failed\\n&#34;`
         &#34;&#34;&#34;
-        self.req[&#34;SEND&#34;] = Send(filename=filename, filesize=filesize, cipher=cipher, request=self.request, log=log)
-        self.req[&#34;SEND&#34;].set_hlist(self._receive_file.__name__)
-        self.req[&#34;SEND&#34;].run()
+        self.req[&#34;SEND&#34;] = Send(
+            filename=filename, 
+            filesize=filesize, 
+            cipher=cipher, 
+            request=self.request, 
+            log=log, 
+            comm=self._receive_file.__name__
+        )
 
     def _send_file(self, filename: str, cipher: AESCipher) -&gt; None:
         &#34;&#34;&#34;
@@ -383,23 +698,13 @@ will run until interrupted (e.g., via KeyboardInterrupt).</p></div>
         - If file not found: `b&#34;404|File not found: {filename}\\n&#34;`
         - On server-side error: `b&#34;500|Server Read Error\\n&#34;`
         &#34;&#34;&#34;
-        self.req[&#34;GET&#34;] = Get(filename=filename, cipher=cipher, request=self.request, log=log)
-        self.req[&#34;GET&#34;].set_hlist(self._send_file.__name__)
-        self.req[&#34;GET&#34;].run()
-
-    def update_command_handlers(self):
-        &#34;&#34;&#34;
-        Update the command handlers dictionary with dynamic handlers from request objects.
-
-        This method iterates through the req dictionary (containing command objects)
-        and updates the command_handlers mapping to include the __hlist__ method
-        names for each command. This allows for dynamic command handler registration
-        based on the current request state.
-
-        The updated handlers are logged at debug level for troubleshooting.
-        &#34;&#34;&#34;
-        self.command_handlers.update({comm_name: comm.__hlist__ for comm_name, comm in self.req.items()})
-        log.debug(self.command_handlers)</code></pre>
+        self.req[&#34;GET&#34;] = Get(
+            filename=filename, 
+            cipher=cipher, 
+            request=self.request, 
+            log=log, 
+            comm=self._send_file.__name__
+        )</code></pre>
 </details>
 <div class="desc"><p>Request handler for each client connection, instantiated by the socketserver.</p>
 <p>This class manages the entire lifecycle of a client connection. It is
@@ -416,10 +721,6 @@ changing _handle_request logic.</p></div>
 <h3>Class variables</h3>
 <dl>
 <dt id="e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers"><code class="name">var <span class="ident">command_handlers</span> : dict[str, str]</code></dt>
-<dd>
-<div class="desc"><p>The type of the None singleton.</p></div>
-</dd>
-<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.req"><code class="name">var <span class="ident">req</span> : dict[str, <a title="e2eeftp.server.commands.Comm" href="commands.html#e2eeftp.server.commands.Comm">Comm</a>]</code></dt>
 <dd>
 <div class="desc"><p>The type of the None singleton.</p></div>
 </dd>
@@ -515,40 +816,14 @@ Ensures the connection is logged and closed cleanly.</p></div>
     Called before handle() to perform any initialization actions.
     Runs exactly once per connection/instance.
     &#34;&#34;&#34;
-    self.update_command_handlers()
+    # Initialize instance-specific attributes to prevent state leakage
+    # between different client sessions.
+    self.command_handlers = self.command_handlers.copy()
+    self.req: dict[str, Comm] = {}
     super().setup()</code></pre>
 </details>
 <div class="desc"><p>Called before handle() to perform any initialization actions.
 Runs exactly once per connection/instance.</p></div>
-</dd>
-<dt id="e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers"><code class="name flex">
-<span>def <span class="ident">update_command_handlers</span></span>(<span>self)</span>
-</code></dt>
-<dd>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def update_command_handlers(self):
-    &#34;&#34;&#34;
-    Update the command handlers dictionary with dynamic handlers from request objects.
-
-    This method iterates through the req dictionary (containing command objects)
-    and updates the command_handlers mapping to include the __hlist__ method
-    names for each command. This allows for dynamic command handler registration
-    based on the current request state.
-
-    The updated handlers are logged at debug level for troubleshooting.
-    &#34;&#34;&#34;
-    self.command_handlers.update({comm_name: comm.__hlist__ for comm_name, comm in self.req.items()})
-    log.debug(self.command_handlers)</code></pre>
-</details>
-<div class="desc"><p>Update the command handlers dictionary with dynamic handlers from request objects.</p>
-<p>This method iterates through the req dictionary (containing command objects)
-and updates the command_handlers mapping to include the <strong>hlist</strong> method
-names for each command. This allows for dynamic command handler registration
-based on the current request state.</p>
-<p>The updated handlers are logged at debug level for troubleshooting.</p></div>
 </dd>
 </dl>
 </dd>
@@ -593,6 +868,7 @@ based on the current request state.</p>
         - SEND: SEND|filename|encrypted_data
         - GET: GET|filename
         - LIST: LIST
+        - HLIST: HLIST
         - DELETE: DELETE|filename
     &#34;&#34;&#34;
     allow_reuse_address = True
@@ -610,6 +886,7 @@ based on the current request state.</p>
         super().__init__((host, port), E2EEFTPRequestHandler)
         self.host, self.port = host, port
         self.enable_logging = logging
+        self.prompt: str = &#34;&#34;
         log.disabled = not self.enable_logging
 
     def _generate_server_keys_if_missing(self) -&gt; None:
@@ -649,10 +926,10 @@ based on the current request state.</p>
         connections. Each connection is then passed to an instance of
         `E2EEFTPRequestHandler` for processing in a new thread.
         &#34;&#34;&#34;
+        console.print(f&#34;[bold blue]E2EEFTP Server {f&#34;({self.prompt})&#34; if self.prompt != &#34;&#34; else &#34;&#34;} v{__version__}[/bold blue]&#34;)
+        console.print(f&#34; * Running on [bold cyan underline]{self.host}:{self.port}[/bold cyan underline] (Press CTRL+C to quit)&#34;)
+
         self._generate_server_keys_if_missing()
-        log.info(f&#34;host: {self.host}, port: {self.port}&#34;)
-        log.info(&#34;press ctrl+c to exit&#34;)
-        log.info(f&#34;Server listening on {self.host}:{self.port}&#34;)
         try:
             self.serve_forever()
         except KeyboardInterrupt:
@@ -689,6 +966,7 @@ same address quickly.</dd>
 - SEND: SEND|filename|encrypted_data
 - GET: GET|filename
 - LIST: LIST
+- HLIST: HLIST
 - DELETE: DELETE|filename</p>
 <p>Initializes the server and binds it to a host and port.</p>
 <h2 id="args">Args</h2>
@@ -733,10 +1011,10 @@ same address quickly.</dd>
     connections. Each connection is then passed to an instance of
     `E2EEFTPRequestHandler` for processing in a new thread.
     &#34;&#34;&#34;
+    console.print(f&#34;[bold blue]E2EEFTP Server {f&#34;({self.prompt})&#34; if self.prompt != &#34;&#34; else &#34;&#34;} v{__version__}[/bold blue]&#34;)
+    console.print(f&#34; * Running on [bold cyan underline]{self.host}:{self.port}[/bold cyan underline] (Press CTRL+C to quit)&#34;)
+
     self._generate_server_keys_if_missing()
-    log.info(f&#34;host: {self.host}, port: {self.port}&#34;)
-    log.info(&#34;press ctrl+c to exit&#34;)
-    log.info(f&#34;Server listening on {self.host}:{self.port}&#34;)
     try:
         self.serve_forever()
     except KeyboardInterrupt:
@@ -764,11 +1042,6 @@ connections. Each connection is then passed to an instance of
 <li><code><a title="e2eeftp.server" href="index.html">e2eeftp.server</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="e2eeftp.server.server.main" href="#e2eeftp.server.server.main">main</a></code></li>
-</ul>
-</li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
@@ -776,9 +1049,7 @@ connections. Each connection is then passed to an instance of
 <ul class="">
 <li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers" href="#e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers">command_handlers</a></code></li>
 <li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.handle" href="#e2eeftp.server.server.E2EEFTPRequestHandler.handle">handle</a></code></li>
-<li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.req" href="#e2eeftp.server.server.E2EEFTPRequestHandler.req">req</a></code></li>
 <li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.setup" href="#e2eeftp.server.server.E2EEFTPRequestHandler.setup">setup</a></code></li>
-<li><code><a title="e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers" href="#e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers">update_command_handlers</a></code></li>
 </ul>
 </li>
 <li>

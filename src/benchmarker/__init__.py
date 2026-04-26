@@ -1,5 +1,5 @@
 """ 
-The becckmarker for
+The becckmarker for the server.
 """
 
 from .bm import BenchMark

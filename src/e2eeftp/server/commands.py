@@ -16,7 +16,7 @@ import os
 from ..auth import AESCipher
 
 
-__all__ = ["Comm", "Send", "Get", "List", "Delete", "Hlist"]
+__all__ = ["Comm", "Send", "Get", "List", "Delete", "Hlist", "StartSession", "EndSession"]
 
 
 class Comm:
@@ -26,9 +26,9 @@ class Comm:
     Args:
         __hlist__ (str): A string identifier for the command type, used for dispatching.
     """
-    __hlist__: str
+    __comm__: str
 
-    def __init__(self, request, log: Logger) -> None: 
+    def __init__(self, request, log: Logger, comm: str) -> None: 
         """
         Args:
             request: The socket request object for the current client connection.
@@ -36,6 +36,8 @@ class Comm:
         """
         self.request = request
         self.log: Logger = log
+        self.set_comm(comm)
+        self.run()
 
     def __script__(self) -> None: 
         """ 
@@ -52,20 +54,19 @@ class Comm:
         """
         self.__script__()
 
-    def set_hlist(self, hlist_value: str) -> None:
+    def set_comm(self, comm_value: str) -> None:
         """
         Sets the `__hlist__` value for this command instance.
         """
-        self.__hlist__ = hlist_value
+        self.__comm__ = comm_value
 
-    def get_hlist(self) -> str: 
+    def get_comm(self) -> str: 
         """Returns the `__hlist__` value for the given command.
 
         Returns:
             str: the method name of the function in the request handeler.
         """
-        return self.__hlist__
-
+        return self.__comm__
 
 class Send(Comm):
     """
@@ -98,10 +99,10 @@ class Send(Comm):
             filesize (int): The exact size of the incoming encrypted data buffer, used to determine how many bytes to read from the socket.
             cipher (AESCipher): The cipher instance for this session, used to decrypt the received file data.
         """
-        super().__init__(**kwargs)
         self.filename = filename
         self.filesize = filesize
         self.cipher = cipher
+        super().__init__(**kwargs)
 
     def __script__(self):
         """
@@ -172,9 +173,9 @@ class Get(Comm):
             filename (str): The name of the file to send back to the client, used to locate the file in the server's 'received' directory.
             cipher (AESCipher): The cipher instance for this session, used to encrypt the file data before sending it to the client.
         """
-        super().__init__(**kwargs)
         self.filename = filename
         self.cipher = cipher
+        super().__init__(**kwargs)
 
     def __script__(self):
         """
@@ -270,8 +271,8 @@ class Delete(Comm):
         Args:
             filename (str): The name of the file to delete from the server's 'received' directory, used to locate and remove the file if it exists.
         """
-        super().__init__(**kwargs)
         self.filename = filename
+        super().__init__(**kwargs)
 
     def __script__(self):
         """
@@ -303,7 +304,7 @@ class Hlist(Comm):
     - On success: `200|<length>` `<list of commands>`
     """
 
-    def __init__(self, commands: list[str], request, log: Logger):
+    def __init__(self, commands: list[str], request, log: Logger, **kwargs):
         """the initializer for the `HLIST` method.
 
         Args:
@@ -311,8 +312,8 @@ class Hlist(Comm):
             request: The socket request object for the current client connection.
             log (Logger): A logger instance for logging command execution details.
         """
-        super().__init__(request, log)
         self.commands = commands
+        super().__init__(request, log, **kwargs)
 
     def __script__(self):
         """
@@ -329,3 +330,37 @@ class Hlist(Comm):
         self.request.sendall(f"200|{len(payload)}\n".encode())
         self.request.sendall(payload)
         self.log.info(f"200|Executed Hlist with {len(self.commands)} commands")
+
+
+class StartSession(Comm):
+    """
+    Handles the start of a user session.
+    """
+    def __init__(self, user_id: str, **kwargs) -> None:
+        self.user_id = user_id
+        super().__init__(**kwargs)
+
+    def __script__(self) -> None:
+        """
+        Logic for starting a session (e.g., database logging).
+        """
+        self.log.info(f"Session started for user: {self.user_id}")
+        # TODO: Add database logic here
+        # db.execute("INSERT INTO sessions (user_id, start_time) VALUES (?, ?)", (self.user_id, now))
+        self.request.sendall(f"200|Session started for {self.user_id}\n".encode())
+
+
+class EndSession(Comm):
+    """
+    Handles the end of a user session.
+    """
+    def __init__(self, user_id: str, **kwargs) -> None:
+        self.user_id = user_id
+        super().__init__(**kwargs)
+
+    def __script__(self) -> None:
+        """
+        Logic for ending a session (e.g., database logging).
+        """
+        self.log.info(f"Session ended for user: {self.user_id}")
+        self.request.sendall(f"200|Session ended for {self.user_id}\n".encode())
