@@ -13,11 +13,14 @@ class BenchMark:
     def __init__(self, warmup: bool=True):
         self.warmup = warmup
 
+    def _warmup(self):
+        for i in range(100_000_000): ...
+
     def __enter__(self):
         print("Running warmup...")
         if self.warmup:
             self.start_warmup = perf_counter()
-            for i in range(100_000_000): ...
+            self._warmup()
             self.end_warmup = perf_counter()
             self.duriation_warmup = self.end_warmup - self.start_warmup
             print(f"Warmup took: {self.duriation_warmup:.6f}s")

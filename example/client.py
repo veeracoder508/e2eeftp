@@ -26,7 +26,7 @@ def main() -> None:
         client.get('mini-veera.jpg')
 
         # Testing list request
-        print(client.list())
+        print(client.list_files())
 
         # Testing hlist request
         print(client.hlist())

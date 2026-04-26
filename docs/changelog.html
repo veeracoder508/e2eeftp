@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <meta name="generator" content="pdoc3 0.11.6">
-    <title>e2eeftp API documentation</title>
+    <title>e2eeftp Changelog</title>
     <meta name="description" content="e2eeftp: A prototype for end-to-end encrypted file transfers …">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css"
         integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA=="
@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css"
         integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA=="
         crossorigin>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+        crossorigin>
     <style>
         :root {
             --highlight-color: #fe9
@@ -28,12 +28,9 @@
             line-height: 1.5em
         }
 
-#content {
-                width: 100%;       /* Changed from 70% */
-                max-width: none;   /* Changed from 100ch */
-                padding: 3em 4em;
-                border-left: 1px solid #ddd
-            }
+        #content {
+            padding: 20px
+        }
 
         #sidebar {
             padding: 1.5em;
@@ -510,532 +507,363 @@
                     });
             }, 100);
         })</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        document.documentElement.classList.add('dark');
+    </script>
     <style>
-        :root {
-            --highlight-color: #44475a
-        }
-
-        .flex {
-            display: flex !important
-        }
-
-        body {
-            background: #282a36;
-            color: #f8f8f2;
-            line-height: 1.5em
-        }
-
-#content {
-                width: 100%;       /* Changed from 70% */
-                max-width: none;   /* Changed from 100ch */
-                padding: 3em 4em;
-                border-left: 1px solid #44475a
-            }
-
-        #sidebar {
-            padding: 1.5em;
-            overflow: hidden
-        }
-
-        #sidebar>*:last-child {
-            margin-bottom: 2cm
-        }
-
-        .http-server-breadcrumbs {
-            font-size: 130%;
-            margin: 0 0 15px 0
-        }
-
-        #footer {
-            font-size: .75em;
-            padding: 5px 30px;
-            border-top: 1px solid #44475a;
-            text-align: right
-        }
-
-        #footer p {
-            margin: 0 0 0 1em;
-            display: inline-block
-        }
-
-        #footer p:last-child {
-            margin-right: 30px
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5 {
-            font-weight: 300
-        }
-
-        h1 {
-            font-size: 2.5em;
-            line-height: 1.1em
-        }
-
-        h2 {
-            font-size: 1.75em;
-            margin: 2em 0 .50em 0
-        }
-
-        h3 {
-            font-size: 1.4em;
-            margin: 1.6em 0 .7em 0
-        }
-
-        h4 {
-            margin: 0;
-            font-size: 105%
-        }
-
-        h1:target,
-        h2:target,
-        h3:target,
-        h4:target,
-        h5:target,
-        h6:target {
-            background: var(--highlight-color);
-            padding: .2em 0
-        }
-
-        a {
-            color: #8be9fd;
-            text-decoration: none;
-            transition: color .2s ease-in-out
-        }
-
-        a:visited {
-            color: #bd93f9
-        }
-
-        a:hover {
-            color: #ff79c6
-        }
-
-        .title code {
-            font-weight: bold
-        }
-
-        h2[id^="header-"] {
-            margin-top: 2em
-        }
-
-        .ident {
-            color: #50fa7b;
-            font-weight: bold
-        }
-
-        pre code {
-            font-size: .8em;
-            line-height: 1.4em;
-            padding: 1em;
-            display: block
-        }
-
-        code {
-            background: #21222c;
-            color: #f8f8f2;
-            font-family: "DejaVu Sans Mono", monospace;
-            padding: 1px 4px;
-            overflow-wrap: break-word
-        }
-
-        h1 code {
-            background: transparent
-        }
-
-        pre {
-            border-top: 1px solid #44475a;
-            border-bottom: 1px solid #44475a;
-            margin: 1em 0
-        }
-
-        #http-server-module-list {
-            display: flex;
-            flex-flow: column
-        }
-
-        #http-server-module-list div {
-            display: flex
-        }
-
-        #http-server-module-list dt {
-            min-width: 10%
-        }
-
-        #http-server-module-list p {
-            margin-top: 0
-        }
-
-        .toc ul,
-        #index {
-            list-style-type: none;
-            margin: 0;
-            padding: 0
-        }
-
-        #index code {
-            background: transparent
-        }
-
-        #index h3 {
-            border-bottom: 1px solid #44475a
-        }
-
-        #index ul {
-            padding: 0
-        }
-
-        #index h4 {
-            margin-top: .6em;
-            font-weight: bold
-        }
-
-        @media (min-width:200ex) {
-            #index .two-column {
-                column-count: 2
-            }
-        }
-
-        @media (min-width:300ex) {
-            #index .two-column {
-                column-count: 3
-            }
-        }
-
-        dl {
-            margin-bottom: 2em
-        }
-
-        dl dl:last-child {
-            margin-bottom: 4em
-        }
-
-        dd {
-            margin: 0 0 1em 3em
-        }
-
-        #header-classes+dl>dd {
-            margin-bottom: 3em
-        }
-
-        dd dd {
-            margin-left: 2em
-        }
-
-        dd p {
-            margin: 10px 0
-        }
-
-        .name {
-            background: #44475a;
-            font-size: .85em;
-            padding: 5px 10px;
-            display: inline-block;
-            min-width: 40%
-        }
-
-        .name:hover {
-            background: #6272a4
-        }
-
-        dt:target .name {
-            background: var(--highlight-color)
-        }
-
-        .name>span:first-child {
-            white-space: nowrap
-        }
-
-        .name.class>span:nth-child(2) {
-            margin-left: .4em
-        }
-
-        .inherited {
-            color: #6272a4;
-            border-left: 5px solid #44475a;
-            padding-left: 1em
-        }
-
-        .inheritance em {
-            font-style: normal;
-            font-weight: bold
-        }
-
-        .desc h2 {
-            font-weight: 400;
-            font-size: 1.25em
-        }
-
-        .desc h3 {
-            font-size: 1em
-        }
-
-        .desc dt code {
-            background: inherit
-        }
-
-        .source>summary,
-        .git-link-div {
-            color: #6272a4;
-            text-align: right;
-            font-weight: 400;
-            font-size: .8em;
-            text-transform: uppercase
-        }
-
-        .source summary>* {
-            white-space: nowrap;
-            cursor: pointer
-        }
-
-        .git-link {
-            color: inherit;
-            margin-left: 1em
-        }
-
-        .source pre {
-            max-height: 500px;
-            overflow: auto;
-            margin: 0
-        }
-
-        .source pre code {
-            font-size: 12px;
-            overflow: visible;
-            min-width: max-content
-        }
-
-        .hlist {
-            list-style: none
-        }
-
-        .hlist li {
-            display: inline
-        }
-
-        .hlist li:after {
-            content: ',\2002'
-        }
-
-        .hlist li:last-child:after {
-            content: none
-        }
-
-        .hlist .hlist {
-            display: inline;
-            padding-left: 1em
-        }
-
-        img {
-            max-width: 100%
-        }
-
-        td {
-            padding: 0 .5em
-        }
-
-        .admonition {
-            padding: .1em 1em;
-            margin: 1em 0
-        }
-
-        .admonition-title {
-            font-weight: bold
-        }
-
-        .admonition.note,
-        .admonition.info,
-        .admonition.important {
-            background: #11324d
-        }
-
-        .admonition.todo,
-        .admonition.versionadded,
-        .admonition.tip,
-        .admonition.hint {
-            background: #1e3822
-        }
-
-        .admonition.warning,
-        .admonition.versionchanged,
-        .admonition.deprecated {
-            background: #524010
-        }
-
-        .admonition.error,
-        .admonition.danger,
-        .admonition.caution {
-            background: #4f1919
-        }
-    </style>
-    <style media="screen and (min-width: 700px)">
-        @media screen and (min-width:700px) {
-            #sidebar {
-                width: 30%;
-                height: 100vh;
-                overflow: auto;
-                position: sticky;
-                top: 0
-            }
-
-#content {
-                width: 100%;       /* Changed from 70% */
-                max-width: none;   /* Changed from 100ch */
-                padding: 3em 4em;
-                border-left: 1px solid #44475a
-            }
-
-            pre code {
-                font-size: 1em
-            }
-
-            .name {
-                font-size: 1em
-            }
-
-            main {
-                display: flex;
-                flex-direction: row-reverse;
-                justify-content: flex-end
-            }
-
-            .toc ul ul,
-            #index ul ul {
-                padding-left: 1em
-            }
-
-            .toc>ul>li {
-                margin-top: .5em
-            }
-        }
-    </style>
-    <style media="print">
-        @media print {
-            #sidebar h1 {
-                page-break-before: always
-            }
-
-            .source {
-                display: none
-            }
-        }
-
-        @media print {
-            * {
-                background: transparent !important;
-                color: #000 !important;
-                box-shadow: none !important;
-                text-shadow: none !important
-            }
-
-            a[href]:after {
-                content: " (" attr(href) ")";
-                font-size: 90%
-            }
-
-            a[href][title]:after {
-                content: none
-            }
-
-            abbr[title]:after {
-                content: " (" attr(title) ")"
-            }
-
-            .ir a:after,
-            a[href^="javascript:"]:after,
-            a[href^="#"]:after {
-                content: ""
-            }
-
-            pre,
-            blockquote {
-                border: 1px solid #999;
-                page-break-inside: avoid
-            }
-
-            thead {
-                display: table-header-group
-            }
-
-            tr,
-            img {
-                page-break-inside: avoid
-            }
-
-            img {
-                max-width: 100% !important
-            }
-
-            @page {
-                margin: 0.5cm
-            }
-
-            p,
-            h2,
-            h3 {
-                orphans: 3;
-                widows: 3
-            }
-
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-                page-break-after: avoid
-            }
-        }
-    </style>
-    <style>
-        /* Firefox Scrollbar */
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #555555 #1e1e1e;
-        }
-
-        /* Chrome, Edge, and Safari Scrollbar */
+        /* 1. Scrollbar - Zinc Style [cite: 2, 3, 4] */
         ::-webkit-scrollbar {
-            width: 12px;
-            /* width of the vertical scrollbar */
-            height: 12px;
-            /* height of the horizontal scrollbar */
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #1e1e1e;
-            /* color of the tracking area */
+            background: #09090b;
         }
 
         ::-webkit-scrollbar-thumb {
-            background-color: #555555;
-            /* color of the scroll thumb */
-            border-radius: 10px;
-            /* roundness of the scroll thumb */
-            border: 3px solid #1e1e1e;
-            /* creates padding around the thumb */
+            background: #27272a;
+            border-radius: 4px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background-color: #777777;
-            /* lighter color when hovering */
+            background: #3f3f46;
+        }
+
+        /* 2. Global Resets - Unified Zinc Palette [cite: 5, 6] */
+        :root {
+            --bg: #09090b !important;
+            --text: #f4f4f5 !important;
+            --accent: #3b82f6 !important;
+        }
+
+        html,
+        body {
+            background-color: #09090b !important;
+            color: #f4f4f5 !important;
+            font-family: 'Inter', system-ui, sans-serif !important;
+            overflow-x: clip;
+            scroll-behavior: smooth;
+        }
+
+        code {
+            color: #60a5fa;
+        }
+
+        /* 3. Sidebar - Layout & Anti-Warping [cite: 7, 8, 9, 10] */
+        #sidebar {
+            width: 280px !important;
+            min-width: 280px !important;
+            max-width: 280px !important;
+            flex: 0 0 280px !important;
+            background-color: #0c0c0e !important;
+            border-right: 1px solid #18181b !important;
+            padding: 2.5rem 1.5rem !important;
+            box-shadow: none !important;
+        }
+
+        #sidebar h1,
+        #sidebar h2,
+        #sidebar h3 {
+            color: #fafafa !important;
+            font-size: 0.875rem !important;
+            font-weight: 600 !important;
+            letter-spacing: -0.01em !important;
+            border-bottom: none !important;
+            margin-top: 1.5rem !important;
+            margin-bottom: 0.75rem !important;
+            padding: 0 !important;
+        }
+
+        #sidebar h1 {
+            font-size: 1rem !important;
+            margin-left: 0.5rem !important;
+        }
+
+        #sidebar ul {
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+        }
+
+        #sidebar li {
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+        }
+
+        #sidebar a {
+            display: block !important;
+            color: #a1a1aa !important;
+            /* Zinc-400 [cite: 16] */
+            text-decoration: none !important;
+            margin-bottom: 0.25rem !important;
+            padding: 0.4rem 0.75rem !important;
+            border-radius: 0.5rem !important;
+            font-size: 0.875rem !important;
+            transition: all 0.2s ease !important;
+            /* Text Warping Fixes */
+            white-space: normal !important;
+            overflow-wrap: anywhere !important;
+            word-break: break-word !important;
+            line-height: 1.4 !important;
+        }
+
+        #sidebar a:hover {
+            background-color: #18181b !important;
+            color: #3b82f6 !important;
+            /* Blue-500 [cite: 32] */
+        }
+
+        #sidebar code {
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 4. Main Content - Balanced Spacing [cite: 21, 22] */
+        #content {
+            flex: 1 !important;
+            min-width: 0 !important;
+            padding: 3rem 4rem !important;
+            max-width: 64rem !important;
+            margin: 0 auto !important;
+            border-left: none !important;
+        }
+
+        #content h1.title {
+            font-size: 2.5rem !important;
+            font-weight: 800 !important;
+            letter-spacing: -0.04em !important;
+            color: #ffffff !important;
+            margin-bottom: 2rem !important;
+        }
+
+        #content h2.section-title {
+            font-size: 1.25rem !important;
+            font-weight: 600 !important;
+            color: #f4f4f5 !important;
+            border-bottom: 1px solid #18181b !important;
+            padding-bottom: 0.75rem !important;
+            margin-top: 3rem !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        /* 5. Signatures (dt) - Code Container [cite: 27, 28, 29] */
+        dt {
+            background-color: #111113 !important;
+            border: 1px solid #27272a !important;
+            /* Zinc-800 */
+            border-radius: 0.75rem !important;
+            padding: 1rem 1.25rem !important;
+            margin-top: 1.5rem !important;
+            margin-bottom: 1rem !important;
+            font-family: 'JetBrains Mono', monospace !important;
+            font-size: 0.875rem !important;
+            color: #e4e4e7 !important;
+            line-height: 1.6 !important;
+            /* Prevent long method names from warping outside */
+            overflow-x: auto !important;
+            white-space: pre-wrap !important;
+        }
+
+        dt .name {
+            color: #60a5fa !important;
+            /* Blue-400 [cite: 46] */
+            font-weight: 600 !important;
+            background: transparent !important;
+        }
+
+        /* Source Code Expansion */
+        details.source pre {
+            background-color: #0a0a0a !important;
+            /* Deep black background
+*/
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            /* Subtle border [cite: 34] */
+            border-radius: 0.75rem !important;
+            /* Rounded corners [cite: 34] */
+            padding: 1.25rem !important;
+            /* Internal spacing [cite: 34] */
+            margin-top: 0.5rem !important;
+            /* Top margin [cite: 34] */
+            color: #d4d4d8 !important;
+            /* Zinc-300 light text [cite: 34] */
+            overflow-x: auto !important;
+            /* Enable horizontal scroll if needed */
+        }
+
+        details.source pre code {
+            background-color: transparent !important;
+            color: inherit !important;
+        }
+
+        /* Description Text */
+        .desc {
+            color: #a1a1aa !important;
+            line-height: 1.625 !important;
+            font-size: 1rem !important;
+        }
+
+        .desc code {
+            background-color: #18181b !important;
+            /* Zinc-900 */
+            border: 1px solid #27272a !important;
+            padding: 0.2rem 0.4rem !important;
+            border-radius: 0.375rem !important;
+            color: #f4f4f5 !important;
+            /* Zinc-100 */
+            font-size: 0.9em !important;
+        }
+
+        .desc a {
+            color: #60a5fa !important;
+            text-decoration: none !important;
+        }
+
+        .desc a:hover {
+            color: #fff !important;
+        }
+
+        /* -----------------------------------------
+Visibility Fixes (Targets & Code Links)
+----------------------------------------- */
+        /* 1. Fix the yellow background on targeted headers (e.g., URL #hashes) */
+        :target {
+            background-color: rgba(59, 130, 246, 0.15) !important;
+            /* Subtle blue highlight */
+            color: inherit !important;
+        }
+
+        /* 2. Fix the dark red default text on module names and code links */
+        #content code.name,
+        #content code.name a,
+        #content .name,
+        #content .name a {
+            color: #60a5fa !important;
+            /* Tailwind Blue-400 */
+            text-decoration: none !important;
+        }
+
+        /* Add a slight hover effect for those links so they feel interactive */
+        #content code.name a:hover,
+        #content .name a:hover {
+            color: #93c5fd !important;
+            /* Tailwind Blue-300 */
+        }
+
+/* 3. General fallback for any other unstyled code blocks */
+        #content code {
+            color: #e4e4e7 !important; /* Tailwind Zinc-200 */
+            background-color: #18181b !important; /* Zinc-900 */
+            border: 1px solid #27272a !important; /* Zinc-800 */
+            padding: 0.15rem 0.4rem !important;
+            border-radius: 0.375rem !important;
+        }
+
+        /* Prevent the inline style from breaking multi-line <pre> code blocks */
+        #content pre code {
+            background-color: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            color: inherit !important;
+        }
+
+/* 4. Fix Multi-line <pre> Blocks and <hr> Dividers */
+        
+        /* Dark mode styling for <pre> code containers */
+        #content pre {
+            background-color: #111113 !important; /* Zinc-900 background */
+            border: 1px solid #27272a !important; /* Subtle border all around */
+            border-radius: 0.5rem !important;
+            padding: 1rem !important;
+            margin: 1.5rem 0 !important;
+            overflow-x: auto !important;
+        }
+
+        /* Dim the glaring white <hr> line at the top */
+        #content hr {
+            border: none !important;
+            border-top: 1px solid #27272a !important; /* Zinc-800 */
+            margin: 2rem 0 !important;
+        }
+
+/* 5. Restore List Styling (Overriding Tailwind Reset) */
+        #content ol {
+            list-style-type: decimal !important; /* Restores numbers */
+            padding-left: 1.5rem !important; /* Gives numbers room to breathe */
+            margin-bottom: 1.5rem !important;
+        }
+
+        #content ul {
+            list-style-type: disc !important; /* Restores bullets for unordered lists */
+            padding-left: 1.5rem !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        #content li {
+            margin-bottom: 0.75rem !important; /* Adds spacing between items */
+            color: #d4d4d8 !important; /* Zinc-300 text for readability */
+        }
+
+        /* 6. Typography and Line Spacing */
+        #content p {
+            line-height: 1.7 !important; /* Increases space between wrapping lines of text */
+            margin-bottom: 1rem !important; /* Restores space between paragraphs */
+        }
+
+        #content li {
+            line-height: 1.7 !important;
+            margin-bottom: 1.25rem !important; /* Adds breathing room between list items */
+        }
+        
+        /* Prevents double-spacing when a paragraph is inside a list item */
+        #content li > p:last-child {
+            margin-bottom: 0 !important;
         }
     </style>
+
     <style>
-        .frature {
-            color: #0048cf
+        /* 7. Tag Colors */
+        .feature {
+            color: #0048cf !important;
         }
         .structure {
-            color: #b37a00;
+            color: #b37a00 !important;
         }
-        .name_scheme {
-            color: #8be9fd;
+        .rename { /* Assuming this maps to your name_scheme */
+            color: #8be9fd !important;
         }
-        .feature_change {
-            color: #50fa7b;
+        .change { /* Assuming this maps to your feature_change */
+            color: #50fa7b !important;
+        }
+        .fix {
+            color: #ff5555 !important; /* Red for fixes */
+        }
+        .fix-security {
+            color: #ffb86c !important; /* Orange for security */
+        }
+        .removal {
+            color: #ff79c6 !important; /* Pink for removals */
         }
     </style>
 </head>
@@ -1043,96 +871,135 @@
 <body>
     <main>
         <article id="content">
-            <header>
-                <h1 class="title">Package <code>e2eeftp</code></h1>
-            </header>
-            <h1 id="changelog"><code>CHANGELOG</code></h1>
-            <p>version: 0.0.0b4</p>
-            <p>type: beta</p>
-            <p>total changes: 6</p>
+            <h1 class="title">e2eeftp Changelog</h1>
+            <p>version: 0.0.0</p>
+            <p>type: stable</p>
+            <p>total changes: 15</p>
             <hr />
-            <ul>
+            <ol type="1">
                 <li>
-                    <p>Changed file structure. <strong class="structure">(tag: structure)</strong></p>
-                    <pre>
-<code class="text">src\     
-├── benchmarker\      
-│   ├── __init__.py     
-│   └── bm.py     
-│     └── e2eeftp\         
-├── auth\         
-│   ├── __init__.py         
-│   ├── e2ee.py         
-│   └── key.py         
-├── client\         
-│   ├── __init__.py         
-│   ├── __main__.py         
-│   ├── cli.py         
-│   └── client.py         
-├── server\         
-│   ├── __init__.py         
-│   ├── commands.py         
-│   └── server.py         
-├── __init__.py         
-└── cli.py
-</code>
-</pre>
+                    <p>Fixed <code>AttributeError</code> in <code>Comm</code> subclasses
+                        by ensuring all instance attributes are assigned before calling the base
+                        class constructor. <strong class="fix">(tag: fix)</strong></p>
+                </li>
+                <li>
+                    <p>Prevented state leakage between client sessions by moving
+                        <code>command_handlers</code> and <code>req</code> from class attributes
+                        to instance-specific attributes in <code>E2EEFTPRequestHandler</code>.
+                        <strong class="fix-security">(tag: fix/security)</strong>
+                    </p>
+                </li>
+                <li>
+                    <p>Fixed a typo in <code>_send_list</code> command registration that
+                        caused the server to incorrectly attempt a file transfer instead of a
+                        directory listing. <strong class="fix">(tag: fix)</strong></p>
+                </li>
+                <li>
+                    <p>Corrected <code>match/case</code> syntax in
+                        <code>_arg_paser</code> to use the bitwise OR (<code>|</code>) for
+                        multiple patterns instead of a tuple-matching comma. <strong class="fix">(tag:
+                            fix)</strong>
+                    </p>
+                </li>
+                <li>
+                    <p>Fixed missing command registration in
+                        <code>custom_server.py</code> to ensure <code>RENAME</code> and
+                        <code>STAT</code> are correctly dispatched to their handlers.
+                        <strong class="fix">(tag: fix)</strong>
+                    </p>
+                </li>
+                <li>
+                    <p>Renamed: <strong class="rename">(tag: rename)</strong></p>
                     <ul>
-                        <li>Made the benchmarker a separate module.</li>
+                        <li><code>e2eeftp.server.commands.Comm.__hlist__: str</code> &gt;&gt;
+                            <code>e2eeftp.server.commands.Comm.__comm__: str</code>
+                        </li>
+                        <li><code>e2eeftp.server.commands.Comm.set_hlist() -&gt; None</code>
+                            &gt;&gt;
+                            <code>e2eeftp.server.commands.Comm.set_comm() -&gt; None</code>
+                        </li>
+                        <li><code>e2eeftp.server.commands.Comm.get_hlist() -&gt; str</code>
+                            &gt;&gt;
+                            <code>e2eeftp.server.commands.Comm.get_comm() -&gt; str</code>
+                        </li>
                     </ul>
                 </li>
                 <li>
-                    <p>Renamed the command base class from <code>HList</code> to
-                        <code>Comm</code>. <strong class="name_scheme">(tag: name_scheme)</strong>
+                    <p>Changed the arguments for
+                        <code>e2eeftp.server.commands.Comm</code>. <strong class="change">(tag:
+                            change)</strong>
+                    </p>
+                    <div class="sourceCode" id="cb1">
+                        <pre
+                            class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Comm(request, log: Logger)            <span class="co"># Old</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Comm(request, log: Logger, comm: <span class="bu">str</span>) <span class="co"># New</span></span></code></pre>
+                    </div>
+                </li>
+                <li>
+                    <p>Added <code>e2eeftp.server.commands.StartSession(Comm)</code> and
+                        <code>e2eeftp.server.commands.EndSession(Comm)</code>. <strong class="change">(tag:
+                            change)</strong>
                     </p>
                 </li>
                 <li>
                     <p>Added
-                        <code>method:e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers() -&gt; None</code>
-                        to update the
-                        <code>e2eeftp.server.server.E2EEFTPRequestHandler.command_handlers: dict[str, str]</code>
-                        each time the client sends an request. <strong class="feature">(tag:
-                            feature)</strong>
+                        <code>e2eeftp.client.client.e2eeftpClient.start_session(user_id: str)</code>
+                        and <code>e2eeftp.client.client.e2eeftpClient.end_session()</code>. 
+                        <strong class="feature">(tag: feature)</strong>
                     </p>
-                </li>
-                <li>
-                    <p>Changed <code>class:e2eeftp.client.client.e2eeftpClient</code> to
-                        also work with <code>with..as</code> statement. <strong class="feature_change">(tag:
-                            feature_change)</strong> 
-<pre> 
-<code class="python"># syntax:
-from e2eeftp import e2eeftpClient
-with e2eeftpClient(host='127.0.0.1', port=8080) as client:
-    client.send("file.jpg")    # Testing send request 
-    client.get('file.jpg')     # Testing get request
-    print(client.list_files()) # Testing list request
-    print(client.hlist())      # Testing hlist request 
-    </code>
-</pre>
                 </li>
                 <li>
                     <p>Added
-                        <code>method:e2eeftp.server.server.E2EEFTPRequestHandler.setup() -&gt; None</code>
-                        to run the setup script
-                        <code>method:e2eeftp.server.server.E2EEFTPRequestHandler.update_command_handlers() -&gt; None</code>.
-                        <strong class="frature">(tag: feature)</strong>
+                        <code>e2eeftp.client.client.e2eeftpClient.__str__: str</code>.
+                        <strong class="feature">(tag: feature)</strong>
                     </p>
                 </li>
                 <li>
-                    <p>Added docstrings:</p>
+                    <p>Removed <code>e2eeftp.server.server.main()</code>. <strong class="removal">(tag:
+                            removal)</strong></p>
+                </li>
+                <li>
+                    <p>Implemented automatic command registration for
+                        <code>E2EEFTPRequestHandler</code> subclasses using the
+                        <code>__init_subclass__</code> hook, allowing seamless inheritance and
+                        merging of command mappings. <strong class="feature">(tag: feature)</strong>
+                    </p>
+                </li>
+                <li>
+                    <p>Centralized application versioning by moving
+                        <code>__version__</code> to the root <code>__init__.py</code>, ensuring
+                        a single source of truth for the server and client components.
+                        <strong class="structure">(tag: structure)</strong>
+                    </p>
+                </li>
+                <li>
+                    <p>Enhanced the CLI <code>PING</code> command to perform a TCP
+                        connection check when a port is provided, providing a more accurate
+                        status for the service than standard ICMP pings. <strong class="feature">(tag:
+                            feature)</strong></p>
+                </li>
+                <li>
+                    <p>Added
+                        <code>src.benchmarker.bm.BenchMark._warmup() -&gt; None</code>.
+                        <strong class="feature">(tag: feature)</strong>
+                    </p>
+                </li>
+            </ol>
+        </article>
+        <nav id="sidebar">
+            <div class="toc">
+                <ul></ul>
+            </div>
+            <ul id="index">
+                <li>
+                    <h3><a href="index.html">Packages</a></h3>
                     <ul>
-                        <li><code>example._server.py</code></li>
-                        <li><code>example.client_cli.py</code></li>
-                        <li><code>example.client.py</code></li>
-                        <li><code>example.server.py</code></li>
-                        <li><code>src.benchmarker.__init__.py</code></li>
-                        <li><code>src.benchmarker.__init__.py</code></li>
-                        <li><code>src.auth.e2ee.py</code></li>
+                        <li><code><a title="e2eeftp" href="e2eeftp/index.html">e2eeftp</a></code></li>
+                        <li><code><a title="benchmarker" href="benchmarker/index.html">benchmarker</a></code></li>
                     </ul>
                 </li>
             </ul>
-
-        </article>
+        </nav>
     </main>
     <footer id="footer">
         <p>Generated by <a href="https://pdoc3.github.io/pdoc"

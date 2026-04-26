@@ -198,7 +198,7 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
             self.request.sendall(b"400|Malformed request\n")
 
     def _arg_paser(self, request_parts: list[str], cipher: AESCipher) -> tuple:
-        """_summary_
+        """The paser for the command.
 
         Args:
             request_parts (list[str]): The list of parts from the client's command header in the form of a list.
