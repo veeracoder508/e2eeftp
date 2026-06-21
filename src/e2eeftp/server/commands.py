@@ -28,14 +28,16 @@ class Comm:
     """
     __comm__: str
 
-    def __init__(self, request, log: Logger, comm: str) -> None: 
+    def __init__(self, request, log: Logger, comm: str, recive_dir: str) -> None: 
         """
         Args:
             request: The socket request object for the current client connection.
             log (Logger): A logger instance for logging command execution details.  
+            recive_dir (str): The dir the files should be stored. 
         """
         self.request = request
         self.log: Logger = log
+        self.recive_dir = recive_dir
         self.set_comm(comm)
         self.run()
 
@@ -118,7 +120,7 @@ class Send(Comm):
         is sent and the operation is logged.
         """
         self.log.info(f"Receiving encrypted file: {self.filename} ({self.filesize} bytes)")
-        received_dir = "received"
+        received_dir = self.recive_dir
         os.makedirs(received_dir, exist_ok=True)
         write_path = os.path.join(received_dir, self.filename)
         encrypted_buffer = b""
@@ -189,7 +191,7 @@ class Get(Comm):
         If the file does not exist, a 404 response is sent. If any error
         occurs during reading or encryption, a 500 error response is sent.
         """
-        filepath = os.path.join("received", self.filename)
+        filepath = os.path.join(self.recive_dir, self.filename)
         if not os.path.exists(filepath):
             self.log.warning(f"Client requested non-existent file: {self.filename}")
             self.request.sendall(f"404|File not found: {self.filename}\n".encode())
@@ -242,7 +244,7 @@ class List(Comm):
         The response includes all files present in the received directory,
         allowing clients to see what files are available for download.
         """
-        files = os.listdir("received")
+        files = os.listdir(self.recive_dir)
         file_list = "\n".join(files)
         self.request.sendall(f"200|{len(file_list)}\n".encode())
         self.request.sendall(file_list.encode())
@@ -286,7 +288,7 @@ class Delete(Comm):
         The operation is logged with appropriate severity levels for
         monitoring and debugging.
         """
-        self.filepath = os.path.join("received", self.filename)
+        self.filepath = os.path.join(self.recive_dir, self.filename)
         if os.path.exists(self.filepath):
             os.remove(self.filepath)
             self.request.sendall(b"200|File deleted\n")

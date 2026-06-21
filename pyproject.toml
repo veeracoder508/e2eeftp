@@ -1,3 +1,7 @@
+[build-system]
+requires = ["uv-build>=0.1.0"]
+build-backend = "uv_build"
+
 [project]
 name = "e2eeftp"
 version = "0.0.0"
@@ -10,6 +14,7 @@ requires-python = ">=3.14"
 dependencies = [
     "cryptography>=46.0.5",
     "rich>=14.3.3",
+    "sqlalchemy>=2.0.51",
     "watchdog>=6.0.0",
 ]
 classifiers = [
@@ -69,3 +74,6 @@ e2eeftp = { workspace = true }
 dev = [
     "e2eeftp",
 ]
+
+[tool.setuptools.packages.find]
+where = ["src"]
