@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "e2eeftp"
-version = "0.0.0"
+version = "0.0.0dev"
 authors = [
   { name="R A Veeraragavan", email="veeracoder123@gmail.com" },
 ]
@@ -13,6 +13,7 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "cryptography>=46.0.5",
+    "mkdocstrings-python>=2.0.10",
     "rich>=14.3.3",
     "sqlalchemy>=2.0.51",
     "watchdog>=6.0.0",

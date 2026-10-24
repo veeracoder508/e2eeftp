@@ -136,7 +136,7 @@ class e2eeftpClientCli:
         """
         self.console.clear()
         self.console.print(Panel.fit(
-            "[bold cyan]E2EE FTP Client[/bold cyan]",
+            "[bold cyan]E2EE FTP Client <0.0.0dev.1>[/bold cyan]",
             border_style="magenta"
         ))
         

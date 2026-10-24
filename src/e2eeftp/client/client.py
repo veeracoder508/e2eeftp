@@ -14,9 +14,12 @@ communication with the server.
 import socket
 import os
 import logging
+from collections.abc import Generator
 from contextlib import contextmanager
+from types import TracebackType
 from rich.logging import RichHandler
 from ..auth import E2EE, AESCipher
+from cryptography.hazmat.primitives.asymmetric import ed25519
 from cryptography.hazmat.primitives import serialization
 
 
@@ -78,7 +81,9 @@ class e2eeftpClient:
         return data
 
     @contextmanager
-    def _secure_channel(self) -> tuple[socket.socket | None, AESCipher | None]: # type: ignore
+    def _secure_channel(
+        self,
+    ) -> Generator[tuple[socket.socket | None, AESCipher | None], None, None]:
         """
         A context manager that establishes and tears down a secure channel.
         
@@ -95,9 +100,17 @@ class e2eeftpClient:
                 client_id_priv_key = serialization.load_pem_private_key(f.read(), password=None)
             with open(self.server_key_path, "rb") as f:
                 known_server_pub_key = serialization.load_pem_public_key(f.read())
+            if not isinstance(client_id_priv_key, ed25519.Ed25519PrivateKey):
+                raise TypeError("Client identity key must be an Ed25519 private key.")
+            if not isinstance(known_server_pub_key, ed25519.Ed25519PublicKey):
+                raise TypeError("Known server key must be an Ed25519 public key.")
         except FileNotFoundError as e:
             log.error(f"Identity key file not found: {e}.")
             log.warning("Run 'generate_keys.py' and ensure 'known_server.pub' from the server is present.")
+            yield None, None
+            return
+        except (TypeError, ValueError) as e:
+            log.error(f"Invalid identity key file: {e}")
             yield None, None
             return
 
@@ -183,12 +196,12 @@ class e2eeftpClient:
                     return 500
 
                 try:
-                    code, val = header.split("|", 1)
+                    code_str, val = header.split("|", 1)
                 except ValueError:
                     log.error(f"Received malformed header: {header}")
                     return 400
                 
-                code = int(code)
+                code = int(code_str)
                 if code == 200:
                     filesize = int(val)
                     log.info(f"Receiving {filename} ({filesize} bytes)...")
@@ -361,12 +374,20 @@ class e2eeftpClient:
             log.error(f"An error occurred during hlist operation: {e}")
         return None
 
-    def __enter__(self):
+    def __enter__(self) -> "e2eeftpClient":
         client = self
         return client
     
-    def __exit__(self, exc_type, exc, tb):
-        pass
+    def __exit__(
+        self,
+        _exc_type: type[BaseException] | None,
+        _exc: BaseException | None,
+        _tb: TracebackType | None,
+    ) -> None:
+        _ = (_exc_type, _exc, _tb)
 
-    def __str__(self):
-        return f"{self.user_id=}\n{self.host=}\n{self.port=}\n{self.identity_key_path}\n{self.server_key_path}"
+    def __str__(self) -> str:
+        return (
+            f"{self.host=}\n{self.port=}\n"
+            f"{self.identity_key_path}\n{self.server_key_path}"
+        )

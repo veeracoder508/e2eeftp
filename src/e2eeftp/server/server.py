@@ -112,6 +112,9 @@ class E2EEFTPRequestHandler(socketserver.BaseRequestHandler):
             with open(server_key_path, "rb") as f:
                 server_id_priv_key = serialization.load_pem_private_key(f.read(), password=None)
             
+            if not isinstance(server_id_priv_key, ed25519.Ed25519PrivateKey):
+                raise TypeError("Server identity key must be an Ed25519 private key.")
+
             authorized_client_keys = []
             if os.path.exists(auth_keys_path):
                 with open(auth_keys_path, "r") as f:
